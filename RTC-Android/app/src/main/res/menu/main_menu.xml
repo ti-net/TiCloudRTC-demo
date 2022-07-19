@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dialFragment"
+        android:enabled="true"
+        android:icon="@drawable/keyboard"
+        android:title="@string/dial_panel" />
+    <item
+        android:id="@+id/mineFragment"
+        android:enabled="true"
+        android:icon="@drawable/mine"
+        android:title="@string/mine" />
+</menu>

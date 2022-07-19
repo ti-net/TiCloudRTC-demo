@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rtc_sdk_number_panel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0000">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:tag="1"
+        app:layout_constraintBottom_toTopOf="@+id/num_panel_4"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/selector_num_1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:tag="3"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_2"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_2"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_2"
+        app:srcCompat="@drawable/selector_num_3" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:tag="2"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_1"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_1"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_1"
+        app:srcCompat="@drawable/selector_num_2" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:tag="4"
+        app:layout_constraintBottom_toTopOf="@+id/num_panel_7"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/num_panel_1"
+        app:srcCompat="@drawable/selector_num_4" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:tag="5"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_4"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_4"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_4"
+        app:srcCompat="@drawable/selector_num_5" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:tag="6"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_5"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_5"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_5"
+        app:srcCompat="@drawable/selector_num_6" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:tag="7"
+        app:layout_constraintBottom_toTopOf="@+id/num_panel_asterisk"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/num_panel_4"
+        app:srcCompat="@drawable/selector_num_7" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:tag="8"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_7"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_7"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_7"
+        app:srcCompat="@drawable/selector_num_8" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:tag="9"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_8"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_8"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_8"
+        app:srcCompat="@drawable/selector_num_9" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_asterisk"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:tag="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_0"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/num_panel_7"
+        app:srcCompat="@drawable/selector_asterisk" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:tag="0"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_asterisk"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/num_panel_sign"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_asterisk"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_asterisk"
+        app:srcCompat="@drawable/selector_num_0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/num_panel_sign"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:tag="#"
+        app:layout_constraintBottom_toBottomOf="@+id/num_panel_0"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/num_panel_0"
+        app:layout_constraintTop_toTopOf="@+id/num_panel_0"
+        app:srcCompat="@drawable/selector_num_sign" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
