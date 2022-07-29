@@ -140,6 +140,8 @@ internal class MainActivityViewModel : ViewModel() {
             return
         }
 
+        HttpServiceManager.url = loginIntent.platformUrl
+
         enterpriseId = loginIntent.enterpriseId.toInt()
         username = loginIntent.username
         password = loginIntent.password
