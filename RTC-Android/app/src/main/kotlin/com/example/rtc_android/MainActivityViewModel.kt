@@ -150,7 +150,7 @@ internal class MainActivityViewModel : ViewModel() {
                 username = username,
                 password = password
             )
-        ).enqueue(object :Callback<BaseResult<LoginResult>>{
+        ).enqueueWithLog(object :Callback<BaseResult<LoginResult>>{
             override fun onResponse(
                 call: Call<BaseResult<LoginResult>>,
                 response: Response<BaseResult<LoginResult>>

@@ -10,9 +10,9 @@ dependencyResolutionManagement {
 
     repositories {
         mavenLocal()
+        maven{url=uri("https://jitpack.io")}
         google()
         mavenCentral()
-
     }
 }
 rootProject.name = "RTC-Android"

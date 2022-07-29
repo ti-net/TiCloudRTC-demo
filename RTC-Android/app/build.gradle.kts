@@ -133,5 +133,5 @@ dependencies {
     implementation("com.tencent.bugly:crashreport:4.0.4")
 
     // TiCloudRtc SDK
-    implementation("com.tinet.ticloudrtc:TiCloud-RTC-Android:1.0.0@aar")
+    implementation("com.github.ti-net:TiCloud-RTC-Android:1.0.0@aar")
 }
