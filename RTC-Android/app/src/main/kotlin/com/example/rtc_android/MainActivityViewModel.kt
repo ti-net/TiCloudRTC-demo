@@ -2,7 +2,6 @@ package com.example.rtc_android
 
 import android.content.Context
 import android.util.Log
-import android.webkit.HttpAuthHandler
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rtc_android.bean.BaseResult
@@ -11,7 +10,10 @@ import com.example.rtc_android.bean.LoginResult
 import com.example.rtc_android.http.HttpServiceManager
 import com.example.rtc_android.http.HttpUtils.enqueueWithLog
 import com.example.rtc_android.http.HttpUtils.parseHttpResult
-import com.tinet.ticloudrtc.*
+import com.tinet.ticloudrtc.CreateResultCallback
+import com.tinet.ticloudrtc.DestroyResultCallback
+import com.tinet.ticloudrtc.TiCloudRTC
+import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -39,7 +41,8 @@ internal class MainActivityViewModel : ViewModel() {
     val smallText = _smallText.asStateFlow()
 
     private val DEFAULT_DTMF_PANEL_STATE = false
-    private val _isShowDtmfPanel : MutableStateFlow<Boolean> = MutableStateFlow(DEFAULT_DTMF_PANEL_STATE)
+    private val _isShowDtmfPanel: MutableStateFlow<Boolean> =
+        MutableStateFlow(DEFAULT_DTMF_PANEL_STATE)
     val isShowDtmfPanel = _isShowDtmfPanel.asStateFlow()
 
     private var callingTimer: Timer? = null
@@ -48,9 +51,9 @@ internal class MainActivityViewModel : ViewModel() {
 
     private var currentTel = ""
 
-    private var enterpriseId:Int = 0
-    private var username:String = ""
-    private var password:String = ""
+    private var enterpriseId: Int = 0
+    private var username: String = ""
+    private var password: String = ""
 
     init {
         viewModelScope.launch {
@@ -84,13 +87,13 @@ internal class MainActivityViewModel : ViewModel() {
         _isShowDtmfPanel.value = DEFAULT_DTMF_PANEL_STATE
     }
 
-    fun switchDtmfShowState(){
+    fun switchDtmfShowState() {
         _isShowDtmfPanel.value = _isShowDtmfPanel.value.not()
     }
 
     fun isUseSpeakerphone(): Boolean = rtcClient?.isSpeakerphoneEnabled() ?: false
 
-    private fun sendDtmf(intent:AppIntent.SendDtmf){
+    private fun sendDtmf(intent: AppIntent.SendDtmf) {
         rtcClient?.dtmf(intent.digits)
     }
 
@@ -118,7 +121,18 @@ internal class MainActivityViewModel : ViewModel() {
             tel = callIntent.tel,
             clid = "",
             requestUniqueId = "",
-            userField = "",
+            userField = """
+                [
+                    {"name":"id","value":"90007573","type":1},
+                    {"name":"workNum","value":"1026658","type":1},
+                    {"name":"depId-1","value":"340179","type":1},
+                    {"name":"depId-2","value":"340179","type":1},
+                    {"name":"depId-3","value":"340179","type":1},
+                    {"name":"depId-4","value":"340179","type":1},
+                    {"name":"depId-5","value":"340179","type":1},
+                    {"name":"depId","value":"340179","type":1},
+                ]
+            """.trimIndent(),
             6 // 1: 客服场景，6：外呼场景
         )
     }
@@ -152,7 +166,7 @@ internal class MainActivityViewModel : ViewModel() {
                 username = username,
                 password = password
             )
-        ).enqueueWithLog(object :Callback<BaseResult<LoginResult>>{
+        ).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
             override fun onResponse(
                 call: Call<BaseResult<LoginResult>>,
                 response: Response<BaseResult<LoginResult>>
@@ -269,36 +283,44 @@ internal class MainActivityViewModel : ViewModel() {
         }
 
         override fun onAccessTokenWillExpire(accessToken: String) {
-            Log.i("AccessToken","onAccessTokenWillExpire ---- ${SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())}")
+            Log.i(
+                "AccessToken",
+                "onAccessTokenWillExpire ---- ${SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())}"
+            )
             HttpServiceManager.tiCloudHttpService.login(
                 LoginParams(
                     enterpriseId = enterpriseId,
                     username = username,
                     password = password
                 )
-            ).enqueueWithLog(object:Callback<BaseResult<LoginResult>>{
+            ).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
                 override fun onResponse(
                     call: Call<BaseResult<LoginResult>>,
                     response: Response<BaseResult<LoginResult>>
                 ) {
                     val loginResult = response.parseHttpResult()
-                    if(loginResult.isSuccessful){
+                    if (loginResult.isSuccessful) {
                         // 更新 access token
                         rtcClient?.renewAccessToken(loginResult.result!!.accessToken)
-                    }else{
-                        _appUiState.value = AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${loginResult.message}")
+                    } else {
+                        _appUiState.value =
+                            AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${loginResult.message}")
                     }
                 }
 
                 override fun onFailure(call: Call<BaseResult<LoginResult>>, t: Throwable) {
-                    _appUiState.value = AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${t.message}")
+                    _appUiState.value =
+                        AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${t.message}")
                 }
 
             })
         }
 
         override fun onAccessTokenHasExpired() {
-            Log.i("AccessToken","onAccessTokenHasExpired ---- ${SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())}")
+            Log.i(
+                "AccessToken",
+                "onAccessTokenHasExpired ---- ${SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())}"
+            )
             resetCallingState()
             rtcClient = null
             _appUiState.value = AppUiState.OnAccessTokenHasExpired
@@ -335,7 +357,7 @@ sealed interface AppIntent {
 
     data class UseSpeakerphone(val isUse: Boolean) : AppIntent
 
-    data class SendDtmf(val digits:String):AppIntent
+    data class SendDtmf(val digits: String) : AppIntent
 
 }
 
@@ -376,9 +398,9 @@ sealed interface AppUiState {
         val errorMessage: String
     ) : AppUiState
 
-    class OnRefreshTokenFailed(val errorMsg: String):AppUiState
+    class OnRefreshTokenFailed(val errorMsg: String) : AppUiState
 
-    object OnAccessTokenHasExpired:AppUiState
+    object OnAccessTokenHasExpired : AppUiState
 }
 
 

@@ -18,6 +18,7 @@ import com.example.rtc_android.AppUiState
 import com.example.rtc_android.MainActivityViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentCallingBinding
+import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 class CallingFragment : Fragment() {
@@ -72,8 +73,9 @@ class CallingFragment : Fragment() {
             }
 
             btnSpeakerphoneSwitch.setOnClickListener {
-                if(viewModel.appUiState.value is AppUiState.OnRinging ||
-                    viewModel.appUiState.value is AppUiState.OnCalling){
+                if (viewModel.appUiState.value is AppUiState.OnRinging ||
+                    viewModel.appUiState.value is AppUiState.OnCalling
+                ) {
                     viewModel.viewModelScope.launch {
                         Log.i(LOG_TAG, "speakerphone btn click")
                         viewModel.intentChannel.send(
@@ -82,17 +84,14 @@ class CallingFragment : Fragment() {
                             )
                         )
                     }
-                }else{
-                    Toast.makeText(requireContext(),"播放铃声或通话中才能使用扬声器",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "播放铃声或通话中才能使用扬声器", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
 
             btnHangup.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    Log.i(LOG_TAG, "hangup btn click")
-                    viewModel.intentChannel.send(AppIntent.Hangup)
-                }
+                hangup()
             }
         }
 
@@ -105,15 +104,24 @@ class CallingFragment : Fragment() {
                 launch {
                     viewModel.appUiState.collect {
                         when (it) {
-                            is AppUiState.OnInnerSdkError -> Toast.makeText(
-                                requireContext(),
-                                """
+                            is AppUiState.OnInnerSdkError -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    """
                                     sdk 内部错误
                                     errorCode: ${it.errorCode}
                                     errorMessage: ${it.errorMessage}
                                 """.trimIndent(),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                when (it.errorCode) {
+                                    ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT,
+                                    ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
+                                    ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
+                                    ErrorCode.ERR_CALL_FAILED_NET_ERROR,
+                                    ErrorCode.ERR_CALL_FAILED_RTM_ERROR -> backToMain()
+                                }
+                            }
                             is AppUiState.OnCallCanceled -> {
                                 Toast.makeText(requireContext(), "呼叫已取消", Toast.LENGTH_SHORT).show()
                                 backToMain()
@@ -138,14 +146,15 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
-                            is AppUiState.OnRefreshTokenFailed ->{
+                            is AppUiState.OnRefreshTokenFailed -> {
                                 Toast.makeText(
                                     requireContext(),
                                     it.errorMsg,
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                backToMain()
                             }
-                            is AppUiState.OnAccessTokenHasExpired ->{
+                            is AppUiState.OnAccessTokenHasExpired -> {
                                 Toast.makeText(
                                     requireContext(),
                                     "access token 已过期",
@@ -178,19 +187,19 @@ class CallingFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.smallText.collect{
+                    viewModel.smallText.collect {
                         binding.tvCallingTip.text = it
                     }
                 }
                 launch {
-                    viewModel.isShowDtmfPanel.collect{ isShow->
-                        if(isShow){
+                    viewModel.isShowDtmfPanel.collect { isShow ->
+                        if (isShow) {
                             binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.VISIBLE
                             binding.btnHideDial.visibility = View.VISIBLE
                             binding.btnDialPanelSwitch.visibility = View.GONE
                             binding.btnMuteSwitch.visibility = View.GONE
                             binding.btnSpeakerphoneSwitch.visibility = View.GONE
-                        }else{
+                        } else {
                             binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.GONE
                             binding.btnHideDial.visibility = View.GONE
                             binding.btnDialPanelSwitch.visibility = View.VISIBLE
@@ -203,7 +212,7 @@ class CallingFragment : Fragment() {
         }
     }
 
-    private fun sendDtmf(digits:String){
+    private fun sendDtmf(digits: String) {
         viewModel.viewModelScope.launch {
             viewModel.intentChannel.send(AppIntent.SendDtmf(digits))
         }
@@ -211,6 +220,13 @@ class CallingFragment : Fragment() {
 
     private fun backToMain() {
         findNavController().navigateUp()
+    }
+
+    private fun hangup() {
+        viewModel.viewModelScope.launch {
+            Log.i(LOG_TAG, "hangup btn click")
+            viewModel.intentChannel.send(AppIntent.Hangup)
+        }
     }
 
 
