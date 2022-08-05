@@ -1,9 +1,9 @@
-package com.example.rtc_android.bean
+package com.example.common.bean
 
 // 与 http 接口相关的 bean
 
 /** http 结果基类 */
-internal data class BaseResult<T>(
+data class BaseResult<T>(
     val requestUniqueId: String,
     val code: Int,
     val message: String,
@@ -12,14 +12,14 @@ internal data class BaseResult<T>(
 )
 
 /** 登录参数 */
-internal data class LoginParams(
+data class LoginParams(
     val username: String,
     val password: String,
     val enterpriseId: Int
 )
 
 /** 登录结果 */
-internal data class LoginResult(
+data class LoginResult(
     val enterpriseId: Int,
     val accessToken: String,
     val rtcEndpoint: String

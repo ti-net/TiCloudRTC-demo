@@ -1,38 +1,38 @@
-package com.example.rtc_android.http
+package com.example.common.http
 
-import com.example.rtc_android.bean.BaseResult
+import com.example.common.bean.BaseResult
+import com.example.common.utils.jsonStringToBeanWithType
 import com.google.gson.reflect.TypeToken
-import retrofit2.Response
 import com.tinet.ticloudrtc.utils.TLogUtils
-import com.example.rtc_android.utils.jsonStringToBeanWithType
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 
-internal object HttpUtils {
+object HttpUtils {
 
-    private const val LOG_TAG = "TiCloudRtc http"
+    const val LOG_TAG = "TiCloudRtc http"
 
     inline fun <reified T : Any?> Call<T>.executeWithLog(): Response<T> {
         this.logCallDetail()
         return this.execute()
     }
 
-    inline fun <reified T:Any?> Call<T>.enqueueWithLog(callback: Callback<T>){
+    inline fun <reified T : Any?> Call<T>.enqueueWithLog(callback: Callback<T>) {
         this.logCallDetail()
         this.enqueue(callback)
     }
 
-    private inline fun <reified T> Call<T>.logCallDetail(){
+    inline fun <reified T> Call<T>.logCallDetail() {
         TLogUtils.i(
             LOG_TAG, """
-                请求地址:   ${this.request().url()}
-                method:    ${this.request().method()}
+                请求地址:   ${this.request().url}
+                method:    ${this.request().method}
             """.trimIndent()
         )
         println(
             """
-                请求地址:   ${this.request().url()}
-                method:    ${this.request().method()}
+                请求地址:   ${this.request().url}
+                method:    ${this.request().method}
             """.trimIndent()
         )
     }

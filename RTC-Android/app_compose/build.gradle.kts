@@ -82,7 +82,6 @@ android {
             excludes += mutableSetOf("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    buildToolsVersion = "32.0.0"
 
     android.applicationVariants.all {
         outputs.all {
@@ -105,4 +104,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0")
     debugImplementation("androidx.compose.ui:ui-tooling:1.2.0")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.0")
+
+    implementation(project(":common"))
 }

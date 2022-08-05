@@ -13,8 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.rtc_android.AppUiState
-import com.example.rtc_android.MainActivityViewModel
+import com.example.common.AppUiState
+import com.example.common.MainActivityViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentMainBinding
 import com.tinet.ticloudrtc.ErrorCode

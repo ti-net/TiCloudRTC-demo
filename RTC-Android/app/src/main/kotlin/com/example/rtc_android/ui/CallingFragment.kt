@@ -13,9 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import com.example.rtc_android.AppIntent
-import com.example.rtc_android.AppUiState
-import com.example.rtc_android.MainActivityViewModel
+import com.example.common.AppIntent
+import com.example.common.AppUiState
+import com.example.common.MainActivityViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentCallingBinding
 import com.tinet.ticloudrtc.ErrorCode

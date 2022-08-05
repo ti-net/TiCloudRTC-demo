@@ -1,4 +1,4 @@
-package com.example.rtc_android
+package com.example.common
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,13 +10,12 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rtc_android.bean.BaseResult
-import com.example.rtc_android.bean.LoginParams
-import com.example.rtc_android.bean.LoginResult
-import com.example.rtc_android.http.HttpServiceManager
-import com.example.rtc_android.http.HttpUtils.enqueueWithLog
-import com.example.rtc_android.http.HttpUtils.parseHttpResult
-import com.tencent.bugly.crashreport.CrashReport
+import com.example.common.bean.BaseResult
+import com.example.common.bean.LoginParams
+import com.example.common.bean.LoginResult
+import com.example.common.http.HttpServiceManager
+import com.example.common.http.HttpUtils.enqueueWithLog
+import com.example.common.http.HttpUtils.parseHttpResult
 import com.tinet.ticloudrtc.CreateResultCallback
 import com.tinet.ticloudrtc.DestroyResultCallback
 import com.tinet.ticloudrtc.TiCloudRTC
@@ -32,7 +31,7 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
-internal class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel : ViewModel() {
 
     val intentChannel: Channel<AppIntent> = Channel(Channel.UNLIMITED)
 

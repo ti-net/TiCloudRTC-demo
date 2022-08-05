@@ -1,4 +1,4 @@
-package com.example.rtc_android.http
+package com.example.common.http
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  *  http 服务管理
  */
-internal object HttpServiceManager {
+object HttpServiceManager {
 
     var url: String = ""
         set(value) {

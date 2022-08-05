@@ -5,11 +5,11 @@ plugins {
     id("org.jetbrains.kotlin.android") version ("1.7.0") apply (false)
 }
 
-buildscript {
-    dependencies{
-        classpath("com.android.tools.build:gradle:7.2.2")
-    }
-}
+//buildscript {
+//    dependencies{
+//        classpath("com.android.tools.build:gradle:7.2.2")
+//    }
+//}
 
 task<Delete>(name = "clean") {
     group = "build"
