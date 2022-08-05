@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "RTC-Android"
 include(":app")
+include(":app_compose")
