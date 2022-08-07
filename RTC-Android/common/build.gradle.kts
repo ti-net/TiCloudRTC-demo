@@ -25,6 +25,15 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        debug{
+
+        }
+
+        create("onlineTest"){
+            signingConfig = signingConfigs.getByName("debug")
+            
+        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
@@ -43,7 +52,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    api("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
 
     // kotlin 携程
@@ -69,9 +77,6 @@ dependencies {
     api("com.squareup.retrofit2:retrofit:2.9.0")
     testImplementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
     testImplementation("com.squareup.retrofit2:retrofit:2.9.0")
-
-    // 权限申请
-    api("com.guolindev.permissionx:permissionx:1.6.4")
 
     // tencent bugly
     api("com.tencent.bugly:crashreport:4.0.4")

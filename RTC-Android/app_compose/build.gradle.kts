@@ -17,6 +17,8 @@ android {
     }
     compileSdk = ProjectConfig.compileSdk
 
+    resourcePrefix = "app_compose_"
+
     defaultConfig {
         applicationId = AppComposeConfig.applicationId
         minSdk = ProjectConfig.minSdk
@@ -104,6 +106,10 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0")
     debugImplementation("androidx.compose.ui:ui-tooling:1.2.0")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.0")
+    implementation("androidx.navigation:navigation-compose:2.5.1")
+
+    // 权限申请
+    implementation("com.google.accompanist:accompanist-permissions:0.25.0")
 
     implementation(project(":common"))
 }
