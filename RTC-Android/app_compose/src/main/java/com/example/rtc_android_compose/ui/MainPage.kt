@@ -106,7 +106,7 @@ fun MainPageContent(
         },
     ) { innerPaddingModifier ->
         NavHost(
-            modifier = Modifier.padding(innerPaddingModifier),
+            modifier = Modifier.fillMaxSize().padding(innerPaddingModifier),
             navController = mainNavController,
             startDestination = NavRoute.DIAL
         ) {

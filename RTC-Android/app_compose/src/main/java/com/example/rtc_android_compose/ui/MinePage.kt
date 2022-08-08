@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import com.example.common.AppIntent
 import com.example.common.MainActivityViewModel
 import com.example.rtc_android_compose.BuildConfig
+import com.tinet.ticloudrtc.TiCloudRTC
 import kotlinx.coroutines.launch
 
 @Composable
@@ -23,8 +24,8 @@ fun MinePage(
         modifier = Modifier.fillMaxSize()
     ){
         Text("我的")
-        Text("应用版本：${BuildConfig.VERSION_CODE}")
-        Text("SDK 版本：${BuildConfig.VERSION_NAME}")
+        Text("应用版本：${BuildConfig.VERSION_NAME}")
+        Text("SDK 版本：${TiCloudRTC.getVersion()}")
         Button(onClick = {
             mainViewModel.viewModelScope.launch {
                 mainViewModel.intentChannel.send(AppIntent.Logout)
