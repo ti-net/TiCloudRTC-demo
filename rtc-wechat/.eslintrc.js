@@ -15,5 +15,9 @@ module.exports = {
         "vue"
     ],
     "rules": {
+    },
+    "globals":{
+        uni:true,
+        wx:true
     }
 }
