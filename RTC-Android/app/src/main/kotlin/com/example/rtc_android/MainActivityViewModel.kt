@@ -14,6 +14,8 @@ import com.tinet.ticloudrtc.CreateResultCallback
 import com.tinet.ticloudrtc.DestroyResultCallback
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.TiCloudRTCEventListener
+import com.tinet.ticloudrtc.bean.CallOption
+import com.tinet.ticloudrtc.bean.CreateClientOption
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -117,11 +119,13 @@ internal class MainActivityViewModel : ViewModel() {
             return
         }
         currentTel = callIntent.tel
+        // todo 支持不同外呼场景
         rtcClient?.call(
-            tel = callIntent.tel,
-            clid = "",
-            requestUniqueId = "",
-            userField = """
+            CallOption(
+                tel = callIntent.tel,
+                clid = "",
+                requestUniqueId = "",
+                userField = """
                 [
                     {"name":"id","value":"90007573","type":1},
                     {"name":"workNum","value":"1026658","type":1},
@@ -133,7 +137,8 @@ internal class MainActivityViewModel : ViewModel() {
                     {"name":"depId","value":"340179","type":1},
                 ]
             """.trimIndent(),
-            6 // 1: 客服场景，6：外呼场景
+                6 // 1: 客服场景，6：外呼场景
+            )
         )
     }
 
@@ -190,10 +195,12 @@ internal class MainActivityViewModel : ViewModel() {
                     // 创建 RTC 客户端
                     TiCloudRTC.createClient(
                         context = loginIntent.context,
-                        rtcEndpoint = rtcEndpoint,
-                        enterpriseId = enterpriseId.toString(),
-                        userId = loginIntent.username,
-                        accessToken = accessToken,
+                        CreateClientOption(
+                            rtcEndpoint = rtcEndpoint,
+                            enterpriseId = enterpriseId.toString(),
+                            userId = loginIntent.username,
+                            accessToken = accessToken,
+                        ),
                         resultCallback = object : CreateResultCallback {
                             override fun onFailed(errorCode: Int, errorMessage: String) {
                                 _appUiState.value = AppUiState.LoginFailed(errorMessage)
@@ -201,10 +208,10 @@ internal class MainActivityViewModel : ViewModel() {
 
                             override fun onSuccess(rtcClient: TiCloudRTC) {
                                 this@MainActivityViewModel.rtcClient = rtcClient
+                                rtcClient.setEventListener(CustomEventListener())
                                 _appUiState.value = AppUiState.LoginSuccess
                             }
-                        },
-                        eventListener = CustomEventListener()
+                        }
                     )
                 } else {
                     Log.i(LOG_TAG, "返回结果无效")
