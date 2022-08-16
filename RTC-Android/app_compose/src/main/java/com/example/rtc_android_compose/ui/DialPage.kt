@@ -52,7 +52,12 @@ fun DialPage(
         Row(modifier = Modifier.fillMaxWidth()) {
             Button(onClick = {
                 mainViewModel.viewModelScope.launch {
-                    mainViewModel.intentChannel.send(AppIntent.Call(phoneNum))
+                    mainViewModel.intentChannel.send(AppIntent.Call(
+                        tel = phoneNum,
+                        clid = "",
+                        userField = "",
+                        type = 6
+                    ))
                 }
             }) { Text("外呼") }
             Button(modifier = Modifier.combinedClickable(onLongClick = {

@@ -24,15 +24,26 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            CommonConfig.releaseFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
         }
 
         debug{
+            signingConfig = signingConfigs.getByName("debug")
 
+            CommonConfig.debugFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
         }
 
         create("onlineTest"){
             signingConfig = signingConfigs.getByName("debug")
-            
+
+            CommonConfig.onlineTestFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
         }
     }
     compileOptions {
@@ -82,5 +93,5 @@ dependencies {
     api("com.tencent.bugly:crashreport:4.0.4")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:1.0.5@aar")
+    api("com.github.ti-net:TiCloud-RTC-Android:2.0.1@aar")
 }

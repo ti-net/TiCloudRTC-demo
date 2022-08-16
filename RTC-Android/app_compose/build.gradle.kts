@@ -38,6 +38,10 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
 
+            AppComposeConfig.releaseFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
+
             AppComposeConfig.releaseResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
             }
@@ -46,6 +50,10 @@ android {
         debug{
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
+
+            AppComposeConfig.debugFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
 
             AppComposeConfig.debugResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
@@ -56,6 +64,10 @@ android {
             applicationIdSuffix = ".online_test"
             isDebuggable = true
             signingConfig = signingConfigs.getByName("debug")
+
+            AppComposeConfig.onlineTestFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
 
             AppComposeConfig.onlineTestResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
