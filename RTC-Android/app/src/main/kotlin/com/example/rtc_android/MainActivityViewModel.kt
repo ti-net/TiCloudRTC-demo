@@ -10,6 +10,7 @@ import com.example.rtc_android.bean.LoginResult
 import com.example.rtc_android.http.HttpServiceManager
 import com.example.rtc_android.http.HttpUtils.enqueueWithLog
 import com.example.rtc_android.http.HttpUtils.parseHttpResult
+import com.tencent.bugly.crashreport.CrashReport
 import com.tinet.ticloudrtc.CreateResultCallback
 import com.tinet.ticloudrtc.DestroyResultCallback
 import com.tinet.ticloudrtc.TiCloudRTC
@@ -114,30 +115,18 @@ internal class MainActivityViewModel : ViewModel() {
     }
 
     private fun call(callIntent: AppIntent.Call) {
-        if (callIntent.tel.isEmpty()) {
+        if (callIntent.tel.isEmpty() && callIntent.type == 6) {
             _appUiState.value = AppUiState.CallFailed("号码不正确")
             return
         }
         currentTel = callIntent.tel
-        // todo 支持不同外呼场景
         rtcClient?.call(
             CallOption(
                 tel = callIntent.tel,
-                clid = "",
+                clid = callIntent.clid,
                 requestUniqueId = "",
-                userField = """
-                [
-                    {"name":"id","value":"90007573","type":1},
-                    {"name":"workNum","value":"1026658","type":1},
-                    {"name":"depId-1","value":"340179","type":1},
-                    {"name":"depId-2","value":"340179","type":1},
-                    {"name":"depId-3","value":"340179","type":1},
-                    {"name":"depId-4","value":"340179","type":1},
-                    {"name":"depId-5","value":"340179","type":1},
-                    {"name":"depId","value":"340179","type":1},
-                ]
-            """.trimIndent(),
-                6 // 1: 客服场景，6：外呼场景
+                userField = callIntent.userField,
+                type = callIntent.type
             )
         )
     }
@@ -148,6 +137,8 @@ internal class MainActivityViewModel : ViewModel() {
      *      正式使用时，请使用 /interface/v10/rtc/getAccessToken 获取初始化参数
      */
     private fun login(loginIntent: AppIntent.Login) {
+
+        CrashReport.initCrashReport(loginIntent.context, BuildConfig.BUGLY_APPID, BuildConfig.DEBUG)
 
         if (
             loginIntent.platformUrl.isEmpty() ||
@@ -355,7 +346,10 @@ sealed interface AppIntent {
     object Logout : AppIntent
 
     data class Call(
-        val tel: String
+        val tel: String,
+        val clid: String,
+        val userField: String,
+        val type: Int
     ) : AppIntent
 
     object Hangup : AppIntent

@@ -34,9 +34,9 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
 
-//            AppConfig.releaseFields.forEach {
-//                buildConfigField(it.type,it.fieldName,it.fieldValue)
-//            }
+            AppConfig.releaseFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
 
             AppConfig.releaseResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
@@ -45,9 +45,9 @@ android {
         debug{
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
-//            AppConfig.debugFields.forEach {
-//                buildConfigField(it.type,it.fieldName,it.fieldValue)
-//            }
+            AppConfig.debugFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
 
             AppConfig.debugResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
@@ -59,9 +59,9 @@ android {
             isDebuggable = true
             signingConfig = signingConfigs.getByName("debug")
 
-//            AppConfig.onlineTestFields.forEach {
-//                buildConfigField(it.type,it.fieldName,it.fieldValue)
-//            }
+            AppConfig.onlineTestFields.forEach {
+                buildConfigField(it.type,it.fieldName,it.fieldValue)
+            }
 
             AppConfig.onlineTestResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
@@ -133,5 +133,5 @@ dependencies {
     implementation("com.tencent.bugly:crashreport:4.0.4")
 
     // TiCloudRtc SDK
-    implementation("com.github.ti-net:TiCloud-RTC-Android:2.0.0@aar")
+    implementation("com.github.ti-net:TiCloud-RTC-Android:2.0.1@aar")
 }

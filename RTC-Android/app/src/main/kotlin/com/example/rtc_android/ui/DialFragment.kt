@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
 import com.example.rtc_android.AppIntent
+import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.MainActivityViewModel
 import com.example.rtc_android.databinding.FragmentDialBinding
 import kotlinx.coroutines.launch
@@ -55,7 +56,12 @@ class DialFragment:Fragment() {
 
     private fun call(){
         viewModel.viewModelScope.launch {
-            viewModel.intentChannel.send(AppIntent.Call(binding.tvShowTel.text.toString()))
+            viewModel.intentChannel.send(AppIntent.Call(
+                tel = binding.tvShowTel.text.toString(),
+                clid = "",
+                userField = BuildConfig.OUT_CALL_USER_FIELD,
+                type = 1
+            ))
         }
     }
 

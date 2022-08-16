@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/dialFragment"
+        android:id="@+id/showFragment"
         android:enabled="true"
         android:icon="@drawable/keyboard"
-        android:title="@string/dial_panel" />
+        android:title="@string/show" />
     <item
         android:id="@+id/mineFragment"
         android:enabled="true"
