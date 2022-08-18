@@ -5,8 +5,8 @@ object ProjectConfig{
 }
 
 object AppConfig{
-    const val versionCode = 2
-    const val versionName = "2.0"
+    const val versionCode = 3
+    const val versionName = "2.1"
 
     val releaseFields = listOf(
         GradleField("String","OUT_CALL_USER_FIELD","""
@@ -19,17 +19,17 @@ object AppConfig{
         GradleField("String","NODE_1_USER_FIELD","\"\""),
         GradleField("String","NODE_2_USER_FIELD","""
             "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1},\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_3_USER_FIELD","""
             "[\n"+
-                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1},\n"+
+                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_4_USER_FIELD","""
             "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1},\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         // bugly 配置 ------------------------------
@@ -57,17 +57,17 @@ object AppConfig{
         GradleField("String","NODE_1_USER_FIELD","\"\""),
         GradleField("String","NODE_2_USER_FIELD","""
             "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1},\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_3_USER_FIELD","""
             "[\n"+
-                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1},\n"+
+                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_4_USER_FIELD","""
             "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1},\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         // bugly 配置 ------------------------------
@@ -94,17 +94,17 @@ object AppConfig{
         GradleField("String","NODE_1_USER_FIELD","\"\""),
         GradleField("String","NODE_2_USER_FIELD","""
             "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1},\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_3_USER_FIELD","""
             "[\n"+
-                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1},\n"+
+                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_4_USER_FIELD","""
             "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1},\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
             "]"
         """.trimIndent()),
         // bugly 配置 ------------------------------
