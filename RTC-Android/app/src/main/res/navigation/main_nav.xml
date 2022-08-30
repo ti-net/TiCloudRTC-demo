@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.rtc_android.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_mainFragment_to_callingFragment"
+            app:destination="@id/callingFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.rtc_android.ui.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="android-app://loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/callingFragment"
+        android:name="com.example.rtc_android.ui.CallingFragment"
+        android:label="fragment_calling"
+        tools:layout="@layout/fragment_calling" />
+    <action
+        android:id="@+id/global_action_to_loginFragment2"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/mainFragment"
+        app:launchSingleTop="true" />
+</navigation>

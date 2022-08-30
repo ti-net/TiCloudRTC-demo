@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon_bg_call"
+    android:keepScreenOn="true"
+    tools:context=".ui.CallingFragment">
+
+    <ImageView
+        android:id="@+id/btn_hangup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="88dp"
+        android:src="@drawable/icon_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_show_call_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="124354658" />
+
+    <TextView
+        android:id="@+id/tv_calling_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_show_call_tel"
+        tools:text="00:00" />
+
+    <ImageView
+        android:id="@+id/btn_mute_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selector_mic_switch"
+        app:layout_constraintBottom_toTopOf="@+id/btn_hangup"
+        app:layout_constraintEnd_toStartOf="@+id/btn_speakerphone_switch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_dial_panel_switch"
+        app:layout_constraintTop_toBottomOf="@+id/tv_calling_tip"
+        app:layout_constraintVertical_bias="0.77" />
+
+    <ImageView
+        android:id="@+id/btn_speakerphone_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selector_speaker_switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_mute_switch"
+        app:layout_constraintTop_toTopOf="@+id/btn_mute_switch" />
+
+    <ImageView
+        android:id="@+id/btn_dial_panel_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selector_number_panel_switch"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mute_switch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_mute_switch" />
+
+    <include
+        android:id="@+id/include_dtmf_panel"
+        layout="@layout/include_number_panel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="35dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btn_hangup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_calling_tip" />
+
+    <TextView
+        android:id="@+id/btn_hide_dial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="隐  藏"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_hangup"
+        app:layout_constraintEnd_toEndOf="@+id/include_dtmf_panel"
+        app:layout_constraintStart_toEndOf="@+id/btn_hangup"
+        app:layout_constraintTop_toBottomOf="@+id/include_dtmf_panel"
+        app:layout_constraintVertical_bias="0.59000003" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

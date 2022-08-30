@@ -1,0 +1,24 @@
+<resources>
+    <string name="permission_request_reason">APP 运行需要如下权限</string>
+    <string name="positive">确定</string>
+    <string name="nagative">取消</string>
+    <string name="forward_to_setting_permission">需要手动赋予如下权限来运行 APP</string>
+    <string name="some_permission_not_grante">部分权限未授予，app 无法运行</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="dial_panel">拨号键盘</string>
+    <string name="show">演示</string>
+    <string name="mine">我的</string>
+    <string name="app_version">应用版本：</string>
+    <string name="sdk_version">SDK 版本：</string>
+    <string name="login">登录</string>
+    <string name="enterprise_id">企业ID</string>
+    <string name="platform_url">平台地址</string>
+    <string name="out_call_scene">外呼场景</string>
+    <string name="hotline_scene">客服场景</string>
+    <string name="call">呼叫</string>
+    <string name="tip_tel">客户号码</string>
+    <string name="tip_clid">外显号码（可选）</string>
+    <string name="tip_user_field">随路数据（可选）</string>
+    <string name="num_95092">95092</string>
+</resources>

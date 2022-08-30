@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_bottom_nav"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/showFragment">
+
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.example.rtc_android.ui.MineFragment"
+        android:label="MineFragment"
+        tools:layout="@layout/fragment_mine"
+        />
+    <fragment
+        android:id="@+id/showFragment"
+        android:name="com.example.rtc_android.ui.ShowFragment"
+        android:label="ShowFragment"
+        tools:layout="@layout/fragment_show"
+        />
+</navigation>
