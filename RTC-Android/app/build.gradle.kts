@@ -43,6 +43,8 @@ android {
             }
         }
         debug{
+            isMinifyEnabled= false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
             AppConfig.debugFields.forEach {
@@ -54,19 +56,19 @@ android {
             }
         }
 
-        create("onlineTest"){
-            applicationIdSuffix = ".online_test"
-            isDebuggable = true
-            signingConfig = signingConfigs.getByName("debug")
-
-            AppConfig.onlineTestFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
-            }
-
-            AppConfig.onlineTestResValue.forEach {
-                resValue(it.type,it.fieldName,it.fieldValue)
-            }
-        }
+//        create("onlineTest"){
+//            applicationIdSuffix = ".online_test"
+//            isDebuggable = true
+//            signingConfig = signingConfigs.getByName("debug")
+//
+//            AppConfig.onlineTestFields.forEach {
+//                buildConfigField(it.type,it.fieldName,it.fieldValue)
+//            }
+//
+//            AppConfig.onlineTestResValue.forEach {
+//                resValue(it.type,it.fieldName,it.fieldValue)
+//            }
+//        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
@@ -133,5 +135,5 @@ dependencies {
     implementation("com.tencent.bugly:crashreport:4.0.4")
 
     // TiCloudRtc SDK
-    implementation("com.github.ti-net:TiCloud-RTC-Android:2.0.3@aar")
+    implementation("com.github.ti-net:TiCloud-RTC-Android:2.0.4@aar")
 }

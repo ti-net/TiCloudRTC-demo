@@ -9,29 +9,29 @@ object AppConfig{
     const val versionName = "2.1"
 
     val releaseFields = listOf(
-        GradleField("String","OUT_CALL_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"id\",\"value\":\"90007573\",\"type\":1},\n"+
-                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1},\n"+
-                    "{\"name\":\"depId\",\"value\":\"340179\",\"type\":1},\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_1_USER_FIELD","\"\""),
+        GradleField("String","OUT_CALL_USER_FIELD","\"%s\""),
+        GradleField("String","CALL_AGENT_USER_FIELD","\"%s\""),
+        GradleField("String","NODE_1_USER_FIELD","\"%s\""),
         GradleField("String","NODE_2_USER_FIELD","""
             "[\n"+
                     "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
+                    "%s\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_3_USER_FIELD","""
             "[\n"+
                      "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
+                     "%s\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_4_USER_FIELD","""
             "[\n"+
                     "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
+                    "%s\n"+
             "]"
         """.trimIndent()),
+        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"测试环境\",\"正式环境\",\"开发环境\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE","{\"https://rtc-api-test.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-dev.cticloud.cn\"}"),
         // bugly 配置 ------------------------------
         // appId
         GradleField("String","BUGLY_APPID","\"16c04631f3\""),
@@ -39,8 +39,7 @@ object AppConfig{
 
     val releaseResValue = listOf(
         // default base url
-        GradleResField("string","default_url","\"\""),
-        GradleResField("string","app_name","RTC-Android"),
+        GradleResField("string","app_name","Ti-RTC"),
         GradleResField("string","default_enterprise_id","\"\""),
         GradleResField("string","default_username","\"\""),
         GradleResField("string","default_password","\"\""),
@@ -50,71 +49,39 @@ object AppConfig{
         GradleField("String","OUT_CALL_USER_FIELD","""
             "[\n"+
                     "{\"name\":\"id\",\"value\":\"90007573\",\"type\":1},\n"+
-                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1},\n"+
-                    "{\"name\":\"depId\",\"value\":\"340179\",\"type\":1},\n"+
+                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1}\n"+
+                     "%s\n"+
             "]"
         """.trimIndent()),
-        GradleField("String","NODE_1_USER_FIELD","\"\""),
+        GradleField("String","CALL_AGENT_USER_FIELD","\"%s\""),
+        GradleField("String","NODE_1_USER_FIELD","\"%s\""),
         GradleField("String","NODE_2_USER_FIELD","""
             "[\n"+
                     "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
+                    "%s\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_3_USER_FIELD","""
             "[\n"+
                      "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
+                     "%s\n"+
             "]"
         """.trimIndent()),
         GradleField("String","NODE_4_USER_FIELD","""
             "[\n"+
                     "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
+                    "%s\n"+
             "]"
         """.trimIndent()),
+        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"测试环境\",\"正式环境\",\"开发环境\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE","{\"https://rtc-api-test.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-dev.cticloud.cn\"}"),
         // bugly 配置 ------------------------------
         // appId
         GradleField("String","BUGLY_APPID","\"16c04631f3\""),
     )
 
     val debugResValue = listOf(
-        GradleResField("string","default_url","\"\""),
-        GradleResField("string","app_name",""),
-        GradleResField("string","default_enterprise_id","\"\""),
-        GradleResField("string","default_username","\"\""),
-        GradleResField("string","default_password","\"\""),
-    )
-
-    val onlineTestFields = listOf(
-        GradleField("String","OUT_CALL_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"id\",\"value\":\"90007573\",\"type\":1},\n"+
-                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1},\n"+
-                    "{\"name\":\"depId\",\"value\":\"340179\",\"type\":1},\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_1_USER_FIELD","\"\""),
-        GradleField("String","NODE_2_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_3_USER_FIELD","""
-            "[\n"+
-                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_4_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
-            "]"
-        """.trimIndent()),
-        // bugly 配置 ------------------------------
-        // appId
-        GradleField("String","BUGLY_APPID","\"16c04631f3\""),
-    )
-
-    val onlineTestResValue = listOf(
-        GradleResField("string","default_url","\"\""),
-        GradleResField("string","app_name","RTC-A-online_test"),
+        GradleResField("string","app_name","Ti-RTC-debug"),
         GradleResField("string","default_enterprise_id","\"\""),
         GradleResField("string","default_username","\"\""),
         GradleResField("string","default_password","\"\""),

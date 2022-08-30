@@ -32,7 +32,6 @@ class OutCallFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        resetUserField()
         binding.apply {
             btnOutCall.setOnClickListener {
                 viewModel.viewModelScope.launch {
@@ -40,14 +39,17 @@ class OutCallFragment : Fragment() {
                         AppIntent.Call(
                             tel = edtOutCallTel.text.toString(),
                             clid = edtOutCallClid.text.toString(),
-                            userField = edtOutCallUserField.text.toString(),
+                            userField = if (BuildConfig.DEBUG) edtOutCallUserField.text.toString() else String.format(
+                                BuildConfig.OUT_CALL_USER_FIELD,
+                                edtOutCallUserField.text.toString()
+                            ),
                             type = 6 // 6 为外呼场景
                         )
                     )
                 }
             }
             edtOutCallUserField.setOnLongClickListener {
-                resetUserField()
+                if (BuildConfig.DEBUG) resetUserField()
                 true
             }
         }
@@ -55,6 +57,7 @@ class OutCallFragment : Fragment() {
 
     private fun resetUserField() {
         binding.edtOutCallUserField.text =
-            Editable.Factory.getInstance().newEditable(BuildConfig.OUT_CALL_USER_FIELD)
+            Editable.Factory.getInstance()
+                .newEditable(String.format(BuildConfig.OUT_CALL_USER_FIELD, ""))
     }
 }

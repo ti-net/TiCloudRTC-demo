@@ -5,6 +5,8 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -13,10 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import com.example.rtc_android.AppIntent
-import com.example.rtc_android.AppUiState
-import com.example.rtc_android.MainActivityViewModel
-import com.example.rtc_android.R
+import com.example.rtc_android.*
 import com.example.rtc_android.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 
@@ -39,9 +38,21 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
+            spinnerEnv.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    edtPlatformUrl.text = Editable.Factory.getInstance()
+                        .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[position])
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            }
             imgLogo.setOnLongClickListener {
-                edtPlatformUrl.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.default_url))
                 edtEnterpriseId.text = Editable.Factory.getInstance()
                     .newEditable(resources.getString(R.string.default_enterprise_id))
                 edtUsername.text = Editable.Factory.getInstance()
@@ -63,7 +74,19 @@ class LoginFragment : Fragment() {
                     )
                 }
             }
+        }.apply {
+            edtPlatformUrl.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
         }
+
+        ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            BuildConfig.LOGIN_ENVIRONMENT_NAME
+        ).also {
+            it.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+            binding.spinnerEnv.adapter = it
+        }
+
 
         obsState()
     }

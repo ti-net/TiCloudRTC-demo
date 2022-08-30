@@ -17,6 +17,7 @@
     <string name="out_call_scene">外呼场景</string>
     <string name="hotline_scene">客服场景</string>
     <string name="call">呼叫</string>
+    <string name="callAgent">联系客服</string>
     <string name="tip_tel">客户号码</string>
     <string name="tip_clid">外显号码（可选）</string>
     <string name="tip_user_field">随路数据（可选）</string>
