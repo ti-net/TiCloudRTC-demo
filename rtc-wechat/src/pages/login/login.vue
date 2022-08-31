@@ -3,16 +3,26 @@
 	<view class="root-view">
 		<view class="fill-login-message" @click="fillLoginMessage"></view>
 		<image src="../../static/login/logo.png" mode="scaleToFill" class="logo" />
+		<text class="text-ti-rtc">Ti-RTC</text>
+		<text class="text-sub-title">让客户联络效率更高, 体验更好</text>
 		<picker :range="envName" :value="currentEnvIndex" @change="onEnvPickerChange" class="picker">
-			<view>{{ envName[currentEnvIndex] }}</view>
+			<view>{{  envName[currentEnvIndex]  }}</view>
 		</picker>
-		<clearableInput class="input" prefixIcon="../../../static/login/icon-company.png" :currentText="enterpriseId"
-			hintText="企业 ID" @onClear="onEnterpriseIdClear" @onChange="onEnterpriseIdChange" />
+		<clearableInput class="input input-enterprise-id" prefixIcon="../../../static/login/icon-company.png"
+			:currentText="enterpriseId" hintText="企业 ID" @onClear="onEnterpriseIdClear"
+			@onChange="onEnterpriseIdChange" />
 		<clearableInput class="input" prefixIcon="../../../static/login/icon-people.png" :currentText="username"
 			hintText="用户 ID" @onClear="onUsernameClear" @onChange="onUsernameChange" />
 		<clearableInput class="input" prefixIcon="../../../static/login/icon-psw.png" :currentText="password"
-			hintText="输入密码" @onClear="onPasswordClear" @onChange="onPasswordChange" />
-		<view class="login-button" @click="login">登录</view>
+			:isPassword="true" hintText="输入密码" @onClear="onPasswordClear" @onChange="onPasswordChange" />
+		<view class="check-area">
+			<image v-if="!devState" src="../../static/login/nocheck.png" mode="scaleToFill" class="check-img"
+				@click="switchDevState" />
+			<image v-else src="../../static/login/checked.png" mode="scaleToFill" class="check-img"
+				@click="switchDevState" />
+			<text class="check-text" @click="switchDevState">开发者模式</text>
+		</view>
+		<view :class="{ 'login-button': true, 'login-button-disable': !isInputLoginMessage() }" @click="login">登录</view>
 	</view>
 </template>
 
@@ -35,6 +45,7 @@ export default {
 			username: "",
 			password: "",
 			appModel: null,
+			devState: false, // 开发者模式开关, true: 开发者模式, false 演示模式
 		}
 	},
 	mounted() {
@@ -60,7 +71,13 @@ export default {
 
 	},
 	methods: {
-		fillLoginMessage(){
+		isInputLoginMessage() {
+			return this.enterpriseId != '' && this.username != '' && this.password != ''
+		},
+		switchDevState() {
+			this.devState = !this.devState
+		},
+		fillLoginMessage() {
 			this.enterpriseId = BuildConfig.ENTERPRISE_ID
 			this.username = BuildConfig.USERNAME
 			this.password = BuildConfig.PASSWORD
@@ -74,9 +91,13 @@ export default {
 			)
 		},
 		loginSuccess() {
-			uni.switchTab({
-				url: "/pages/index/index"
-			})
+			if (this.devState) {
+				uni.switchTab({
+					url: "/pages/index/index"
+				})
+			} else {
+				uni.reLaunch({ url: '/pages/CallScene/CallScene' })
+			}
 		},
 		loginFailed(errorMessage) {
 			uni.showToast({
@@ -126,43 +147,92 @@ page {
 
 }
 
-.fill-login-message{
-	width:120rpx;
-	height:120rpx;
+.fill-login-message {
+	width: 120rpx;
+	height: 120rpx;
 	position: fixed;
-	top:0%;
-	left:0%;
+	top: 0%;
+	left: 0%;
 	z-index: 3;
 }
 
 .logo {
-	width: 120rpx;
-	height: 120rpx;
-	margin-top: 200rpx;
-	margin-bottom: 80rpx;
+	width: 128rpx;
+	height: 128rpx;
+	margin-top: 176rpx;
+	border-radius: 32rpx;
+	box-shadow: 0rpx 0rpx 64rpx 5rpx #1f376f2c;
 }
 
-.picker{
-	width:calc(100% - 80rpx);
+.text-ti-rtc {
+	font-size: 48rpx;
+	font-family: PingFang SC-Medium, PingFang SC;
+	font-weight: 500;
+	color: #595959;
+	line-height: 56rpx;
+	margin-top: 24rpx;
+}
+
+.text-sub-title {
+	font-size: 24rpx;
+	font-family: PingFang SC-Regular, PingFang SC;
+	font-weight: 400;
+	color: #8C8C8C;
+	line-height: 36rpx;
+}
+
+.picker {
+	width: calc(100% - 80rpx);
 	position: relative;
 	left: 64rpx;
+	display: none;
 }
 
 .input {
-	width: calc(100% - 80rpx);
-	margin-top: 40rpx;
+	width: calc(100% - 128rpx);
+	margin-top: 48rpx;
 }
 
+.input-enterprise-id {
+	margin-top: 98rpx;
+}
+
+.check-area {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: calc(100% - 128rpx);
+	margin-top: 24rpx;
+}
+
+.check-img {
+	width: 28rpx;
+	height: 28rpx;
+}
+
+.check-text {
+	font-size: 24rpx;
+	font-family: PingFang SC-Regular, PingFang SC;
+	font-weight: 400;
+	color: #262626;
+	line-height: 36rpx;
+	margin-left: 8rpx;
+}
 
 .login-button {
-	width: calc(100% - 80rpx);
-	height: 80rpx;
-	background-color: rgb(44, 165, 48);
+	width: 622rpx;
+	height: 96rpx;
+	background-color: #4385FF;
 	text-align: center;
-	line-height: 80rpx;
+	line-height: 96rpx;
 	color: white;
-	margin-left: 40rpx;
-	margin-right: 40rpx;
-	margin-top: 60rpx;
+	border-radius: 16rpx;
+	margin-left: 64rpx;
+	margin-right: 64rpx;
+	margin-top: 48rpx;
+}
+
+.login-button-disable {
+	background-color: #BDD5FF;
 }
 </style>
