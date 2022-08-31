@@ -159,7 +159,7 @@ page {
 .logo {
 	width: 128rpx;
 	height: 128rpx;
-	margin-top: 176rpx;
+	margin-top: 236rpx;
 	border-radius: 32rpx;
 	box-shadow: 0rpx 0rpx 64rpx 5rpx #1f376f2c;
 }

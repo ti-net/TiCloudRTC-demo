@@ -1,7 +1,5 @@
 {
 	"pages": [
-		
-		
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -11,11 +9,19 @@
 			}
 		},
 		{
-			"path": "pages/calling/calling",
+			"path": "pages/DemoCalling/DemoCalling",
 			"style": {
 				"navigationBarTitleText": "",
-				"navigationBarBackgroundColor":"#000000",
-				"disableSwipeBack":true,
+				"disableScroll":true,
+				"navigationStyle":"custom"
+			}
+		},
+		
+		
+		{
+			"path": "pages/DialPanel/DialPanel",
+			"style": {
+				"navigationBarTitleText": "",
 				"disableScroll":true,
 				"navigationStyle":"custom"
 			}
@@ -28,6 +34,18 @@
 				"navigationStyle":"custom"
 			}
 		},
+		
+		{
+			"path": "pages/calling/calling",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#000000",
+				"disableSwipeBack":true,
+				"disableScroll":true,
+				"navigationStyle":"custom"
+			}
+		},
+		
 		{
 			"path": "pages/index/index",
 			"style": {

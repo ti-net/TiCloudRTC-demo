@@ -11,11 +11,9 @@ const AppModel = defineStore("AppState", () => {
     /** TiCloudRtc */
     const rtcClient = ref(null)
 
-    const callingTimer = ref(null)
+    const callingTimer = null
 
-    const smallText = ref(null)
-
-    // const isShowDtmfPanel = ref(false)
+    let startTime = null
 
     const currentTel = ref("")
 
@@ -24,6 +22,14 @@ const AppModel = defineStore("AppState", () => {
     const username = ref("")
 
     const password = ref("")
+
+    function formatTime(seconds) {
+        let m = parseInt(seconds / 60 % 60);
+        m = m < 10 ? "0" + m : m
+        let s = parseInt(seconds % 60);
+        s = s < 10 ? "0" + s : s;
+        return  m + ':' + s;
+    }
 
 
     function login(
@@ -136,12 +142,14 @@ const AppModel = defineStore("AppState", () => {
 
     function initEventListener(model) {
         let client = model.rtcClient
+        let that = model
 
         client
             .on(TiCloudRTC.TiCloudRtcEvent.error, (errorCode, errorMessage) => {
                 model.appUiState = new UiStatePayload(AppUiState.OnInnerSdkError,new StateOnInnerSdkError(errorCode,errorMessage))
             })
             .on(TiCloudRTC.TiCloudRtcEvent.callingStart, (requestUniqueId) => {
+                clearInterval(that.callingTimer)
                 model.appUiState = new UiStatePayload(AppUiState.OnCallStart)
             })
             .on(TiCloudRTC.TiCloudRtcEvent.publishing, url => {
@@ -158,7 +166,11 @@ const AppModel = defineStore("AppState", () => {
             })
             .on(TiCloudRTC.TiCloudRtcEvent.calling, () => {
                 model.appUiState = new UiStatePayload(AppUiState.OnCalling)
-                // TODO 计时
+                that.startTime = new Date()
+                that.callingTimer = setInterval(()=>{
+                    let sceonds = ((new Date()).getTime() - that.startTime.getTime())/1000
+                    model.appUiState = new UiStatePayload(AppUiState.OnSmallTextUpdate,new StateOnSmallTextUpdate(that.formatTime(sceonds)))
+                },1000)
             })
             .on(TiCloudRTC.TiCloudRtcEvent.callingEnd, (isPeerHangup) => {
                 model.appUiState = new UiStatePayload(AppUiState.OnCallingEnd, new StateOnCallingEnd(isPeerHangup))
@@ -195,6 +207,8 @@ const AppModel = defineStore("AppState", () => {
             .on(TiCloudRTC.TiCloudRtcEvent.accessTokenHasExpired, () => {
                 console.log("accessTokenHasExpired")
 
+                that.resetCallingState()
+
                 model.rtcClient = null
 
                 model.appUiState = new UiStatePayload(AppUiState.OnAccessTokenHasExpired)
@@ -203,7 +217,9 @@ const AppModel = defineStore("AppState", () => {
 
     return {
         appUiState,
-        smallText,
+        startTime,
+        callingTimer,
+        formatTime,
         login,
         logout,
         call,
@@ -229,7 +245,8 @@ const AppUiState = {
     OnCallingEnd: "OnCallingEnd",
     OnInnerSdkError: "OnInnerSdkError",
     OnRefreshTokenFailed: "OnRefreshTokenFailed",
-    OnAccessTokenHasExpired: "OnAccessTokenHasExpired"
+    OnAccessTokenHasExpired: "OnAccessTokenHasExpired",
+    OnSmallTextUpdate:"OnSmallTextUpdate"
 }
 
 class UiStatePayload {
@@ -272,6 +289,10 @@ class StateOnInnerSdkError {
 
 class StateOnRefreshTokenFailed {
     constructor(errorMessage) { this.errorMessage = errorMessage }
+}
+
+class StateOnSmallTextUpdate{
+    constructor(smallText){this.smallText = smallText}
 }
 
 // const AppIntent = {
