@@ -82,20 +82,23 @@ const AppModel = defineStore("AppState", () => {
                         onFailed(errorCode, errorMessage) {
                             that.appUiState = new UiStatePayload(
                                 AppUiState.LoginFailed,
-                                new StateLoginFailed(`errorCode:${errorCode},errorMessage:${errorMessage}`)
+                                // new StateLoginFailed(`errorCode:${errorCode},errorMessage:${errorMessage}`)
+                                new StateLoginFailed(`${errorMessage}`)
                             )
                         }
                     })
                 } else {
                     that.appUiState = new UiStatePayload(
                         AppUiState.LoginFailed,
-                        new StateLoginFailed(`code:${data.code}, message:${data.message}`)
+                        // new StateLoginFailed(`code:${data.code}, message:${data.message}`)
+                        new StateLoginFailed(`${data.message}`)
                     )
                 }
             } else {
                 that.appUiState = new UiStatePayload(
                     AppUiState.LoginFailed,
-                    new StateLoginFailed(`code:${result.statusCode}, message:${result.errMsg}`)
+                    // new StateLoginFailed(`code:${result.statusCode}, message:${result.errMsg}`)
+                    new StateLoginFailed(`${result.errMsg}`)
                 )
             }
 
