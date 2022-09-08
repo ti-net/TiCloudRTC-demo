@@ -90,8 +90,8 @@ class LoginFragment : Fragment() {
             edtPlatformUrl.text =
                 Editable.Factory.getInstance().newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[0])
             edtPlatformUrl.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
-            spinnerEnv.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
-            spinnerIcon.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
+//            spinnerEnv.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
+//            spinnerIcon.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
         }
 
         ArrayAdapter(
