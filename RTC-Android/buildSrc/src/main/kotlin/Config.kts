@@ -5,8 +5,8 @@ object ProjectConfig{
 }
 
 object AppConfig{
-    const val versionCode = 3
-    const val versionName = "2.1"
+    const val versionCode = 4
+    const val versionName = "2.2"
 
     val releaseFields = listOf(
         GradleField("String","OUT_CALL_USER_FIELD","\"%s\""),

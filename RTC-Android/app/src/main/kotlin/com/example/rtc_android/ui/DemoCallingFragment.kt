@@ -1,11 +1,12 @@
 package com.example.rtc_android.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -17,13 +18,13 @@ import com.example.rtc_android.AppIntent
 import com.example.rtc_android.AppUiState
 import com.example.rtc_android.MainActivityViewModel
 import com.example.rtc_android.R
-import com.example.rtc_android.databinding.FragmentCallingBinding
+import com.example.rtc_android.databinding.FragmentDemoCallingBinding
 import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
-class CallingFragment : Fragment() {
+class DemoCallingFragment : Fragment() {
 
-    private lateinit var binding: FragmentCallingBinding
+    private lateinit var binding: FragmentDemoCallingBinding
 
     private val viewModel by activityViewModels<MainActivityViewModel>()
 
@@ -32,70 +33,85 @@ class CallingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCallingBinding.inflate(inflater, container, false)
+        binding = FragmentDemoCallingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
-            tvShowCallTel.text = viewModel.biggerText.value
+            btnDemoCallingKeyboardSwitch.setOnClickListener { viewModel.switchDtmfShowState() }
 
-            btnDialPanelSwitch.setOnClickListener {
-                viewModel.switchDtmfShowState()
+            btnDemoCallingMuteSwitch.setOnClickListener {
+                sendIntent(
+                    AppIntent.Mute(
+                        viewModel.isMute().not()
+                    )
+                )
             }
 
-            btnHideDial.setOnClickListener {
-                viewModel.switchDtmfShowState()
-            }
-
-            includeDtmfPanel.apply {
-                numPanel0.setOnClickListener { sendDtmf("0") }
-                numPanel1.setOnClickListener { sendDtmf("1") }
-                numPanel2.setOnClickListener { sendDtmf("2") }
-                numPanel3.setOnClickListener { sendDtmf("3") }
-                numPanel4.setOnClickListener { sendDtmf("4") }
-                numPanel5.setOnClickListener { sendDtmf("5") }
-                numPanel6.setOnClickListener { sendDtmf("6") }
-                numPanel7.setOnClickListener { sendDtmf("7") }
-                numPanel8.setOnClickListener { sendDtmf("8") }
-                numPanel9.setOnClickListener { sendDtmf("9") }
-                numPanelAsterisk.setOnClickListener { sendDtmf("*") }
-                numPanelSign.setOnClickListener { sendDtmf("#") }
-            }
-
-            btnMuteSwitch.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    Log.i(LOG_TAG, "mute btn click")
-                    viewModel.intentChannel.send(AppIntent.Mute(viewModel.isMute().not()))
-                }
-            }
-
-            btnSpeakerphoneSwitch.setOnClickListener {
+            btnDemoCallingSpeakerSwitch.setOnClickListener {
                 if (viewModel.appUiState.value is AppUiState.OnRinging ||
                     viewModel.appUiState.value is AppUiState.OnCalling
                 ) {
-                    viewModel.viewModelScope.launch {
-                        Log.i(LOG_TAG, "speakerphone btn click")
-                        viewModel.intentChannel.send(
-                            AppIntent.UseSpeakerphone(
-                                viewModel.isUseSpeakerphone().not()
-                            )
-                        )
-                    }
+                    sendIntent(AppIntent.UseSpeakerphone(viewModel.isUseSpeakerphone().not()))
                 } else {
                     Toast.makeText(requireContext(), "播放铃声或通话中才能使用扬声器", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
 
-            btnHangup.setOnClickListener {
-                hangup()
+            btnDemoCallingHide.setOnClickListener { viewModel.switchDtmfShowState() }
+
+            btnDemoCallingHangup.setOnClickListener { sendIntent(AppIntent.Hangup) }
+
+            includeDemoCallingDtmfPanel.apply {
+                btnDtmf0.setOnClickListener { sendDtmf("0") }
+                btnDtmf1.setOnClickListener { sendDtmf("1") }
+                btnDtmf2.setOnClickListener { sendDtmf("2") }
+                btnDtmf3.setOnClickListener { sendDtmf("3") }
+                btnDtmf4.setOnClickListener { sendDtmf("4") }
+                btnDtmf5.setOnClickListener { sendDtmf("5") }
+                btnDtmf6.setOnClickListener { sendDtmf("6") }
+                btnDtmf7.setOnClickListener { sendDtmf("7") }
+                btnDtmf8.setOnClickListener { sendDtmf("8") }
+                btnDtmf9.setOnClickListener { sendDtmf("9") }
+                btnDtmfAsterisk.setOnClickListener { sendDtmf("*") }
+                btnDtmfSign.setOnClickListener { sendDtmf("#") }
             }
+
+        }.apply {
+            tvDemoCallingBiggerText.text = viewModel.biggerText.value
         }
 
+        startStatusBarControl()
+
         obsState()
+    }
+
+    private fun sendDtmf(digits: String) = sendIntent(AppIntent.SendDtmf(digits))
+
+    private fun sendIntent(appIntent: AppIntent) {
+        viewModel.viewModelScope.launch {
+            viewModel.intentChannel.send(appIntent)
+        }
+    }
+
+    private fun backToMain(){
+        findNavController().navigateUp()
+    }
+
+    private fun startStatusBarControl() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                WindowCompat.getInsetsController(requireActivity().window, binding.root)
+                    .hide(WindowInsetsCompat.Type.statusBars())
+            }
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.DESTROYED) {
+                WindowCompat.getInsetsController(requireActivity().window, binding.root)
+                    .show(WindowInsetsCompat.Type.statusBars())
+            }
+        }
     }
 
     private fun obsState() {
@@ -167,75 +183,64 @@ class CallingFragment : Fragment() {
                     }
                 }
                 launch {
+                    viewModel.biggerText.collect{
+                        binding.tvDemoCallingBiggerText.text = it
+                    }
+                }
+                launch {
                     viewModel.muteState.collect {
-                        binding.btnMuteSwitch.setImageResource(
+                        binding.btnDemoCallingMuteSwitch.setImageResource(
                             when (it) {
-                                true -> R.drawable.icon_mute
-                                false -> R.drawable.icon_no_mute
+                                true -> R.drawable.icon_demo_calling_mic_disable
+                                false -> R.drawable.icon_demo_calling_mic_enable
                             }
                         )
                     }
                 }
                 launch {
                     viewModel.speakerphoneOpenState.collect {
-                        binding.btnSpeakerphoneSwitch.setImageResource(
+                        binding.btnDemoCallingSpeakerSwitch.setImageResource(
                             when (it) {
-                                true -> R.drawable.icon_speaker_enable
-                                false -> R.drawable.icon_speaker_disable
+                                true -> R.drawable.icon_demo_calling_speaker_enable
+                                false -> R.drawable.icon_demo_calling_speaker_disable
                             }
                         )
                     }
                 }
                 launch {
-                    viewModel.biggerText.collect{
-                        binding.tvShowCallTel.text = it
-                    }
-                }
-                launch {
                     viewModel.smallText.collect {
-                        binding.tvCallingTip.text = it
+                        binding.tvDemoCallingSmallerText.text = it
                     }
                 }
                 launch {
                     viewModel.isShowDtmfPanel.collect { isShow ->
-                        if (isShow) {
-                            binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.VISIBLE
-                            binding.btnHideDial.visibility = View.VISIBLE
-                            binding.btnDialPanelSwitch.visibility = View.GONE
-                            binding.btnMuteSwitch.visibility = View.GONE
-                            binding.btnSpeakerphoneSwitch.visibility = View.GONE
-                        } else {
-                            binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.GONE
-                            binding.btnHideDial.visibility = View.GONE
-                            binding.btnDialPanelSwitch.visibility = View.VISIBLE
-                            binding.btnMuteSwitch.visibility = View.VISIBLE
-                            binding.btnSpeakerphoneSwitch.visibility = View.VISIBLE
+                        binding.apply {
+                            if (isShow) {
+                                includeDemoCallingDtmfPanel.refDtmfPanel.visibility = View.VISIBLE
+                                btnDemoCallingHide.visibility = View.VISIBLE
+                                tvDemoCallingSmallerText.visibility = View.GONE
+                                btnDemoCallingKeyboardSwitch.visibility = View.GONE
+                                tvDemoCallingKeyboard.visibility = View.GONE
+                                btnDemoCallingMuteSwitch.visibility = View.GONE
+                                tvDemoCallingMute.visibility = View.GONE
+                                btnDemoCallingSpeakerSwitch.visibility = View.GONE
+                                tvDemoCallingSpeaker.visibility = View.GONE
+                            } else {
+                                includeDemoCallingDtmfPanel.refDtmfPanel.visibility = View.GONE
+                                btnDemoCallingHide.visibility = View.GONE
+                                tvDemoCallingSmallerText.visibility = View.VISIBLE
+                                btnDemoCallingKeyboardSwitch.visibility = View.VISIBLE
+                                tvDemoCallingKeyboard.visibility = View.VISIBLE
+                                btnDemoCallingMuteSwitch.visibility = View.VISIBLE
+                                tvDemoCallingMute.visibility = View.VISIBLE
+                                btnDemoCallingSpeakerSwitch.visibility = View.VISIBLE
+                                tvDemoCallingSpeaker.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
+
             }
         }
-    }
-
-    private fun sendDtmf(digits: String) {
-        viewModel.viewModelScope.launch {
-            viewModel.intentChannel.send(AppIntent.SendDtmf(digits))
-        }
-    }
-
-    private fun backToMain() {
-        findNavController().navigateUp()
-    }
-
-    private fun hangup() {
-        viewModel.viewModelScope.launch {
-            Log.i(LOG_TAG, "hangup btn click")
-            viewModel.intentChannel.send(AppIntent.Hangup)
-        }
-    }
-
-
-    companion object {
-        private var LOG_TAG = CallingFragment::class.java.simpleName
     }
 }

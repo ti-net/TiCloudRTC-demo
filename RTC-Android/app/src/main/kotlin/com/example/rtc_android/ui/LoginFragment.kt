@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -38,7 +39,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            spinnerEnv.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            spinnerEnv.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
@@ -74,8 +75,23 @@ class LoginFragment : Fragment() {
                     )
                 }
             }
+            icDevCheck.setOnClickListener { viewModel.switchDevMode() }
+            tvDevModeCheck.setOnClickListener { viewModel.switchDevMode() }
+            edtEnterpriseId.addTextChangedListener {
+                updateLoginButtonState()
+            }
+            edtUsername.addTextChangedListener {
+                updateLoginButtonState()
+            }
+            edtPassword.addTextChangedListener {
+                updateLoginButtonState()
+            }
         }.apply {
+            edtPlatformUrl.text =
+                Editable.Factory.getInstance().newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[0])
             edtPlatformUrl.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
+            spinnerEnv.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
+            spinnerIcon.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
         }
 
         ArrayAdapter(
@@ -91,39 +107,62 @@ class LoginFragment : Fragment() {
         obsState()
     }
 
+    private fun updateLoginButtonState() {
+        binding.apply {
+            btnLogin.isEnabled = edtEnterpriseId.text.toString().isNotEmpty() &&
+                    edtUsername.text.toString().isNotEmpty() &&
+                    edtPassword.text.toString().isNotEmpty()
+        }
+    }
+
     private fun obsState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.appUiState.collect {
-                    when (it) {
-                        is AppUiState.OnInnerSdkError -> Toast.makeText(
-                            requireContext(),
-                            """
+                launch {
+                    viewModel.appUiState.collect {
+                        when (it) {
+                            is AppUiState.OnInnerSdkError -> Toast.makeText(
+                                requireContext(),
+                                """
                                 sdk 内部错误
                                 errorCode: ${it.errorCode}
                                 errorMessage: ${it.errorMessage}
                             """.trimIndent(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        is AppUiState.WaitToLogin -> {}
-                        is AppUiState.LoginSuccess -> {
-                            Toast.makeText(requireContext(), "登录成功,引擎已创建", Toast.LENGTH_SHORT)
-                                .show()
-                            findNavController().navigateUp()
-                        }
-                        is AppUiState.LogoutSuccess -> Toast.makeText(
-                            requireContext(),
-                            "退出登录，引擎成功销毁",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        is AppUiState.LoginFailed -> {
-                            Toast.makeText(
-                                requireContext(),
-                                "登录失败:${it.errorMsg}",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            is AppUiState.WaitToLogin -> {}
+                            is AppUiState.LoginSuccess -> {
+                                Toast.makeText(requireContext(), "登录成功,引擎已创建", Toast.LENGTH_SHORT)
+                                    .show()
+                                if (viewModel.isDevMode.value) {
+                                    findNavController().navigateUp()
+                                } else {
+                                    findNavController().navigate(R.id.action_loginFragment_to_demoMainFragment)
+                                }
+                            }
+                            is AppUiState.LogoutSuccess -> Toast.makeText(
+                                requireContext(),
+                                "退出登录，引擎成功销毁",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            is AppUiState.LoginFailed -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "登录失败:${it.errorMsg}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            else -> {}
                         }
-                        else -> {}
+                    }
+                }
+                launch {
+                    viewModel.isDevMode.collect { isDevMode ->
+                        if (isDevMode) {
+                            binding.icDevCheck.setImageResource(R.drawable.icon_dev_mode_checked)
+                        } else {
+                            binding.icDevCheck.setImageResource(R.drawable.icon_dev_mode_unchecked)
+                        }
                     }
                 }
             }

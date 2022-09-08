@@ -18,7 +18,10 @@ import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
 import com.tinet.ticloudrtc.bean.CreateClientOption
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,29 +33,37 @@ internal class MainActivityViewModel : ViewModel() {
 
     val intentChannel: Channel<AppIntent> = Channel(Channel.UNLIMITED)
 
-    private val _appUiState: MutableStateFlow<AppUiState> = MutableStateFlow(AppUiState.WaitToLogin)
+    private val _appUiState = MutableStateFlow<AppUiState>(AppUiState.WaitToLogin)
     val appUiState = _appUiState.asStateFlow()
 
-    private val _muteState: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val _muteState = MutableStateFlow(false)
     val muteState = _muteState.asStateFlow()
 
-    private val _speakerphoneOpenSate: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val speakerphoneOpenState: StateFlow<Boolean> = _speakerphoneOpenSate
+    private val _speakerphoneOpenSate = MutableStateFlow(false)
+    val speakerphoneOpenState = _speakerphoneOpenSate.asStateFlow()
+
+    private val DEFAULT_BIGGER_TEXT = ""
+    private val _biggerText = MutableStateFlow(DEFAULT_BIGGER_TEXT)
+    val biggerText = _biggerText.asStateFlow()
 
     private val CALLING_TIP = "外呼中..."
-    private val _smallText: MutableStateFlow<String> = MutableStateFlow(CALLING_TIP)
+    private val _smallText = MutableStateFlow(CALLING_TIP)
     val smallText = _smallText.asStateFlow()
 
     private val DEFAULT_DTMF_PANEL_STATE = false
-    private val _isShowDtmfPanel: MutableStateFlow<Boolean> =
+    private val _isShowDtmfPanel =
         MutableStateFlow(DEFAULT_DTMF_PANEL_STATE)
     val isShowDtmfPanel = _isShowDtmfPanel.asStateFlow()
+
+    private val _isDevMode = MutableStateFlow(false)
+    val isDevMode = _isDevMode.asStateFlow()
 
     private var callingTimer: Timer? = null
 
     private var rtcClient: TiCloudRTC? = null
 
     private var currentTel = ""
+    private var currentDtmfHistory = ""
 
     private var enterpriseId: Int = 0
     private var username: String = ""
@@ -76,9 +87,11 @@ internal class MainActivityViewModel : ViewModel() {
         }
     }
 
-    fun isRtcClientInit() = rtcClient != null
+    fun switchDevMode() {
+        _isDevMode.value = _isDevMode.value.not()
+    }
 
-    fun currentTel() = currentTel
+    fun isRtcClientInit() = rtcClient != null
 
     fun isMute() = muteState.value
 
@@ -86,17 +99,27 @@ internal class MainActivityViewModel : ViewModel() {
         _muteState.value = false
         _speakerphoneOpenSate.value = false
         callingTimer?.cancel()
+        currentTel = ""
+        currentDtmfHistory = ""
+        _biggerText.value = DEFAULT_BIGGER_TEXT
         _smallText.value = CALLING_TIP
         _isShowDtmfPanel.value = DEFAULT_DTMF_PANEL_STATE
     }
 
     fun switchDtmfShowState() {
         _isShowDtmfPanel.value = _isShowDtmfPanel.value.not()
+        if(_isShowDtmfPanel.value){
+            _biggerText.value = currentDtmfHistory
+        }else{
+            _biggerText.value = currentTel
+        }
     }
 
     fun isUseSpeakerphone(): Boolean = rtcClient?.isSpeakerphoneEnabled() ?: false
 
     private fun sendDtmf(intent: AppIntent.SendDtmf) {
+        currentDtmfHistory += intent.digits
+        _biggerText.value = currentDtmfHistory
         rtcClient?.dtmf(intent.digits)
     }
 
@@ -120,6 +143,7 @@ internal class MainActivityViewModel : ViewModel() {
             return
         }
         currentTel = callIntent.tel
+        _biggerText.value = currentTel
         rtcClient?.call(
             CallOption(
                 tel = callIntent.tel,
@@ -139,6 +163,8 @@ internal class MainActivityViewModel : ViewModel() {
     private fun login(loginIntent: AppIntent.Login) {
 
         CrashReport.initCrashReport(loginIntent.context, BuildConfig.BUGLY_APPID, BuildConfig.DEBUG)
+
+        Log.i("rtc_android","""$loginIntent""")
 
         if (
             loginIntent.platformUrl.isEmpty() ||
@@ -191,7 +217,9 @@ internal class MainActivityViewModel : ViewModel() {
                             enterpriseId = enterpriseId.toString(),
                             userId = loginIntent.username,
                             accessToken = accessToken,
-                        ),
+                        ).apply {
+                                isDebug = true
+                        },
                         resultCallback = object : CreateResultCallback {
                             override fun onFailed(errorCode: Int, errorMessage: String) {
                                 _appUiState.value = AppUiState.LoginFailed(errorMessage)
