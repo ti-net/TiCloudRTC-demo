@@ -1,0 +1,38 @@
+//
+//  PrefixHeader.pch
+//  TiCloudRTCObjcExample
+//
+//  Created by 高延波 on 2022/8/22.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "TiGlobalDefines.h"
+#import "TRLoadingView.h"
+#import "AppDelegate.h"
+
+#import "UIViewExt.h"
+#import "NSObject+Common.h"
+#import "NSObject+ShowError.h"
+#import "NSDictionary+RACSequenceAdditions.h"
+#import "NSDictionary+TRTool.h"
+#import "NSString+Frame.h"
+#import "WMPageController+TRSetupStyle.h"
+
+#import "BaseTableView.h"
+#import "BaseView.h"
+#import "BaseViewController.h"
+
+#import <YBPopupMenu/YBPopupMenu.h>
+#import <UIKit/UIKit.h>
+#import <YYModel/YYModel.h>
+#import <YYCategories/YYCategories.h>
+#import <ReactiveObjC/ReactiveObjC.h>
+#import <MJRefresh/MJRefresh.h>
+#import <TiCloudRTC/TiCloudRTC.h>
+#import <AgoraRtmKit/AgoraRtmKit.h>
+
+#endif /* PrefixHeader_pch */

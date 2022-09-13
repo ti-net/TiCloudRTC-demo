@@ -1,0 +1,52 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'TiCloudRTCObjcExample' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+ 
+  # Pods for TiCloudRTCObjcExample
+
+  pod 'TiCloudRTC'
+  
+  # YTKNetworking
+  pod 'YTKNetwork'
+  
+  # 网络库
+  pod 'AFNetworking'
+
+  # YYModel
+  pod 'YYModel'
+  pod 'YYCategories'
+  
+  #弹出菜单  https://github.com/lyb5834/YBPopupMenu
+  pod 'YBPopupMenu'
+
+  #标签https://github.com/zekunyan/TTGTagCollectionView
+  pod "TTGTagCollectionView",'1.11.1'
+  
+  #吐司
+  pod 'MBProgressHUD'
+  
+  #RAC
+  pod 'ReactiveObjC'
+  
+  #下拉刷新
+  pod 'MJRefresh'
+  
+  #圆角处理
+  pod 'ZYCornerRadius'
+  
+  #UISegmentedControl
+  pod 'WMPageController'
+
+  target 'TiCloudRTCObjcExampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'TiCloudRTCObjcExampleUITests' do
+    # Pods for testing
+  end
+
+end
