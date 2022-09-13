@@ -185,10 +185,10 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="7dp"
         android:padding="4dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/edt_password"
         app:layout_constraintTop_toBottomOf="@+id/edt_password"
-        app:srcCompat="@drawable/icon_dev_mode_unchecked"
-         />
+        app:srcCompat="@drawable/icon_dev_mode_unchecked" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_dev_mode_check"
@@ -200,6 +200,7 @@
         android:text="@string/dev_mode"
         android:textColor="@color/black"
         android:textSize="12sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/ic_dev_check"
         app:layout_constraintStart_toEndOf="@+id/ic_dev_check"
         app:layout_constraintTop_toTopOf="@+id/ic_dev_check" />

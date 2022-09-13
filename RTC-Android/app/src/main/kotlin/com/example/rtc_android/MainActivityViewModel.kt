@@ -55,7 +55,7 @@ internal class MainActivityViewModel : ViewModel() {
         MutableStateFlow(DEFAULT_DTMF_PANEL_STATE)
     val isShowDtmfPanel = _isShowDtmfPanel.asStateFlow()
 
-    private val _isDevMode = MutableStateFlow(false)
+    private val _isDevMode = MutableStateFlow(true)
     val isDevMode = _isDevMode.asStateFlow()
 
     private var callingTimer: Timer? = null
