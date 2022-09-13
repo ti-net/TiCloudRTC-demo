@@ -72,7 +72,7 @@
         @strongify(self);
         if (self.viewModel.networkState == NetworkStateSuccess) {
             [self->_loading stopAnimating];
-            if (self.developerButton.selected)
+//            if (self.developerButton.selected)
             {
                 NSLog(@"NetworkStateSuccess ");
                 MainTabBarController *tabBarC = [[MainTabBarController alloc] init];
@@ -86,42 +86,41 @@
                    [AppDelegate shareAppDelegate].window.rootViewController = tabBarC;
                 }
             }
-            else
-            {
-                CustomerDataViewController *customerVC = [[CustomerDataViewController alloc]init];
-                
-                customerVC.modalPresentationStyle = UIModalPresentationFullScreen;
-                [self presentViewController:customerVC animated:NO completion:nil];
-            }
+//            else
+//            {
+//                CustomerDataViewController *customerVC = [[CustomerDataViewController alloc]init];
+//
+//                customerVC.modalPresentationStyle = UIModalPresentationFullScreen;
+//                [self presentViewController:customerVC animated:NO completion:nil];
+//            }
         }
         else if (self.viewModel.networkState == NetworkStateFail)
         {
             [self->_loading stopAnimating];
             [self showErrorView:@"登录信息错误，请检查"];
         }
-    }];
-    
-    [RACObserve(self.enterprisesField.textField, text) subscribeNext:^(NSString *text) {
-        self.viewModel.enterpriseId = text.integerValue;
-    }];
-    
-    [RACObserve(self.userNameField.textField, text) subscribeNext:^(NSString *text) {
-        self.viewModel.username = text;
-    }];
-    
-    [RACObserve(self.passwordField.textField, text) subscribeNext:^(NSString *text) {
-        self.viewModel.password = text;
+        else
+        {
+            [self->_loading stopAnimating];
+            [self showErrorView:@"登录失败，请重试"];
+        }
     }];
 }
 
 -(void)initViews
 {
-    CGFloat margin = 80;
+    CGFloat margin = 40;
     
     UIView *bgView = [[UIView alloc]initWithFrame:self.view.bounds];
     [self.view addSubview:bgView];
     self.bgView = bgView;
     
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.width - 50)/2, 118, 50, 50)];
+    imageView.contentMode = UIViewContentModeCenter;
+    imageView.image = [UIImage imageNamed:@"topLogo"];
+    [bgView addSubview:imageView];
+    
+    /*
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.width - 64)/2, 118, 64, 64)];
     imageView.contentMode = UIViewContentModeCenter;
     imageView.image = [UIImage imageNamed:@"ic_launcher233 1"];
@@ -140,8 +139,9 @@
     subtitleLabel.font = CHFont12;
     subtitleLabel.textAlignment = NSTextAlignmentCenter;
     [bgView addSubview:subtitleLabel];
+     */
     
-    TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, subtitleLabel.bottom + 50, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
+    TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, imageView.bottom + 80, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
 
     environmentField.delegate = self;
     [bgView addSubview:environmentField];
@@ -174,14 +174,15 @@
     [developerButton addTarget:self action:@selector(developerButton:) forControlEvents:UIControlEventTouchUpInside];
     developerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
     developerButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-    [bgView addSubview:developerButton];
+//    [bgView addSubview:developerButton];
     self.developerButton = developerButton;
 
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(margin, developerButton.bottom + 50, self.view.width - 2 * margin, 48)];
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.height - 100 - 45, self.view.width - 40, 48)];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = CHFont16;
     [loginBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [loginBtn setBackgroundColor:kHexColor(0xBDD5FF)];
+//    [loginBtn setBackgroundColor:kHexColor(0xBDD5FF)];
+    [loginBtn setBackgroundColor:kHexColor(0x00865C)];
     loginBtn.layer.cornerRadius = 8.0;
     [loginBtn addTarget:self action:@selector(didClickLoginBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:loginBtn];
@@ -309,17 +310,30 @@
     [self chooseEnvironment:isSelect];
 }
 
-- (void)textFieldEditing:(UITextField *)textField
+- (void)textFieldEditing:(TextFieldView *)textFieldView
 {
     if (!self.environmentField.textField.text.length || !self.enterprisesField.textField.text.length || !self.userNameField.textField.text.length || !self.passwordField.textField.text.length)
     {
-        [self.loginBtn setBackgroundColor:kHexColor(0xBDD5FF)];
+        [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
         self.loginBtn.userInteractionEnabled = NO;
     }
     else
     {
-        [self.loginBtn setBackgroundColor:kHexColor(0x4385FF)];
+        [self.loginBtn setBackgroundColor:kHexColor(0x00865C)];
         self.loginBtn.userInteractionEnabled = YES;
+    }
+    
+    if (textFieldView == self.enterprisesField)
+    {
+        self.viewModel.enterpriseId = [textFieldView.textField.text integerValue];
+    }
+    else if (textFieldView == self.userNameField)
+    {
+        self.viewModel.username = textFieldView.textField.text;
+    }
+    else if (textFieldView == self.passwordField)
+    {
+        self.viewModel.password = textFieldView.textField.text;
     }
 }
 

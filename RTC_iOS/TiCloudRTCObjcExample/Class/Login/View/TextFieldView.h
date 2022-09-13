@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TextFieldView;
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger
@@ -32,7 +32,7 @@ typedef enum : NSUInteger
 
 - (void)textFieldEndEditing;
 
-- (void)textFieldEditing:(UITextField *)textField;
+- (void)textFieldEditing:(TextFieldView *)textFieldView;
 
 @end
 

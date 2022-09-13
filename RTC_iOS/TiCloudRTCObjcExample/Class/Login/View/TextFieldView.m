@@ -59,6 +59,9 @@
         rightX = 30 + 10;
     }
     
+    
+
+                                                       
     UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(logoImageView.right + 5, 1, self.width - (logoImageView.right +5) - rightX, logoImageView.height)];
     textField.font = [UIFont systemFontOfSize:14];
     textField.textColor = UIColor.blackColor;
@@ -66,35 +69,50 @@
     [self addSubview:textField];
     self.textField = textField;
     [textField addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    NSAttributedString *attString1 = [[NSAttributedString alloc]initWithString:@"请输入企业ID" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    NSAttributedString *attString2 = [[NSAttributedString alloc]initWithString:@"请输入用户名" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    NSAttributedString *attString3 = [[NSAttributedString alloc]initWithString:@"请输入密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    
+    UIImage *orImage = nil;
     switch (self.viewType)
     {
         case TextFieldViewType_Environment:
-            
             textField.text = @"测试环境";
-            logoImageView.image = [UIImage imageNamed:@"capacity_charging"];
+            orImage = [UIImage imageNamed:@"Frame"];
+            logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [logoImageView setTintColor:kRGBColor(73, 129, 96)]; ;
             [self.rightBtn setImage:[UIImage imageNamed:@"tableViewCell_downArrow"] forState:UIControlStateNormal];
             [self.rightBtn setImage:[UIImage imageNamed:@"tableViewCell_upArrow"] forState:UIControlStateSelected];
             
             break;
             
         case TextFieldViewType_EnterprisesId:
-            
-            textField.placeholder = @"请输入企业ID";
-            logoImageView.image = [UIImage imageNamed:@"building-2-line 1"];
-            
+                        
+            textField.attributedPlaceholder = attString1;
+            orImage = [UIImage imageNamed:@"building-2-line 1"];
+            logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [logoImageView setTintColor:kRGBColor(73, 129, 96)];
             break;
             
         case TextFieldViewType_UserName:
             
-            textField.placeholder = @"请输入用户名";
-            logoImageView.image = [UIImage imageNamed:@"user"];
-            
+            textField.attributedPlaceholder = attString2;
+            orImage = [UIImage imageNamed:@"user"];
+            logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [logoImageView setTintColor:kRGBColor(73, 129, 96)];
             break;
             
         case TextFieldViewType_Password:
             
-            textField.placeholder = @"请输入密码";
-            logoImageView.image = [UIImage imageNamed:@"lock-on"];
+            textField.attributedPlaceholder = attString3;
+            orImage = [UIImage imageNamed:@"lock-on"];
+            logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [logoImageView setTintColor:kRGBColor(73, 129, 96)];
+            
             [self.rightBtn setImage:[UIImage imageNamed:@"browse-off"] forState:UIControlStateNormal];
             [self.rightBtn setImage:[UIImage imageNamed:@"browse"] forState:UIControlStateSelected];
             
@@ -153,7 +171,7 @@
 {
     if ([self.delegate respondsToSelector:@selector(textFieldEditing:)])
     {
-        [self.delegate textFieldEditing:textField];;
+        [self.delegate textFieldEditing:self];;
     }
 }
 
@@ -189,5 +207,6 @@
         [self.delegate textFieldEndEditing];
     }
 }
+
 
 @end

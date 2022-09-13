@@ -33,6 +33,8 @@
     
     self.appVerson = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     self.SDKVerson = [[NSUserDefaults standardUserDefaults] valueForKey:kSDKVersonPath];
+    
+    self.SDKVerson = @"1.0.7";
 }
 
 - (void)setupSubviews
@@ -50,10 +52,12 @@
     tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 5)];
     [self.view addSubview:tableView];
 
-    UIButton *logoutBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, self.view.height - kNavTop - kTabBarHeight - 30 - 45, self.view.width - 100, 45)];
+    UIButton *logoutBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.height - kNavTop - 100 - 45, self.view.width - 40, 40)];
     [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
     logoutBtn.titleLabel.font = CHFont16;
-    [logoutBtn setBackgroundColor:kHexColor(0x4385FF)];
+//    [logoutBtn setBackgroundColor:kHexColor(0x4385FF)];
+    [logoutBtn setBackgroundColor:kHexColor(0x00865C)];
+    
     [logoutBtn addTarget:self action:@selector(logoutButtonClick) forControlEvents:UIControlEventTouchUpInside];
     logoutBtn.layer.cornerRadius = 8;
     [self.view addSubview:logoutBtn];

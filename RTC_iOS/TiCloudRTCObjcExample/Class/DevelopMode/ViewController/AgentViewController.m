@@ -41,8 +41,9 @@
     CGFloat ButtonHeight = 30;
     CGFloat nodeButtonW = 70;
     
+    CGFloat nodeMargin = (self.view.width - 3 * nodeButtonW)/4;
+    
     UIButton *serviceNumber = [[UIButton alloc]initWithFrame:CGRectMake(LeftMargin, 50, 150, 40)];
-    [serviceNumber setImage:[UIImage imageNamed:@"lianMai_start"] forState:UIControlStateNormal];
     [serviceNumber setTitle:@"95092" forState:UIControlStateNormal];
     [serviceNumber setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     serviceNumber.titleLabel.font = CHFont(35);
@@ -51,37 +52,53 @@
     self.serviceNumber = serviceNumber;
     
     UIButton *topCallBtn = [self creatButtonWithFrame:CGRectMake(self.view.width - LeftMargin - 100, serviceNumber.top, 100, ButtonHeight) title:@"联系客服" action:@selector(callButtonsClick:)];
-    [topCallBtn setBackgroundColor:kRGBColor(89, 154, 210)];
+    [topCallBtn setBackgroundColor:kHexColor(0x00865C)];
     topCallBtn.tag = 100;
         
-    UIView *dividerLine = [[UIView alloc]initWithFrame:CGRectMake(0, serviceNumber.bottom + 50, self.view.width, 1.0)];
+    UIView *dividerLine = [[UIView alloc]initWithFrame:CGRectMake(0, topCallBtn.bottom + 30, self.view.width, 1.0)];
     dividerLine.backgroundColor = UIColor.grayColor;
     [self.view addSubview:dividerLine];
     
-    UIButton *rootBtn = [self creatButtonWithFrame:CGRectMake(LeftMargin, dividerLine.bottom + 100, nodeButtonW, ButtonHeight) title:@"根节点" action:@selector(nodeButtonsClick:)];
+    UIButton *rootBtn = [self creatButtonWithFrame:CGRectMake(0, dividerLine.bottom + 20, nodeButtonW, ButtonHeight) title:@"根节点" action:@selector(nodeButtonsClick:)];
     [rootBtn setBackgroundColor:kRGBColor(89, 154, 210)];
     rootBtn.tag = 0;
     self.rootBtn = rootBtn;
-   
-    UIButton *chooseBtn = [self creatButtonWithFrame:CGRectMake(rootBtn.right + 50, rootBtn.top - 20 - ButtonHeight, nodeButtonW, ButtonHeight) title:@"选择" action:@selector(nodeButtonsClick:)];
-    chooseBtn.tag = 1;
-    self.chooseBtn = chooseBtn;
-    
-    UIButton *queueBtn = [self creatButtonWithFrame:CGRectMake(chooseBtn.x, rootBtn.top, nodeButtonW, ButtonHeight) title:@"队列" action:@selector(nodeButtonsClick:)];
-    queueBtn.tag = 2;
-    self.queueBtn = queueBtn;
-    
-        
-    UIButton *directBtn = [self creatButtonWithFrame:CGRectMake(queueBtn.x, queueBtn.bottom + 20, nodeButtonW, ButtonHeight) title:@"直呼" action:@selector(nodeButtonsClick:)];
+    rootBtn.centerX = self.view.centerX;
+       
+    UIButton *directBtn = [self creatButtonWithFrame:CGRectMake(nodeMargin, rootBtn.bottom + 50, nodeButtonW, ButtonHeight) title:@"直呼节点" action:@selector(nodeButtonsClick:)];
     directBtn.tag = 3;
     self.directBtn = directBtn;
     
-    UIButton *buttonCallBtn = [self creatButtonWithFrame:CGRectMake(self.view.width - LeftMargin - 100, queueBtn.y, 100, ButtonHeight) title:@"联系客服" action:@selector(callButtonsClick:)];
-    [buttonCallBtn setBackgroundColor:kRGBColor(89, 154, 210)];
+    
+    UIButton *chooseBtn = [self creatButtonWithFrame:CGRectMake(directBtn.right +nodeMargin, directBtn.top, nodeButtonW, ButtonHeight) title:@"播放节点" action:@selector(nodeButtonsClick:)];
+    chooseBtn.tag = 1;
+    self.chooseBtn = chooseBtn;
+    
+    UIButton *queueBtn = [self creatButtonWithFrame:CGRectMake(chooseBtn.right +nodeMargin, chooseBtn.top, nodeButtonW, ButtonHeight) title:@"队列节点" action:@selector(nodeButtonsClick:)];
+    queueBtn.tag = 2;
+    self.queueBtn = queueBtn;
+    
+    /*
+    UIButton *chooseBtn = [self creatButtonWithFrame:CGRectMake(nodeMargin, rootBtn.bottom + 50, nodeButtonW, ButtonHeight) title:@"选择" action:@selector(nodeButtonsClick:)];
+    chooseBtn.tag = 1;
+    self.chooseBtn = chooseBtn;
+
+    UIButton *queueBtn = [self creatButtonWithFrame:CGRectMake(chooseBtn.right +nodeMargin, chooseBtn.top, nodeButtonW, ButtonHeight) title:@"队列" action:@selector(nodeButtonsClick:)];
+    queueBtn.tag = 2;
+    self.queueBtn = queueBtn;
+
+
+    UIButton *directBtn = [self creatButtonWithFrame:CGRectMake(queueBtn.right +nodeMargin, queueBtn.top, nodeButtonW, ButtonHeight) title:@"直呼" action:@selector(nodeButtonsClick:)];
+    directBtn.tag = 3;
+    self.directBtn = directBtn;
+     */
+    
+    UIButton *buttonCallBtn = [self creatButtonWithFrame:CGRectMake(LeftMargin, self.view.height - kNavTop - kTabBarHeight - 100 - 45, self.view.width - 2 *LeftMargin, 40) title:@"联系客服" action:@selector(callButtonsClick:)];
+    [buttonCallBtn setBackgroundColor:kHexColor(0x00865C)];
     buttonCallBtn.tag = 101;
 
     UITextField *alongRoadTF = [[UITextField alloc] init];
-    alongRoadTF.frame = CGRectMake(LeftMargin, directBtn.bottom + 50, 150.f, 40.f);
+    alongRoadTF.frame = CGRectMake(LeftMargin, directBtn.bottom + 20, self.view.width - 2 *LeftMargin, 40.f);
     alongRoadTF.font = CHFont13;
     alongRoadTF.textAlignment = NSTextAlignmentCenter;
     alongRoadTF.placeholder = @"请输入随路数据(可选)";
@@ -89,6 +106,7 @@
     alongRoadTF.layer.borderColor = UIColor.grayColor.CGColor;
     alongRoadTF.layer.cornerRadius = 6;
     [self.view addSubview:alongRoadTF];
+    self.alongRoadTF = alongRoadTF;
         
     [self nodesLine];
 }
@@ -109,19 +127,19 @@
 
 - (void)nodesLine
 {
-    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(_rootBtn.right, _rootBtn.centerY, _queueBtn.left - _rootBtn.right, 1.0)];
+    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(_rootBtn.centerX, _rootBtn.bottom, 1.0, _chooseBtn.top - _rootBtn.bottom)];
     line1.backgroundColor = UIColor.grayColor;
     [self.view addSubview:line1];
     
-    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(_chooseBtn.left - 20, _chooseBtn.centerY, 20, 1.0)];
+    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(_directBtn.centerX, _directBtn.top - 20, 1.0, 20)];
     line2.backgroundColor = UIColor.grayColor;
     [self.view addSubview:line2];
     
-    UIView *line3 = [[UIView alloc]initWithFrame:CGRectMake(line2.x, line2.bottom, 1.0, _directBtn.centerY - line2.bottom)];
+    UIView *line3 = [[UIView alloc]initWithFrame:CGRectMake(_directBtn.centerX, line2.top, _queueBtn.centerX - _directBtn.centerX, 1.0)];
     line3.backgroundColor = UIColor.grayColor;
     [self.view addSubview:line3];
     
-    UIView *line4 = [[UIView alloc]initWithFrame:CGRectMake(line3.right, _directBtn.centerY, 20, 1.0)];
+    UIView *line4 = [[UIView alloc]initWithFrame:CGRectMake(line3.right, line3.bottom, 1.0, _queueBtn.top - line3.bottom)];
     line4.backgroundColor = UIColor.grayColor;
     [self.view addSubview:line4];
 }
@@ -145,6 +163,11 @@
             
             string = [string stringByReplacingOccurrencesOfString:@"\r\n"withString:@""];
             string = [string stringByReplacingOccurrencesOfString:@"\n"withString:@""];
+            
+            if (self.alongRoadTF.text.length)
+            {
+                string = [NSString stringWithFormat:@"%@%@",string,self.alongRoadTF.text];
+            }
             
             callConf.userField = string;
         }

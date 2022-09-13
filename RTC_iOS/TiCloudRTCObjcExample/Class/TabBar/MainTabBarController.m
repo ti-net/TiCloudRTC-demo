@@ -29,13 +29,13 @@
   NSArray *childItemsArray = @[
       
                               @{kClassKey  : @"DemoPageController",
-                                kTitleKey  : @"演示",
-                                kImgKey    : @"icon_main_keyboard",
-                                kSelImgKey : @"icon_main_keyboard_select"},
+                                kTitleKey  : @"拨号键盘",
+                                kImgKey    : @"Frame 128",
+                                kSelImgKey : @"Frame 128-1"},
                               @{kClassKey  : @"MineViewController",
                                 kTitleKey  : @"我的",
-                                kImgKey    : @"icon_main_mine",
-                                kSelImgKey : @"icon_main_mine_select"},
+                                kImgKey    : @"线性／people",
+                                kSelImgKey : @"线性／people-1"},
   ];
    
    [childItemsArray enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop) {
@@ -44,9 +44,14 @@
        BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
        UITabBarItem *item = nav.tabBarItem;
        item.title = dict[kTitleKey];
+       
        item.image = [UIImage imageNamed:dict[kImgKey]];
-       item.selectedImage = [[UIImage imageNamed:dict[kSelImgKey]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-       [item setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0 green:(190 / 255.0) blue:(12 / 255.0) alpha:1]} forState:UIControlStateSelected];
+       
+       UIImage * homeSelectImge = [UIImage imageNamed:dict[kSelImgKey]];
+           //第一种解决方法:因为系统默认是将我们选中的图片渲染为蓝色的,所以在这里我们可以将选中的图片设置为初始值, 使其不被渲染就可以;这种方法需要我们设置每一个tabBarItem的selectedImage属性,比较繁琐;
+       homeSelectImge = [homeSelectImge imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+       item.selectedImage = homeSelectImge;
+       [item setTitleTextAttributes:@{NSForegroundColorAttributeName : kRGBColor(73, 129, 96)} forState:UIControlStateSelected];
        [self addChildViewController:nav];
    }];
 }

@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 座席编号
 @property (nonatomic, copy) NSString *cno;
 
-/// 密码(需要md5加密,32位小写)
 @property (nonatomic, copy) NSString *password;
 
 @property (nonatomic, copy) NSString *username;
