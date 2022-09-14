@@ -125,4 +125,7 @@ static NSString * const kDomainName = @"kDomainName";
 /// SDK版本保存
 static NSString * const kSDKVersonPath = @"SDKVerson";
 
+/// 登录信息保存
+static NSString * const kLoginPath = @"LoginInformation";
+
 #endif /* TiGlobalDefines_h */

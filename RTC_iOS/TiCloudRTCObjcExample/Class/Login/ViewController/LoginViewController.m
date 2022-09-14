@@ -57,7 +57,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.environmentArray = @[@"测试环境",@"开发环境",@"正式环境"];
-      
+    
+    self.viewModel = [LoginViewModel sharedInstance];
+    
     [self initViews];
     
     _loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -67,7 +69,6 @@
      
     //登录请求
     @weakify(self);
-    self.viewModel = [LoginViewModel sharedInstance];
     [RACObserve(self.viewModel, networkState) subscribeNext:^(NSNumber *networkState) {
         @strongify(self);
         if (self.viewModel.networkState == NetworkStateSuccess) {
@@ -99,10 +100,10 @@
             [self->_loading stopAnimating];
             [self showErrorView:@"登录信息错误，请检查"];
         }
-        else
+        else if (self.viewModel.networkState == NetworkStateConnectFail)
         {
             [self->_loading stopAnimating];
-            [self showErrorView:@"登录失败，请重试"];
+            [self showErrorView:@"网络请求失败，请重试"];
         }
     }];
 }
@@ -182,12 +183,30 @@
     loginBtn.titleLabel.font = CHFont16;
     [loginBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
 //    [loginBtn setBackgroundColor:kHexColor(0xBDD5FF)];
-    [loginBtn setBackgroundColor:kHexColor(0x00865C)];
     loginBtn.layer.cornerRadius = 8.0;
     [loginBtn addTarget:self action:@selector(didClickLoginBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:loginBtn];
     self.loginBtn = loginBtn;
-    loginBtn.userInteractionEnabled = NO;
+//    loginBtn.userInteractionEnabled = NO;
+    
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
+    if (dict)
+    {
+        self.enterprisesField.textField.text = dict[@"enterprises"];
+        self.userNameField.textField.text = dict[@"userName"];
+        self.passwordField.textField.text = dict[@"password"];
+        self.viewModel.enterpriseId = [dict[@"enterprises"] integerValue];
+        self.viewModel.username = dict[@"userName"];
+        self.viewModel.password = dict[@"password"];
+        
+        [loginBtn setBackgroundColor:kHexColor(0x00865C)];
+    }
+    else
+    {
+        loginBtn.userInteractionEnabled = NO;
+        
+        [loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
+    }
 }
 
 - (void)chooseEnvironment:(BOOL)isSelect
@@ -228,26 +247,30 @@
 - (void)didClickLoginBtnAction
 {    
     // 校验输入的数据存在性
-    if(self.viewModel.enterpriseId <= 0)
+    if(self.enterprisesField.textField.text.length <= 0)
     {
         [self showErrorView:@"请输入企业账号"];
         return;
     }
-    else if (self.viewModel.username.length <= 0)
+    else if (self.enterprisesField.textField.text.length <= 0)
     {
         [self showErrorView:@"请输入用户名"];
         return;
     }
-    else if (self.viewModel.password.length <= 0)
+    else if (self.enterprisesField.textField.text.length <= 0)
     {
         [self showErrorView:@"请输入密码"];
         return;
     }
-    
+    NSDictionary *dict1 = [[NSBundle mainBundle] infoDictionary];
     //请求登录
     [_loading startAnimating];    
     
     [self.viewModel requestData];
+    
+    NSDictionary *dict = @{@"enterprises":self.enterprisesField.textField.text,@"userName":self.userNameField.textField.text,@"password":self.passwordField.textField.text};
+    
+    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:kLoginPath];
 }
 
 - (CHResolutionView *)environmentChooseView
@@ -279,29 +302,6 @@
     }
 
     return _environmentChooseView;
-}
-
-- (BOOL)checkInputItem
-{
-    [NSData dataWithContentsOfFile:@""];
-    // 校验输入的数据存在性
-    if(self.viewModel.enterpriseId <= 0)
-    {
-        [self showErrorView:@"请输入企业账号"];
-        return NO;
-    }
-    else if (self.viewModel.username.length <= 0)
-    {
-        [self showErrorView:@"请输入用户名"];
-        return NO;
-    }
-    else if (self.viewModel.password.length <= 0)
-    {
-        [self showErrorView:@"请输入密码"];
-        return NO;
-    }
-    
-    return YES;
 }
 
 #pragma mark - TextFieldViewDelegate
