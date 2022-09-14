@@ -33,8 +33,6 @@
     
     self.appVerson = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     self.SDKVerson = [[NSUserDefaults standardUserDefaults] valueForKey:kSDKVersonPath];
-    
-    self.SDKVerson = @"1.0.7";
 }
 
 - (void)setupSubviews
