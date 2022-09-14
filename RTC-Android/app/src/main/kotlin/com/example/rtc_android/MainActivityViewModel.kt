@@ -1,7 +1,13 @@
 package com.example.rtc_android
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rtc_android.bean.BaseResult
@@ -18,10 +24,7 @@ import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
 import com.tinet.ticloudrtc.bean.CreateClientOption
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,9 +68,24 @@ internal class MainActivityViewModel : ViewModel() {
     private var currentTel = ""
     private var currentDtmfHistory = ""
 
-    private var enterpriseId: Int = 0
-    private var username: String = ""
-    private var password: String = ""
+    private var enterpriseId = ""
+    private var username = ""
+    private var password = ""
+
+    private val Context.loginDataStore: DataStore<Preferences> by preferencesDataStore("login_message")
+    private val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
+    private val KEY_USERNAME = stringPreferencesKey("key_username")
+    private val KEY_PASSWORD = stringPreferencesKey("key_password")
+
+    fun getLoginMessageFromLocalStore(context: Context): Flow<LoginMessage> {
+        return context.loginDataStore.data.map {
+            LoginMessage(
+                enterpriseId = it[KEY_ENTERPRISE_ID] ?: "",
+                username = it[KEY_USERNAME] ?: "",
+                password = it[KEY_PASSWORD] ?: ""
+            )
+        }
+    }
 
     init {
         viewModelScope.launch {
@@ -108,9 +126,9 @@ internal class MainActivityViewModel : ViewModel() {
 
     fun switchDtmfShowState() {
         _isShowDtmfPanel.value = _isShowDtmfPanel.value.not()
-        if(_isShowDtmfPanel.value){
+        if (_isShowDtmfPanel.value) {
             _biggerText.value = currentDtmfHistory
-        }else{
+        } else {
             _biggerText.value = currentTel
         }
     }
@@ -164,7 +182,7 @@ internal class MainActivityViewModel : ViewModel() {
 
         CrashReport.initCrashReport(loginIntent.context, BuildConfig.BUGLY_APPID, BuildConfig.DEBUG)
 
-        Log.i("rtc_android","""$loginIntent""")
+        Log.i("rtc_android", """$loginIntent""")
 
         if (
             loginIntent.platformUrl.isEmpty() ||
@@ -178,13 +196,13 @@ internal class MainActivityViewModel : ViewModel() {
 
         HttpServiceManager.url = loginIntent.platformUrl
 
-        enterpriseId = loginIntent.enterpriseId.toInt()
+        enterpriseId = loginIntent.enterpriseId
         username = loginIntent.username
         password = loginIntent.password
 
         HttpServiceManager.tiCloudHttpService.login(
             LoginParams(
-                enterpriseId = enterpriseId,
+                enterpriseId = enterpriseId.toInt(),
                 username = username,
                 password = password
             )
@@ -203,6 +221,14 @@ internal class MainActivityViewModel : ViewModel() {
                     var enterpriseId = 0
                     var accessToken = ""
 
+                    viewModelScope.launch {
+                        loginIntent.context.loginDataStore.edit {
+                            it[KEY_ENTERPRISE_ID] = this@MainActivityViewModel.enterpriseId
+                            it[KEY_USERNAME] = this@MainActivityViewModel.username
+                            it[KEY_PASSWORD] = this@MainActivityViewModel.password
+                        }
+                    }
+
                     loginResult.result?.also {
                         rtcEndpoint = it.rtcEndpoint
                         enterpriseId = it.enterpriseId
@@ -218,7 +244,7 @@ internal class MainActivityViewModel : ViewModel() {
                             userId = loginIntent.username,
                             accessToken = accessToken,
                         ).apply {
-                                isDebug = true
+                            isDebug = true
                         },
                         resultCallback = object : CreateResultCallback {
                             override fun onFailed(errorCode: Int, errorMessage: String) {
@@ -287,6 +313,8 @@ internal class MainActivityViewModel : ViewModel() {
             callingTimer = Timer().apply {
                 schedule(object : TimerTask() {
                     val startTime = Date().time
+
+                    @SuppressLint("ConstantLocale")
                     val sdp = SimpleDateFormat("mm:ss", Locale.getDefault())
 
                     override fun run() {
@@ -311,11 +339,16 @@ internal class MainActivityViewModel : ViewModel() {
         override fun onAccessTokenWillExpire(accessToken: String) {
             Log.i(
                 "AccessToken",
-                "onAccessTokenWillExpire ---- ${SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())}"
+                "onAccessTokenWillExpire ---- ${
+                    SimpleDateFormat(
+                        "yyyy-MM-dd hh:mm:ss",
+                        Locale.getDefault()
+                    ).format(Date())
+                }"
             )
             HttpServiceManager.tiCloudHttpService.login(
                 LoginParams(
-                    enterpriseId = enterpriseId,
+                    enterpriseId = enterpriseId.toInt(),
                     username = username,
                     password = password
                 )
@@ -345,7 +378,12 @@ internal class MainActivityViewModel : ViewModel() {
         override fun onAccessTokenHasExpired() {
             Log.i(
                 "AccessToken",
-                "onAccessTokenHasExpired ---- ${SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())}"
+                "onAccessTokenHasExpired ---- ${
+                    SimpleDateFormat(
+                        "yyyy-MM-dd hh:mm:ss",
+                        Locale.getDefault()
+                    ).format(Date())
+                }"
             )
             resetCallingState()
             rtcClient = null
@@ -431,6 +469,12 @@ sealed interface AppUiState {
 
     object OnAccessTokenHasExpired : AppUiState
 }
+
+data class LoginMessage(
+    val enterpriseId: String = "",
+    val username: String = "",
+    val password: String = ""
+)
 
 
 

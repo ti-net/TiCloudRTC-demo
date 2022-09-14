@@ -18,6 +18,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.rtc_android.*
 import com.example.rtc_android.databinding.FragmentLoginBinding
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
@@ -37,6 +38,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initLoginMessage()
 
         binding.apply {
             spinnerEnv.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -105,6 +108,22 @@ class LoginFragment : Fragment() {
 
 
         obsState()
+    }
+
+    private fun initLoginMessage() {
+        lifecycleScope.launchWhenResumed {
+            viewModel.getLoginMessageFromLocalStore(requireContext())
+                .collectLatest { loginMessage ->
+                    binding.apply {
+                        edtEnterpriseId.text = Editable.Factory.getInstance()
+                            .newEditable(loginMessage.enterpriseId)
+                        edtUsername.text = Editable.Factory.getInstance()
+                            .newEditable(loginMessage.username)
+                        edtPassword.text = Editable.Factory.getInstance()
+                            .newEditable(loginMessage.password)
+                    }
+                }
+        }
     }
 
     private fun updateLoginButtonState() {

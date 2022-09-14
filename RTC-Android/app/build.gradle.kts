@@ -103,6 +103,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
 
     // kotlin 携程
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
@@ -132,7 +134,7 @@ dependencies {
     implementation("com.guolindev.permissionx:permissionx:1.6.4")
 
     // tencent bugly
-    implementation("com.tencent.bugly:crashreport:4.0.4")
+    implementation("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
     implementation("com.github.ti-net:TiCloud-RTC-Android:2.0.5@aar")
