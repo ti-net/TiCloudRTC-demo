@@ -121,6 +121,20 @@
     imageView.image = [UIImage imageNamed:@"topLogo"];
     [bgView addSubview:imageView];
     
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, imageView.bottom + 12, self.view.width, 34)];
+    titleLabel.text = @"TI-RTC";
+    titleLabel.textColor = kHexColor(0x595959);
+    titleLabel.font = [UIFont fontWithName:kFontNameMedium size:24];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [bgView addSubview:titleLabel];
+    
+    UILabel *subtitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, titleLabel.bottom + 5, self.view.width, 18)];
+    subtitleLabel.text = @"让客户联络效率更高，体验更好";
+    subtitleLabel.textColor = kHexColor(0x8C8C8C);
+    subtitleLabel.font = CHFont12;
+    subtitleLabel.textAlignment = NSTextAlignmentCenter;
+    [bgView addSubview:subtitleLabel];
+    
     /*
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.width - 64)/2, 118, 64, 64)];
     imageView.contentMode = UIViewContentModeCenter;
@@ -142,7 +156,7 @@
     [bgView addSubview:subtitleLabel];
      */
     
-    TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, imageView.bottom + 80, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
+    TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, subtitleLabel.bottom + 80, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
 
     environmentField.delegate = self;
     [bgView addSubview:environmentField];
@@ -262,7 +276,7 @@
         [self showErrorView:@"请输入密码"];
         return;
     }
-    NSDictionary *dict1 = [[NSBundle mainBundle] infoDictionary];
+
     //请求登录
     [_loading startAnimating];    
     
