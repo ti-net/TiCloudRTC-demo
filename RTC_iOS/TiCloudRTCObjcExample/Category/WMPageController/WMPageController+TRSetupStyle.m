@@ -18,8 +18,8 @@
     self.menuView.scrollView.scrollsToTop = NO;
     self.titleSizeSelected   = 14.f;
     self.titleColorNormal   = kHexColor(0x666666);
-    self.titleColorSelected = kHexColor(kThemeColor);
-    self.progressColor = kHexColor(kThemeColor);
+    self.titleColorSelected = kHexColor(0x00865C);
+    self.progressColor = kHexColor(0x00865C);
     self.titleFontName      = kFontNameRegular;
     self.preloadPolicy       = WMPageControllerPreloadPolicyNear;
     self.view.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
