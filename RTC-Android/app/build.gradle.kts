@@ -34,11 +34,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
 
-            AppConfig.releaseFields.forEach {
+            CommonConfig.releaseFields.forEach {
                 buildConfigField(it.type,it.fieldName,it.fieldValue)
             }
 
-            AppConfig.releaseResValue.forEach {
+            CommonConfig.releaseResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
             }
         }
@@ -47,11 +47,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
-            AppConfig.debugFields.forEach {
+            CommonConfig.debugFields.forEach {
                 buildConfigField(it.type,it.fieldName,it.fieldValue)
             }
 
-            AppConfig.debugResValue.forEach {
+            CommonConfig.debugResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
             }
         }
@@ -102,8 +102,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+
 
     // 权限申请
     implementation("com.guolindev.permissionx:permissionx:1.6.4")

@@ -38,13 +38,13 @@ android {
             }
         }
 
-        create("onlineTest"){
-            signingConfig = signingConfigs.getByName("debug")
-
-            CommonConfig.onlineTestFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
-            }
-        }
+//        create("onlineTest"){
+//            signingConfig = signingConfigs.getByName("debug")
+//
+//            CommonConfig.onlineTestFields.forEach {
+//                buildConfigField(it.type,it.fieldName,it.fieldValue)
+//            }
+//        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
@@ -64,6 +64,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    api("androidx.datastore:datastore-preferences:1.0.0")
+    api("androidx.datastore:datastore-preferences-core:1.0.0")
 
     // kotlin 携程
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
@@ -90,8 +92,8 @@ dependencies {
     testImplementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     // tencent bugly
-    api("com.tencent.bugly:crashreport:4.0.4")
+    api("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:2.0.1@aar")
+    api("com.github.ti-net:TiCloud-RTC-Android:2.0.5@aar")
 }

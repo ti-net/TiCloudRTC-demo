@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
 import com.example.common.AppIntent
 import com.example.common.MainActivityViewModel
+import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentDialBinding
 import kotlinx.coroutines.launch
 

@@ -38,11 +38,11 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
 
-            AppComposeConfig.releaseFields.forEach {
+            CommonConfig.releaseFields.forEach {
                 buildConfigField(it.type,it.fieldName,it.fieldValue)
             }
 
-            AppComposeConfig.releaseResValue.forEach {
+            CommonConfig.releaseResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
             }
         }
@@ -51,28 +51,28 @@ android {
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
 
-            AppComposeConfig.debugFields.forEach {
+            CommonConfig.debugFields.forEach {
                 buildConfigField(it.type,it.fieldName,it.fieldValue)
             }
 
-            AppComposeConfig.debugResValue.forEach {
+            CommonConfig.debugResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
             }
         }
 
-        create("onlineTest"){
-            applicationIdSuffix = ".online_test"
-            isDebuggable = true
-            signingConfig = signingConfigs.getByName("debug")
-
-            AppComposeConfig.onlineTestFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
-            }
-
-            AppComposeConfig.onlineTestResValue.forEach {
-                resValue(it.type,it.fieldName,it.fieldValue)
-            }
-        }
+//        create("onlineTest"){
+//            applicationIdSuffix = ".online_test"
+//            isDebuggable = true
+//            signingConfig = signingConfigs.getByName("debug")
+//
+//            AppComposeConfig.onlineTestFields.forEach {
+//                buildConfigField(it.type,it.fieldName,it.fieldValue)
+//            }
+//
+//            AppComposeConfig.onlineTestResValue.forEach {
+//                resValue(it.type,it.fieldName,it.fieldValue)
+//            }
+//        }
     }
 
     compileOptions {

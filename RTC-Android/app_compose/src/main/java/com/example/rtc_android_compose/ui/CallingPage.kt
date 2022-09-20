@@ -29,7 +29,7 @@ fun CallingPage(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    val currentPhoneNum by remember { mutableStateOf(mainViewModel.currentTel()) }
+    val currentPhoneNum by mainViewModel.biggerText.collectAsState()
 
     val isShowDialPanel by mainViewModel.isShowDtmfPanel.collectAsState()
 

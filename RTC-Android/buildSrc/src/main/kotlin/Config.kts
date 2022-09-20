@@ -8,85 +8,6 @@ object AppConfig{
     const val applicationId = "com.example.rtc_android"
     const val versionCode = 7
     const val versionName = "2.5.0"
-
-    val releaseFields = listOf(
-        GradleField("String","OUT_CALL_USER_FIELD","\"%s\""),
-        GradleField("String","CALL_AGENT_USER_FIELD","\"%s\""),
-        GradleField("String","NODE_1_USER_FIELD","\"%s\""),
-        GradleField("String","NODE_2_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
-                    "%s\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_3_USER_FIELD","""
-            "[\n"+
-                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
-                     "%s\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_4_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
-                    "%s\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"测试环境\",\"正式环境\",\"开发环境\"}"),
-        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE","{\"https://rtc-api-test.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-dev.cticloud.cn\"}"),
-        // bugly 配置 ------------------------------
-        // appId
-        GradleField("String","BUGLY_APPID","\"16c04631f3\""),
-    )
-
-    val releaseResValue = listOf(
-        // default base url
-        GradleResField("string","app_name","Ti-RTC"),
-        GradleResField("string","default_enterprise_id","\"\""),
-        GradleResField("string","default_username","\"\""),
-        GradleResField("string","default_password","\"\""),
-    )
-
-    val debugFields = listOf(
-        GradleField("String","OUT_CALL_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"id\",\"value\":\"90007573\",\"type\":1},\n"+
-                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1}\n"+
-                     "%s\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","CALL_AGENT_USER_FIELD","\"%s\""),
-        GradleField("String","NODE_1_USER_FIELD","\"%s\""),
-        GradleField("String","NODE_2_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
-                    "%s\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_3_USER_FIELD","""
-            "[\n"+
-                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
-                     "%s\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String","NODE_4_USER_FIELD","""
-            "[\n"+
-                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
-                    "%s\n"+
-            "]"
-        """.trimIndent()),
-        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"测试环境\",\"正式环境\",\"开发环境\"}"),
-        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE","{\"https://rtc-api-test.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-dev.cticloud.cn\"}"),
-        // bugly 配置 ------------------------------
-        // appId
-        GradleField("String","BUGLY_APPID","\"16c04631f3\""),
-    )
-
-    val debugResValue = listOf(
-        GradleResField("string","app_name","Ti-RTC-debug"),
-        GradleResField("string","default_enterprise_id","\"\""),
-        GradleResField("string","default_username","\"\""),
-        GradleResField("string","default_password","\"\""),
-    )
 }
 
 object AppComposeConfig{
@@ -94,7 +15,9 @@ object AppComposeConfig{
     const val versionCode = 1
     const val versionName = "1.0"
     const val composeVersion = "1.2.0"
+}
 
+object CommonConfig{
     val releaseFields = listOf(
         GradleField("String","OUT_CALL_USER_FIELD","\"%s\""),
         GradleField("String","CALL_AGENT_USER_FIELD","\"%s\""),
