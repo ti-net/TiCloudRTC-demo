@@ -5,12 +5,37 @@ object ProjectConfig{
 }
 
 object AppConfig{
-    const val versionCode = 1
-    const val versionName = "1.0"
+    const val versionCode = 3
+    const val versionName = "2.1"
 
-//    val releaseFields = listOf(
-//
-//    )
+    val releaseFields = listOf(
+        GradleField("String","OUT_CALL_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"id\",\"value\":\"90007573\",\"type\":1},\n"+
+                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1},\n"+
+                    "{\"name\":\"depId\",\"value\":\"340179\",\"type\":1},\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_1_USER_FIELD","\"\""),
+        GradleField("String","NODE_2_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_3_USER_FIELD","""
+            "[\n"+
+                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_4_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        // bugly 配置 ------------------------------
+        // appId
+        GradleField("String","BUGLY_APPID","\"16c04631f3\""),
+    )
 
     val releaseResValue = listOf(
         // default base url
@@ -21,23 +46,71 @@ object AppConfig{
         GradleResField("string","default_password","\"\""),
     )
 
-//    val debugFields = listOf(
-//        // default base url
-//
-//    )
+    val debugFields = listOf(
+        GradleField("String","OUT_CALL_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"id\",\"value\":\"90007573\",\"type\":1},\n"+
+                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1},\n"+
+                    "{\"name\":\"depId\",\"value\":\"340179\",\"type\":1},\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_1_USER_FIELD","\"\""),
+        GradleField("String","NODE_2_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_3_USER_FIELD","""
+            "[\n"+
+                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_4_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        // bugly 配置 ------------------------------
+        // appId
+        GradleField("String","BUGLY_APPID","\"16c04631f3\""),
+    )
 
     val debugResValue = listOf(
         GradleResField("string","default_url","\"\""),
-        GradleResField("string","app_name","RTC-A-debug"),
+        GradleResField("string","app_name",""),
         GradleResField("string","default_enterprise_id","\"\""),
         GradleResField("string","default_username","\"\""),
         GradleResField("string","default_password","\"\""),
     )
 
-//    val onlineTestFields = listOf(
-//        // default base url
-//
-//    )
+    val onlineTestFields = listOf(
+        GradleField("String","OUT_CALL_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"id\",\"value\":\"90007573\",\"type\":1},\n"+
+                    "{\"name\":\"workNum\",\"value\":\"1026658\",\"type\":1},\n"+
+                    "{\"name\":\"depId\",\"value\":\"340179\",\"type\":1},\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_1_USER_FIELD","\"\""),
+        GradleField("String","NODE_2_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"3\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_3_USER_FIELD","""
+            "[\n"+
+                     "{\"name\":\"ivrNode\",\"value\":\"1\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        GradleField("String","NODE_4_USER_FIELD","""
+            "[\n"+
+                    "{\"name\":\"ivrNode\",\"value\":\"2\",\"type\":1}\n"+
+            "]"
+        """.trimIndent()),
+        // bugly 配置 ------------------------------
+        // appId
+        GradleField("String","BUGLY_APPID","\"16c04631f3\""),
+    )
 
     val onlineTestResValue = listOf(
         GradleResField("string","default_url","\"\""),

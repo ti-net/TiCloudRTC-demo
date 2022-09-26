@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_bottom_nav"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/dialFragment">
+    app:startDestination="@id/showFragment">
 
     <fragment
         android:id="@+id/mineFragment"
@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_mine"
         />
     <fragment
-        android:id="@+id/dialFragment"
-        android:name="com.example.rtc_android.ui.DialFragment"
-        android:label="DialFragment"
-        tools:layout="@layout/fragment_dial"
+        android:id="@+id/showFragment"
+        android:name="com.example.rtc_android.ui.ShowFragment"
+        android:label="ShowFragment"
+        tools:layout="@layout/fragment_show"
         />
 </navigation>
