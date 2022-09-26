@@ -1,4 +1,5 @@
 <resources>
+    <string name="login_smaller_text">让客户联络效率更高，体验更好</string>
     <string name="permission_request_reason">APP 运行需要如下权限</string>
     <string name="positive">确定</string>
     <string name="nagative">取消</string>
@@ -13,12 +14,39 @@
     <string name="sdk_version">SDK 版本：</string>
     <string name="login">登录</string>
     <string name="enterprise_id">企业ID</string>
+    <string name="enterprise_id_hint">请输入企业 ID</string>
+    <string name="user_id_hint">请输入用户 ID</string>
+    <string name="password_hint">请输入密码</string>
+    <string name="dev_mode">开发者模式</string>
     <string name="platform_url">平台地址</string>
     <string name="out_call_scene">外呼场景</string>
     <string name="hotline_scene">客服场景</string>
     <string name="call">呼叫</string>
+    <string name="callAgent">联系客服</string>
     <string name="tip_tel">客户号码</string>
     <string name="tip_clid">外显号码（可选）</string>
     <string name="tip_user_field">随路数据（可选）</string>
     <string name="num_95092">95092</string>
+    <string name="customer_data">客户资料</string>
+    <string name="vip">VIP 客户</string>
+    <string name="potential_customer">有意向客户</string>
+    <string name="please_enter_phone_num_of_customer">请输入客户号码</string>
+    <string name="phone_num_incorrect">号码格式不正确</string>
+    <string name="text_1">1</string>
+    <string name="text_2">2</string>
+    <string name="text_3">3</string>
+    <string name="text_4">4</string>
+    <string name="text_5">5</string>
+    <string name="text_6">6</string>
+    <string name="text_7">7</string>
+    <string name="text_8">8</string>
+    <string name="text_9">9</string>
+    <string name="text_asterisk">*</string>
+    <string name="text_0">0</string>
+    <string name="text_sign">#</string>
+    <string name="demo_calling_hide">隐藏</string>
+    <string name="demo_calling_keyboard">拨号键盘</string>
+    <string name="demo_calling_mute">静音</string>
+    <string name="demo_calling_speaker">扬声器</string>
+    <string name="hide">隐 藏</string>
 </resources>
