@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
+import com.example.common.AppIntent
+import com.example.common.AppViewModel
 import com.example.rtc_android.*
 import com.example.rtc_android.databinding.FragmentMineBinding
 import com.tinet.ticloudrtc.TiCloudRTC
@@ -16,7 +18,7 @@ class MineFragment : Fragment() {
 
     private lateinit var binding: FragmentMineBinding
 
-    private val viewModel by activityViewModels<MainActivityViewModel>()
+    private val viewModel by activityViewModels<AppViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

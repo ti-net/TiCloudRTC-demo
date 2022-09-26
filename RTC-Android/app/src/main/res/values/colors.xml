@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--    for deletable edt-->
-    <color name="edtColorPrimary">#00825F</color>
+    <color name="edtColorPrimary">#ff262626</color>
     <color name="edtColorAccent">#D81B60</color>
+    <color name="edtLineColor">#F0000000</color>
 
 </resources>

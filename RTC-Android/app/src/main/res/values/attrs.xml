@@ -7,5 +7,6 @@
         <attr name="isShowLeftIcon" format="boolean" />
         <attr name="isHideLine" format="boolean" />
         <attr name="isHideDelIcon" format="boolean" />
+        <attr name="isPassword" format="boolean"/>
     </declare-styleable>
 </resources>

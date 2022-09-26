@@ -9,8 +9,10 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,18 +31,23 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
         View.OnFocusChangeListener {
     private Paint mPaint;
     private int color;
+    private int lineColor;
     public static final int STATUS_FOCUSED = 1;
     public static final int STATUS_UNFOCUSED = 2;
     public static final int STATUS_ERROR = 3;
     private int status = 2;
     private Drawable del_btn;
     private Drawable del_btn_down;
+    private Drawable show_password_btn;
+    private Drawable hide_password_btn;
     private int focusedDrawableId = R.mipmap.ic_launcher;// 默认的
     private int unfocusedDrawableId = R.mipmap.ic_launcher;
     private int errorDrawableId = R.mipmap.ic_launcher;
     private boolean isShowLeftIcon;//是否显示左侧图标
     private boolean isHideLine; //是否隐藏下划线
     private boolean isHideDelIcon; //是否隐藏删除图标
+    private boolean isPassword; // 是否是输入密码, true 表示输入的是密码，false 表示输入的不是密码
+    private boolean isShowPassword = false; // 是否显示密码，true：显示密码，false：不显示密码
     Drawable left = null;
     private Context mContext;
     /**
@@ -72,6 +79,7 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
         isShowLeftIcon = a.getBoolean(R.styleable.EditTextWithDelete_isShowLeftIcon, true);
         isHideLine = a.getBoolean(R.styleable.EditTextWithDelete_isHideLine, false);
         isHideDelIcon = a.getBoolean(R.styleable.EditTextWithDelete_isHideDelIcon, false);
+        isPassword = a.getBoolean(R.styleable.EditTextWithDelete_isPassword,false);
         a.recycle();
         init();
 
@@ -86,17 +94,33 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(1.0f);
-        color = Color.parseColor("#bfbfbf");
-        del_btn = mContext.getResources().getDrawable(android.R.drawable.ic_delete);
-        del_btn_down = mContext.getResources().getDrawable(android.R.drawable.ic_delete);
+        color = Color.parseColor("#f0000000");
+        lineColor = Color.parseColor("#f0000000");
+        del_btn = mContext.getResources().getDrawable(R.drawable.icon_close);
+        del_btn_down = mContext.getResources().getDrawable(R.drawable.icon_close);
+        show_password_btn = mContext.getResources().getDrawable(R.drawable.icon_browse);
+        hide_password_btn = mContext.getResources().getDrawable(R.drawable.icon_browse_hide);
         setStatus(status);
         addListeners();
+        initInputType();
+    }
+
+    private void initInputType(){
+        if(isPassword){
+            if(isShowPassword){
+                this.setInputType(InputType.TYPE_CLASS_TEXT);
+                this.setTransformationMethod(null);
+            }else{
+                this.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                this.setTransformationMethod(new PasswordTransformationMethod());
+            }
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mPaint.setColor(color);
+        mPaint.setColor(lineColor);
         if (!isHideLine) {
             canvas.drawLine(0, this.getHeight() - 1, this.getWidth(), this.getHeight() - 1, mPaint);
         }
@@ -106,25 +130,39 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (isSelecter) return false;
-        if (del_btn != null && event.getAction() == MotionEvent.ACTION_UP) {
-            // 获取点击时手指抬起的X坐标
-            xUp = (int) event.getX();
-            // 当点击的坐标到当前输入框右侧的距离小于等于getCompoundPaddingRight()的距离时，则认为是点击了删除图标
-            if ((getWidth() - xUp) <= getCompoundPaddingRight()) {
-                if (!TextUtils.isEmpty(getText().toString())) {
-                    setText("");
-                    if (onDeleteListener != null) {
-                        onDeleteListener.onDelete();
+        if(!isPassword){
+            if (del_btn != null && event.getAction() == MotionEvent.ACTION_UP) {
+                // 获取点击时手指抬起的X坐标
+                xUp = (int) event.getX();
+                // 当点击的坐标到当前输入框右侧的距离小于等于getCompoundPaddingRight()的距离时，则认为是点击了删除图标
+                if ((getWidth() - xUp) <= getCompoundPaddingRight()) {
+                    if (!TextUtils.isEmpty(getText().toString())) {
+                        setText("");
+                        if (onDeleteListener != null) {
+                            onDeleteListener.onDelete();
+                        }
                     }
                 }
+            } else if (del_btn != null && event.getAction() == MotionEvent.ACTION_DOWN && getText().length() != 0) {
+                if (!isHideDelIcon) {
+                    setCompoundDrawablesWithIntrinsicBounds(left, null, del_btn_down, null);
+                }
+            } else if (getText().length() != 0) {
+                if (!isHideDelIcon) {
+                    setCompoundDrawablesWithIntrinsicBounds(left, null, del_btn, null);
+                }
             }
-        } else if (del_btn != null && event.getAction() == MotionEvent.ACTION_DOWN && getText().length() != 0) {
-            if (!isHideDelIcon) {
-                setCompoundDrawablesWithIntrinsicBounds(left, null, del_btn_down, null);
-            }
-        } else if (getText().length() != 0) {
-            if (!isHideDelIcon) {
-                setCompoundDrawablesWithIntrinsicBounds(left, null, del_btn, null);
+        }else{
+            if(event.getAction() == MotionEvent.ACTION_UP){
+                // 获取点击时手指抬起的X坐标
+                xUp = (int) event.getX();
+                // 当点击的坐标到当前输入框右侧的距离小于等于getCompoundPaddingRight()的距离时，则认为是点击了删除图标
+                if ((getWidth() - xUp) <= getCompoundPaddingRight()) {
+                    isShowPassword = !isShowPassword;
+                    initInputType();
+                    setCompoundDrawablesWithIntrinsicBounds(left, null, judgeRightIcon(), null);
+                    invalidate();
+                }
             }
         }
         return super.onTouchEvent(event);
@@ -141,6 +179,13 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
         this.onDeleteListener = onDeleteListener;
     }
 
+    private Drawable judgeRightIcon(){
+        if(isPassword){
+            if(isShowPassword) return hide_password_btn; else return show_password_btn;
+        }
+        return (this.status == STATUS_FOCUSED) && (!isHideDelIcon && !TextUtils.isEmpty(getText().toString().trim()))? del_btn : null;
+    }
+
     public void setStatus(int status) {
         this.status = status;
         switch (status) {
@@ -151,9 +196,10 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
                     e.printStackTrace();
                 }
                 setColor(getResources().getColor(R.color.edtColorAccent));
-                if (isShowLeftIcon) {
+                setLineColor(getResources().getColor(R.color.edtLineColor));
+                if (isShowLeftIcon ) {
                     setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
-                } else {
+                } else  {
                     left = null;
                     setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 }
@@ -165,11 +211,11 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
                     e.printStackTrace();
                 }
                 setColor(getResources().getColor(R.color.edtColorPrimary));
+                setLineColor(getResources().getColor(R.color.edtLineColor));
                 if (isShowLeftIcon) {
-                    setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
+                    setCompoundDrawablesWithIntrinsicBounds(left, null, judgeRightIcon(), null);
                 } else {
-                    left = null;
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    setCompoundDrawablesWithIntrinsicBounds(null, null, judgeRightIcon(), null);
                 }
                 break;
             case STATUS_FOCUSED:
@@ -179,17 +225,12 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
                     e.printStackTrace();
                 }
                 setColor(getResources().getColor(R.color.edtColorPrimary));
+                setLineColor(getResources().getColor(R.color.edtLineColor));
                 if (isShowLeftIcon) {
                     // 如果非空，则要显示删除图标
-                    if (!isHideDelIcon && !TextUtils.isEmpty(getText().toString().trim())) {
-                        setCompoundDrawablesWithIntrinsicBounds(left, null, del_btn, null);
-                    }
+                    setCompoundDrawablesWithIntrinsicBounds(left, null, judgeRightIcon(), null);
                 } else {
-                    left = null;
-                    setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
-                    if (!isHideDelIcon && !TextUtils.isEmpty(getText().toString().trim())) {
-                        setCompoundDrawablesWithIntrinsicBounds(left, null, del_btn, null);
-                    }
+                    setCompoundDrawablesWithIntrinsicBounds(null, null, judgeRightIcon(), null);
                 }
                 break;
         }
@@ -241,6 +282,11 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
         invalidate();
     }
 
+    public void setLineColor(int color){
+        this.lineColor = color;
+        invalidate();
+    }
+
 
     @Override
     public void afterTextChanged(Editable arg0) {
@@ -265,18 +311,18 @@ public class EditTextWithDelete extends AppCompatEditText implements TextWatcher
         if (hasFocus) {
             if (TextUtils.isEmpty(s)) {
                 // 如果为空，则不显示删除图标
-                setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
+                setCompoundDrawablesWithIntrinsicBounds(left, null, judgeRightIcon(), null);
             } else if (!isHideDelIcon) {
                 // 如果非空，则要显示删除图标
-                setCompoundDrawablesWithIntrinsicBounds(left, null, del_btn, null);
+                setCompoundDrawablesWithIntrinsicBounds(left, null, judgeRightIcon(), null);
             }
         } else {
             // 如果没有焦点， 则不显示删除图标
-            setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
+            setCompoundDrawablesWithIntrinsicBounds(left, null, judgeRightIcon(), null);
         }
         //如果是下拉框类型
         if (isSelecter) {
-            setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
+            setCompoundDrawablesWithIntrinsicBounds(left, null, judgeRightIcon(), null);
         }
     }
 

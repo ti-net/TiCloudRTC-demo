@@ -30,6 +30,11 @@
         <deepLink
             android:id="@+id/deepLink"
             app:uri="android-app://loginFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_demoMainFragment"
+            app:destination="@id/demoMainFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/callingFragment"
@@ -41,4 +46,37 @@
         app:destination="@id/loginFragment"
         app:popUpTo="@id/mainFragment"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/demoMainFragment"
+        android:name="com.example.rtc_android.ui.DemoMainFragment"
+        android:label="DemoMainFragment"
+        tools:layout="@layout/fragment_demo_main"
+        >
+        <action
+            android:id="@+id/action_demoMainFragment_to_demoDialFragment"
+            app:destination="@id/demoDialFragment"
+            app:popUpTo="@id/demoMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/demoDialFragment"
+        android:name="com.example.rtc_android.ui.DemoDialFragment"
+        android:label="DemoDialFragment"
+        tools:layout="@layout/fragment_demo_dial"
+        >
+        <action
+            android:id="@+id/action_demoDialFragment_to_demoCallingFragment"
+            app:destination="@id/demoCallingFragment"
+            app:popUpTo="@id/demoMainFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="phoneNum"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
+    <fragment
+        android:id="@+id/demoCallingFragment"
+        android:name="com.example.rtc_android.ui.DemoCallingFragment"
+        android:label="DemoCallingFragment"
+        tools:layout="@layout/fragment_demo_calling"
+        />
 </navigation>

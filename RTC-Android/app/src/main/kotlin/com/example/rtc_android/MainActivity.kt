@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.rtc_android.databinding.ActivityMainBinding
 import com.permissionx.guolindev.PermissionX
 
-class MainActivity() : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 

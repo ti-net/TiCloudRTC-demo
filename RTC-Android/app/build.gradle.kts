@@ -18,7 +18,7 @@ android {
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
-        applicationId = "com.example.rtc_android"
+        applicationId = AppConfig.applicationId
         minSdk = ProjectConfig.minSdk
         targetSdk = ProjectConfig.targetSdk
         versionCode = AppConfig.versionCode
@@ -34,39 +34,28 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
 
-            AppConfig.releaseFields.forEach {
+            CommonConfig.releaseFields.forEach {
                 buildConfigField(it.type,it.fieldName,it.fieldValue)
             }
 
-            AppConfig.releaseResValue.forEach {
+            CommonConfig.releaseResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
             }
         }
         debug{
+            isMinifyEnabled= false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
-            AppConfig.debugFields.forEach {
+            CommonConfig.debugFields.forEach {
                 buildConfigField(it.type,it.fieldName,it.fieldValue)
             }
 
-            AppConfig.debugResValue.forEach {
+            CommonConfig.debugResValue.forEach {
                 resValue(it.type,it.fieldName,it.fieldValue)
             }
         }
 
-        create("onlineTest"){
-            applicationIdSuffix = ".online_test"
-            isDebuggable = true
-            signingConfig = signingConfigs.getByName("debug")
-
-            AppConfig.onlineTestFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
-            }
-
-            AppConfig.onlineTestResValue.forEach {
-                resValue(it.type,it.fieldName,it.fieldValue)
-            }
-        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
@@ -89,49 +78,22 @@ android {
 }
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
-    // kotlin 携程
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
-
-    // kotlin 反射
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.7.0")
-
-    // json 转 gson 对象
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    testImplementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    // json 解析库
-    api("com.google.code.gson:gson:2.9.0")
-    testImplementation("com.google.code.gson:gson:2.9.0")
-
-    // 网络请求库
-    api("com.squareup.okhttp3:okhttp:3.14.9")
-    api("com.squareup.retrofit2:retrofit:2.9.0")
-    testImplementation("com.squareup.okhttp3:okhttp:3.14.9")
-    testImplementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     // 权限申请
     implementation("com.guolindev.permissionx:permissionx:1.6.4")
 
-    // tencent bugly
-    implementation("com.tencent.bugly:crashreport:4.0.4")
-
-    // TiCloudRtc SDK
-    implementation("com.github.ti-net:TiCloud-RTC-Android:2.0.3@aar")
+    // 依赖公共资源模块
+    implementation(project(":common"))
 }

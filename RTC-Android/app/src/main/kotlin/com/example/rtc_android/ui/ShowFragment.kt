@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.rtc_android.MainActivityViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentShowBinding
 import com.google.android.material.tabs.TabLayoutMediator
