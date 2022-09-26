@@ -14,7 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.common.AppUiState
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentMainBinding
 import com.tinet.ticloudrtc.ErrorCode
@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
 
-    private val viewModel by activityViewModels<MainActivityViewModel>()
+    private val viewModel by activityViewModels<AppViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

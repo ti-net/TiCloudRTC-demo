@@ -60,19 +60,6 @@ android {
             }
         }
 
-//        create("onlineTest"){
-//            applicationIdSuffix = ".online_test"
-//            isDebuggable = true
-//            signingConfig = signingConfigs.getByName("debug")
-//
-//            AppComposeConfig.onlineTestFields.forEach {
-//                buildConfigField(it.type,it.fieldName,it.fieldValue)
-//            }
-//
-//            AppComposeConfig.onlineTestResValue.forEach {
-//                resValue(it.type,it.fieldName,it.fieldValue)
-//            }
-//        }
     }
 
     compileOptions {

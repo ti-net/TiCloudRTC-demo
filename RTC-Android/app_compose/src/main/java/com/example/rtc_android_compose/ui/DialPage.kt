@@ -8,18 +8,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.common.AppIntent
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
+import com.example.rtc_android_compose.ui.theme.App_composeTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DialPage(
-    mainViewModel: MainActivityViewModel,
-    mainNavController: NavController,
-    subNavController: NavController
+    mainViewModel: AppViewModel
 ) {
 
     var phoneNum by remember { mutableStateOf("") }
@@ -68,4 +68,12 @@ fun DialPage(
     }
 
 
+}
+
+@Preview
+@Composable
+fun PreviewDialPage(){
+    App_composeTheme {
+        DialPage(viewModel())
+    }
 }

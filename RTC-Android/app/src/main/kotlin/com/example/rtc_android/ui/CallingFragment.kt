@@ -15,7 +15,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.common.AppIntent
 import com.example.common.AppUiState
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentCallingBinding
 import com.tinet.ticloudrtc.ErrorCode
@@ -25,7 +25,7 @@ class CallingFragment : Fragment() {
 
     private lateinit var binding: FragmentCallingBinding
 
-    private val viewModel by activityViewModels<MainActivityViewModel>()
+    private val viewModel by activityViewModels<AppViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

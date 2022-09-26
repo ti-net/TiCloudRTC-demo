@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
 import com.example.common.AppIntent
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentOutCallBinding
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ class OutCallFragment : Fragment() {
 
     private lateinit var binding: FragmentOutCallBinding
 
-    private val viewModel by activityViewModels<MainActivityViewModel>()
+    private val viewModel by activityViewModels<AppViewModel>()
 
 
     override fun onCreateView(

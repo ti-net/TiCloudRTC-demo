@@ -14,7 +14,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.common.AppIntent
 import com.example.common.AppUiState
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentDemoDialBinding
 import com.tinet.ticloudrtc.ErrorCode
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class DemoDialFragment : Fragment() {
 
     private lateinit var binding: FragmentDemoDialBinding
-    private val viewModel by activityViewModels<MainActivityViewModel>()
+    private val viewModel by activityViewModels<AppViewModel>()
 
 
     override fun onCreateView(

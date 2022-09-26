@@ -38,13 +38,6 @@ android {
             }
         }
 
-//        create("onlineTest"){
-//            signingConfig = signingConfigs.getByName("debug")
-//
-//            CommonConfig.onlineTestFields.forEach {
-//                buildConfigField(it.type,it.fieldName,it.fieldValue)
-//            }
-//        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)

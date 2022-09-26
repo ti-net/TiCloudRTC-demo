@@ -18,7 +18,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.common.AppIntent
 import com.example.common.AppUiState
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentLoginBinding
@@ -29,7 +29,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
 
-    private val viewModel by activityViewModels<MainActivityViewModel>()
+    private val viewModel by activityViewModels<AppViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

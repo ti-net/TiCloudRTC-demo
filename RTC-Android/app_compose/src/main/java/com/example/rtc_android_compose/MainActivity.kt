@@ -9,14 +9,20 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android_compose.ui.CallingPage
 import com.example.rtc_android_compose.ui.LoginPage
 import com.example.rtc_android_compose.ui.MainPage
@@ -24,6 +30,7 @@ import com.example.rtc_android_compose.ui.NavRoute
 import com.example.rtc_android_compose.ui.theme.App_composeTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -32,6 +39,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        WindowCompat.setDecorFitsSystemWindows(window,false)
         setContent {
+
+            val lifecycleOwner = LocalLifecycleOwner.current
+            val localView = LocalView.current
+
             App_composeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -39,28 +50,28 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val navControl = rememberNavController()
-                    val mainViewModel = viewModel<MainActivityViewModel>()
+                    val mainViewModel = viewModel<AppViewModel>()
                     NavHost(navControl, startDestination = NavRoute.MAIN) {
                         composable(NavRoute.MAIN) {
                             MainPage(
                                 mainViewModel = mainViewModel,
-                                navController = navControl
+                                navigateToLogin = { navControl.navigate(NavRoute.LOGIN) },
+                                navigateToCalling = { navControl.navigate(NavRoute.CALLING) }
                             )
                         }
                         composable(NavRoute.LOGIN) {
                             LoginPage(
                                 mainViewModel = mainViewModel,
-                                navController = navControl
+                                onLoginSuccess = { navControl.navigateUp() }
                             )
                         }
                         composable(NavRoute.CALLING) {
                             CallingPage(
                                 mainViewModel = mainViewModel,
-                                navController = navControl
+                                onBackToMain = { navControl.navigateUp() }
                             )
                         }
                     }
-                    RequestPermissionDialog()
                 }
 
             }
@@ -87,7 +98,7 @@ fun RequestPermissionDialog() {
     val multiplePermissionsState = rememberMultiplePermissionsState(permissions = permissions)
 
     if (multiplePermissionsState.allPermissionsGranted.not()) {
-        LaunchedEffect(permissions){
+        LaunchedEffect(permissions) {
             multiplePermissionsState.launchMultiplePermissionRequest()
         }
     }

@@ -18,30 +18,33 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.common.AppIntent
 import com.example.common.AppUiState
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android_compose.BuildConfig
 import com.example.rtc_android_compose.R
+import com.example.rtc_android_compose.ui.theme.App_composeTheme
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LoginPage(
-    mainViewModel: MainActivityViewModel,
-    navController: NavController
+    mainViewModel: AppViewModel,
+    onLoginSuccess: () -> Unit = {}
 ) {
     val context = LocalContext.current
     var strPlatform by remember { mutableStateOf(BuildConfig.LOGIN_ENVIRONMENT_VALUE[0]) }
     var enterpriseId by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var textFieldHeight = remember{30.dp}
 
     Column(
         modifier = Modifier
@@ -60,13 +63,17 @@ fun LoginPage(
                         username = context.getString(R.string.default_username)
                         password = context.getString(R.string.default_password)
                     }
-                ) {})
+                ) {}
+        )
+        Text(context.getString(R.string.app_name),Modifier.padding(top = 30.dp), fontSize = 24.sp)
+        Text("让客户联络效率更高，体验更好", fontSize = 12.sp)
         SpecimenSpinners(
             title = "选择环境",
             specimens = specimen,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 30.dp)
+
         ) { index, _ ->
             strPlatform = BuildConfig.LOGIN_ENVIRONMENT_VALUE[index]
         }
@@ -76,8 +83,12 @@ fun LoginPage(
             onValueChange = { strPlatform = it },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp)
+                .padding(top = 10.dp)
                 .background(Color.White)
+            ,
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.Transparent
+            )
         )
         TextField(
             value = enterpriseId,
@@ -85,8 +96,11 @@ fun LoginPage(
             onValueChange = { enterpriseId = it },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp)
-                .background(Color.White)
+                .padding(top = 10.dp)
+                .background(Color.White),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.Transparent
+            )
         )
 
         TextField(
@@ -95,8 +109,11 @@ fun LoginPage(
             onValueChange = { username = it },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp)
-                .background(Color.White)
+                .padding(top = 10.dp)
+                .background(Color.White),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.Transparent
+            )
         )
 
         TextField(
@@ -105,13 +122,16 @@ fun LoginPage(
             onValueChange = { password = it },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp)
-                .background(Color.White)
+                .padding(top = 10.dp)
+                .background(Color.White),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.Transparent
+            )
 
         )
         Button(modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp)
+            .padding(top = 10.dp)
             .height(50.dp), onClick = {
             mainViewModel.viewModelScope.launch {
                 mainViewModel.intentChannel.send(
@@ -159,7 +179,7 @@ fun LoginPage(
                         is AppUiState.WaitToLogin -> {}
                         is AppUiState.LoginSuccess -> {
                             Toast.makeText(context, "登录成功,引擎已创建", Toast.LENGTH_SHORT).show()
-                            navController.navigateUp()
+                            onLoginSuccess()
                         }
                         is AppUiState.LogoutSuccess -> Toast.makeText(
                             context,
@@ -239,16 +259,20 @@ fun SpecimenSpinners(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 20.dp)
         ) {
             specimens.forEachIndexed { index, specimen ->
                 DropdownMenuItem(
-                    modifier = Modifier.padding(start = 20.dp, end = 20.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(start = 20.dp, end = 20.dp)
+                        .fillMaxWidth(),
                     onClick = {
-                    expanded = false
-                    specimenText = specimen.toString()
-                    onItemSelected(index, specimenText)
-                }) {
+                        expanded = false
+                        specimenText = specimen.toString()
+                        onItemSelected(index, specimenText)
+                    }) {
                     Text(text = specimen.toString())
                 }
             }
@@ -262,5 +286,13 @@ fun SpecimenSpinners(
                     onClick = { expanded = !expanded }
                 )
         )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewLoginPage() {
+    App_composeTheme {
+        LoginPage(viewModel())
     }
 }

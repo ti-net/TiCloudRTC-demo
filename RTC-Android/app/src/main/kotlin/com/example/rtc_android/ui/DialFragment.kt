@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
 import com.example.common.AppIntent
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentDialBinding
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ class DialFragment:Fragment() {
 
     private lateinit var binding:FragmentDialBinding
 
-    private val viewModel by activityViewModels<MainActivityViewModel>()
+    private val viewModel by activityViewModels<AppViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

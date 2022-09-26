@@ -10,35 +10,41 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.common.AppUiState
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
 import com.example.rtc_android_compose.R
+import com.example.rtc_android_compose.ui.theme.App_composeTheme
 import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainPage(
-    mainViewModel: MainActivityViewModel,
-    navController: NavController
+    mainViewModel: AppViewModel,
+    navigateToLogin: () -> Unit = {},
+    navigateToCalling: () -> Unit = {}
 ) {
     LaunchedEffect(mainViewModel) {
         launch {
-            if (mainViewModel.isRtcClientInit().not()) {
-                navController.navigate(NavRoute.LOGIN)
-            }
+            if (mainViewModel.isRtcClientInit().not()) navigateToLogin()
         }
     }
-    MainPageContent(mainViewModel = mainViewModel, navController = navController)
+    MainPageContent(
+        mainViewModel = mainViewModel,
+        navigateToLogin = navigateToLogin,
+        navigateToCalling = navigateToCalling
+    )
 }
 
 data class BottomNavItem(
@@ -50,8 +56,9 @@ data class BottomNavItem(
 
 @Composable
 fun MainPageContent(
-    mainViewModel: MainActivityViewModel,
-    navController: NavController
+    mainViewModel: AppViewModel,
+    navigateToLogin: () -> Unit = {},
+    navigateToCalling: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -79,7 +86,7 @@ fun MainPageContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            BottomNavigation {
+            BottomNavigation(backgroundColor = Color.White) {
                 item.forEachIndexed { index, bottomNavItem ->
                     BottomNavigationItem(
                         icon = {
@@ -106,22 +113,20 @@ fun MainPageContent(
         },
     ) { innerPaddingModifier ->
         NavHost(
-            modifier = Modifier.fillMaxSize().padding(innerPaddingModifier),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPaddingModifier),
             navController = mainNavController,
             startDestination = NavRoute.DIAL
         ) {
             composable(NavRoute.DIAL) {
                 DialPage(
-                    mainViewModel = mainViewModel,
-                    mainNavController = navController,
-                    subNavController = mainNavController
+                    mainViewModel = mainViewModel
                 )
             }
             composable(NavRoute.MINE) {
                 MinePage(
-                    mainViewModel = mainViewModel,
-                    mainNavController = navController,
-                    navController = mainNavController
+                    mainViewModel = mainViewModel
                 )
             }
         }
@@ -152,13 +157,13 @@ fun MainPageContent(
                             "退出登录失败：${it.errorMsg}",
                             Toast.LENGTH_SHORT
                         ).show()
-                        is AppUiState.LogoutSuccess -> navController.navigate(NavRoute.LOGIN)
+                        is AppUiState.LogoutSuccess -> navigateToLogin()
                         is AppUiState.CallFailed -> Toast.makeText(
                             context,
                             "外呼失败：${it.errorMsg}",
                             Toast.LENGTH_SHORT
                         ).show()
-                        is AppUiState.OnCallStart -> navController.navigate(NavRoute.CALLING)
+                        is AppUiState.OnCallStart -> navigateToCalling()
                         is AppUiState.OnCallFailure -> Toast.makeText(
                             context,
                             "外呼错误：${it.errorMsg}",
@@ -177,7 +182,7 @@ fun MainPageContent(
                                 "access token 已过期",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            navController.navigate(NavRoute.LOGIN)
+                            navigateToLogin()
                         }
                         else -> {}
                     }
@@ -187,4 +192,10 @@ fun MainPageContent(
     }
 }
 
-
+@Preview
+@Composable
+fun PreviewMainPage() {
+    App_composeTheme {
+        MainPage(viewModel())
+    }
+}

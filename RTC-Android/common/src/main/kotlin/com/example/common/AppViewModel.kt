@@ -32,7 +32,7 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivityViewModel : ViewModel() {
+class AppViewModel : ViewModel() {
 
     val intentChannel: Channel<AppIntent> = Channel(Channel.UNLIMITED)
 
@@ -223,9 +223,9 @@ class MainActivityViewModel : ViewModel() {
 
                     viewModelScope.launch {
                         loginIntent.context.loginDataStore.edit {
-                            it[KEY_ENTERPRISE_ID] = this@MainActivityViewModel.enterpriseId
-                            it[KEY_USERNAME] = this@MainActivityViewModel.username
-                            it[KEY_PASSWORD] = this@MainActivityViewModel.password
+                            it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
+                            it[KEY_USERNAME] = this@AppViewModel.username
+                            it[KEY_PASSWORD] = this@AppViewModel.password
                         }
                     }
 
@@ -252,7 +252,7 @@ class MainActivityViewModel : ViewModel() {
                             }
 
                             override fun onSuccess(rtcClient: TiCloudRTC) {
-                                this@MainActivityViewModel.rtcClient = rtcClient
+                                this@AppViewModel.rtcClient = rtcClient
                                 rtcClient.setEventListener(CustomEventListener())
                                 _appUiState.value = AppUiState.LoginSuccess
                             }
@@ -396,7 +396,7 @@ class MainActivityViewModel : ViewModel() {
     }
 
     companion object {
-        private var LOG_TAG = MainActivityViewModel::class.java.simpleName
+        private var LOG_TAG = AppViewModel::class.java.simpleName
     }
 }
 

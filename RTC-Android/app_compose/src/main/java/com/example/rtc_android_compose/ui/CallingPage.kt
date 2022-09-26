@@ -10,21 +10,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.common.AppIntent
 import com.example.common.AppUiState
-import com.example.common.MainActivityViewModel
+import com.example.common.AppViewModel
+import com.example.rtc_android_compose.ui.theme.App_composeTheme
 import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 @Composable
 fun CallingPage(
-    mainViewModel: MainActivityViewModel,
-    navController: NavController
+    mainViewModel: AppViewModel,
+    onBackToMain:()->Unit={}
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -146,16 +148,16 @@ fun CallingPage(
                                     ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
                                     ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
                                     ErrorCode.ERR_CALL_FAILED_NET_ERROR,
-                                    ErrorCode.ERR_CALL_FAILED_RTM_ERROR -> backToMain(navController)
+                                    ErrorCode.ERR_CALL_FAILED_RTM_ERROR -> onBackToMain()
                                 }
                             }
                             is AppUiState.OnCallCanceled -> {
                                 Toast.makeText(context, "呼叫已取消", Toast.LENGTH_SHORT).show()
-                                backToMain(navController)
+                                onBackToMain()
                             }
                             is AppUiState.OnCallRefused -> {
                                 Toast.makeText(context, "外呼被拒绝", Toast.LENGTH_SHORT).show()
-                                backToMain(navController)
+                                onBackToMain()
                             }
                             is AppUiState.OnCallingEnd -> {
                                 Toast.makeText(
@@ -163,7 +165,7 @@ fun CallingPage(
                                     "外呼结束：${if (it.isPeerHangup) "对方挂断" else "己方挂断"}",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                backToMain(navController)
+                                onBackToMain()
                             }
                             is AppUiState.OnCallFailure -> {
                                 Toast.makeText(
@@ -171,7 +173,7 @@ fun CallingPage(
                                     "外呼错误：${it.errorMsg}",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                backToMain(navController)
+                                onBackToMain()
                             }
                             is AppUiState.OnRefreshTokenFailed -> {
                                 Toast.makeText(
@@ -179,7 +181,7 @@ fun CallingPage(
                                     it.errorMsg,
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                backToMain(navController)
+                                onBackToMain()
                             }
                             is AppUiState.OnAccessTokenHasExpired -> {
                                 Toast.makeText(
@@ -187,7 +189,7 @@ fun CallingPage(
                                     "access token 已过期",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                backToMain(navController)
+                                onBackToMain()
                             }
                             else -> {}
                         }
@@ -198,12 +200,16 @@ fun CallingPage(
     }
 }
 
-fun backToMain(navController: NavController) {
-    navController.navigateUp()
-}
-
-fun sendDtmf(mainViewModel: MainActivityViewModel, digits: String) {
+fun sendDtmf(mainViewModel: AppViewModel, digits: String) {
     mainViewModel.viewModelScope.launch {
         mainViewModel.intentChannel.send(AppIntent.SendDtmf(digits))
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCallingPage(){
+    App_composeTheme {
+        CallingPage(viewModel())
     }
 }
