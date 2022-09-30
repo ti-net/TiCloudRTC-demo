@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -34,38 +35,57 @@ import java.util.*
 
 class AppViewModel : ViewModel() {
 
+    /** 事件接收 */
     val intentChannel: Channel<AppIntent> = Channel(Channel.UNLIMITED)
 
+    /** UI 状态 */
     private val _appUiState = MutableStateFlow<AppUiState>(AppUiState.WaitToLogin)
     val appUiState = _appUiState.asStateFlow()
 
+    /** 静音状态，true：静音，false：非静音 */
     private val _muteState = MutableStateFlow(false)
     val muteState = _muteState.asStateFlow()
 
+    /** 扬声器状态，true：扬声器打开，false：扬声器关闭 */
     private val _speakerphoneOpenSate = MutableStateFlow(false)
     val speakerphoneOpenState = _speakerphoneOpenSate.asStateFlow()
 
     private val DEFAULT_BIGGER_TEXT = ""
+
+    /** 呼叫中界面大文本内容 */
     private val _biggerText = MutableStateFlow(DEFAULT_BIGGER_TEXT)
     val biggerText = _biggerText.asStateFlow()
 
     private val CALLING_TIP = "外呼中..."
+
+    /** 呼叫中界面小文本内容 */
     private val _smallText = MutableStateFlow(CALLING_TIP)
     val smallText = _smallText.asStateFlow()
 
     private val DEFAULT_DTMF_PANEL_STATE = false
+
+    /** dtmf 键盘打开标识，true：打开 dtmf 键盘，false：关闭 dtmf 键盘 */
     private val _isShowDtmfPanel =
         MutableStateFlow(DEFAULT_DTMF_PANEL_STATE)
     val isShowDtmfPanel = _isShowDtmfPanel.asStateFlow()
 
+    /** 开发者模式标识，true：开发者模式，false：非开发者模式 */
     private val _isDevMode = MutableStateFlow(true)
     val isDevMode = _isDevMode.asStateFlow()
 
+    /** 保存登录信息标识，true：登录时保存登录信息，false：登录时不保存登录信息 */
+    private val _isSaveLoginMessage = MutableStateFlow(true)
+    val isSaveLoginMessage = _isSaveLoginMessage.asStateFlow()
+
+    /** 通话事件计时器 */
     private var callingTimer: Timer? = null
 
     private var rtcClient: TiCloudRTC? = null
 
+    /** 当前通话中号码 */
     private var currentTel = ""
+
+    /** 当前 dtmf 输入记录 */
     private var currentDtmfHistory = ""
 
     private var enterpriseId = ""
@@ -76,15 +96,17 @@ class AppViewModel : ViewModel() {
     private val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
     private val KEY_USERNAME = stringPreferencesKey("key_username")
     private val KEY_PASSWORD = stringPreferencesKey("key_password")
+    private val KEY_IS_SAVE_LOGIN_MESSAGE = booleanPreferencesKey("key_is_save_login_message")
 
-    fun getLoginMessageFromLocalStore(context: Context): Flow<LoginMessage> {
+    suspend fun getLoginMessageFromLocalStore(context: Context): StateFlow<LoginMessage> {
         return context.loginDataStore.data.map {
+            _isSaveLoginMessage.value = it[KEY_IS_SAVE_LOGIN_MESSAGE] == true
             LoginMessage(
                 enterpriseId = it[KEY_ENTERPRISE_ID] ?: "",
                 username = it[KEY_USERNAME] ?: "",
                 password = it[KEY_PASSWORD] ?: ""
             )
-        }
+        }.stateIn(viewModelScope)
     }
 
     init {
@@ -107,6 +129,10 @@ class AppViewModel : ViewModel() {
 
     fun switchDevMode() {
         _isDevMode.value = _isDevMode.value.not()
+    }
+
+    fun switchSaveLoginMsgMode() {
+        _isSaveLoginMessage.value = _isSaveLoginMessage.value.not()
     }
 
     fun isRtcClientInit() = rtcClient != null
@@ -225,7 +251,13 @@ class AppViewModel : ViewModel() {
                         loginIntent.context.loginDataStore.edit {
                             it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
                             it[KEY_USERNAME] = this@AppViewModel.username
-                            it[KEY_PASSWORD] = this@AppViewModel.password
+                            if (isSaveLoginMessage.value) {
+                                it[KEY_PASSWORD] = this@AppViewModel.password
+                            }else{
+                                it[KEY_PASSWORD] = ""
+                            }
+                            it[KEY_IS_SAVE_LOGIN_MESSAGE] =
+                                this@AppViewModel.isSaveLoginMessage.value
                         }
                     }
 

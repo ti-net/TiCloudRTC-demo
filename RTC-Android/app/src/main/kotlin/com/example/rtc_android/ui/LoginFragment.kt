@@ -84,6 +84,8 @@ class LoginFragment : Fragment() {
             }
             icDevCheck.setOnClickListener { viewModel.switchDevMode() }
             tvDevModeCheck.setOnClickListener { viewModel.switchDevMode() }
+            icSaveLoginMsgCheck.setOnClickListener { viewModel.switchSaveLoginMsgMode() }
+            tvSaveLoginMsgCheck.setOnClickListener { viewModel.switchSaveLoginMsgMode() }
             edtEnterpriseId.addTextChangedListener {
                 updateLoginButtonState()
             }
@@ -182,9 +184,18 @@ class LoginFragment : Fragment() {
                 launch {
                     viewModel.isDevMode.collect { isDevMode ->
                         if (isDevMode) {
-                            binding.icDevCheck.setImageResource(R.drawable.icon_dev_mode_checked)
+                            binding.icDevCheck.setImageResource(R.drawable.icon_checked)
                         } else {
-                            binding.icDevCheck.setImageResource(R.drawable.icon_dev_mode_unchecked)
+                            binding.icDevCheck.setImageResource(R.drawable.icon_unchecked)
+                        }
+                    }
+                }
+                launch {
+                    viewModel.isSaveLoginMessage.collect{isSaveLoginMsg ->
+                        if(isSaveLoginMsg){
+                            binding.icSaveLoginMsgCheck.setImageResource(R.drawable.icon_checked)
+                        }else{
+                            binding.icSaveLoginMsgCheck.setImageResource(R.drawable.icon_unchecked)
                         }
                     }
                 }

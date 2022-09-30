@@ -49,4 +49,5 @@
     <string name="demo_calling_mute">静音</string>
     <string name="demo_calling_speaker">扬声器</string>
     <string name="hide">隐 藏</string>
+    <string name="save_login_message">记住密码</string>
 </resources>
