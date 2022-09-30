@@ -1,23 +1,24 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<!-- eslint-disable vue/valid-template-root -->
 <template>
-
     <view class="root-view">
-        <image class="root-view-bg" src="../../static/calling/bg_call.png" mode="scaleToFill" />
+        <image class="root-view-bg" src="../../static/DemoCalling/bg.png" mode="scaleToFill" />
         <live-player id="player" :src="rtmpPullUrl" mode="RTC" :sound-mode="soundMode" autoplay="false" class="player"
             @statechange="playerStateChange" @error="playerError" @netstatus="netstatus" />
         <live-pusher id="pusher" :url="rtmpPushUrl" mode="RTC" :enable-mic="enableMic" :enable-camera="false"
             autopush="false" class="pusher" @statechange="pusherStateChange" @error="pusherError" @netstatus="netstatus"
             waiting-image="../../static/login/logo.png" />
-        <view class="top-area">
+        <view v-if="!isShowDtmfPanel" class="top-area">
             <view class="current-phone-num">{{  currentPheneNum  }}</view>
             <view class="small-text">{{  smallText  }}</view>
         </view>
-        <view class="center-area">
+        <view v-else class="top-area">
+            <view class="current-dtmf-num">{{  currentDtmf  }}</view>
+        </view>
+        <view :class="{ 'center-area': true, 'center-area-showing-bottom': isShowDtmfPanel }">
+            <view class="center-fillter"></view>
             <view v-if="isShowDtmfPanel" class="dtmf-keyboard-area">
                 <view v-for="(row, rowIndex) in buttonChar" :key="rowIndex" class="keyboard-row">
                     <view v-for="(dtmfChat, chatIndex) in row" :key="chatIndex" class="dtmf-button"
-                        @click="sendDtmf(dtmfChat)">
+                    @click="sendDtmf(dtmfChat)">
                         <text class="dtmf-text">{{  dtmfChat  }}</text>
                     </view>
                 </view>
@@ -25,22 +26,31 @@
             </view>
             <view v-else class="control-area">
                 <view class="control-button-img-area">
-                    <image class="control-button-img" src="../../static/calling/ic_dtmf.png"
+                    <image class="control-button-img" src="../../static/DemoCalling/ic-kb-disable.png"
                         @click="switchDtmfShowState" />
+                    <text class="control-button-text">拨号键盘</text>
                 </view>
                 <view class="control-button-img-area">
-                    <image :class="{ 'control-button-img': true, 'enable': !enableMic }"
-                        src="../../static/calling/ic_mic.png" @click="switchMuteState" />
+                    <image v-if="enableMic" class="control-button-img" src="../../static/DemoCalling/ic-mic-enable.png"
+                        @click="switchMuteState" />
+                    <image v-else class="control-button-img" src="../../static/DemoCalling/ic-mic-disable.png"
+                        @click="switchMuteState" />
+                    <text class="control-button-text">静音</text>
                 </view>
                 <view class="control-button-img-area">
-                    <image :class="{ 'control-button-img': true, 'enable': soundMode == 'speaker' }"
-                        src="../../static/calling/ic_speaker.png" @click="switchSoundMode" />
+                    <image v-if="soundMode == 'speaker'" class="control-button-img"
+                        src="../../static/DemoCalling/ic-speaker-enable.png" @click="switchSoundMode" />
+                    <image v-else class="control-button-img" src="../../static/DemoCalling/ic-speaker-disable.png"
+                        @click="switchSoundMode" />
+                    <text class="control-button-text">扬声器</text>
                 </view>
             </view>
         </view>
         <view class="bottom-area">
-            <view class="hangupBtn" @click="hangup">挂断</view>
-            <view v-if="isShowDtmfPanel" class="hideDtmfBtn" @click="switchDtmfShowState">隐藏</view>
+            <image src="../../static/DemoCalling/icon-hangup.png" mode="scaleToFill" class="hangupBtn"
+                @click="hangup" />
+            <view v-if="isShowDtmfPanel" class="hideDtmfBtn" @click="switchDtmfShowState"><text
+                    class="hideDtmfBtnText">隐藏</text></view>
         </view>
     </view>
 </template>
@@ -54,8 +64,10 @@ export default {
         return {
             /* 当前电话号码 */
             currentPheneNum: "",
+            /** 当前已输入的 dtmf */
+            currentDtmf: "",
             /** 当前通话时间 */
-            smallText: "外呼中",
+            smallText: "呼叫中...",
             /** 标识是否显示 dtmf 按键面板, true 为显示 */
             isShowDtmfPanel: false,
             /** 按键字符 */
@@ -140,9 +152,11 @@ export default {
         this.appModel.hangup()
     },
     onLoad(options) {
-        if (options) {
-            this.currentPheneNum = options.currentPheneNum
-        }
+        try {
+            console.log(`options: ${JSON.stringify(options)}`)
+            this.currentPheneNum = options.phoneNumber ? options.phoneNumber : ""
+        } catch (err) { console.log(err) }
+
         console.log("pusher context", this.pusherContext)
 
         this.pusherContext = uni.createLivePusherContext("pusher")
@@ -159,11 +173,6 @@ export default {
             this.playerContext?.stop({
                 success() { console.log("已停止拉流") },
                 fail() { console.log("停止拉流失败") }
-            })
-            // uni.navigateBack()
-
-            uni.reLaunch({
-                url: "/pages/index/index"
             })
 
             new Promise((resolve, reject) => {
@@ -194,10 +203,8 @@ export default {
                 })
                     .finally(() => {
                         console.log("已完成关闭推流拉流")
-                        // uni.navigateBack()
-                        uni.switchTab({
-                            url: "/pages/index/index"
-                        })
+                        uni.navigateBack()
+                        
                     })
             }).catch(err => {
                 console.e(err)
@@ -259,6 +266,7 @@ export default {
             this.appModel.hangup()
         },
         sendDtmf(digits) {
+            this.currentDtmf = this.currentDtmf + digits
             this.appModel.sendDtmf(digits)
         },
         publishing(url) {
@@ -307,7 +315,7 @@ export default {
 }
 </script>
 
-<style >
+<style>
 page {
     width: 100%;
     height: 100%;
@@ -316,14 +324,11 @@ page {
 
 <style scoped>
 .root-view {
-    width: calc(100% - 80rpx);
+    width: 100%;
     height: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 40rpx;
-    padding-right: 40rpx;
-
 }
 
 .root-view-bg {
@@ -334,15 +339,44 @@ page {
 }
 
 .top-area {
-    width: inherit;
-    margin-top: 120rpx;
+    margin-top: 268rpx;
     flex-shrink: 0;
 }
 
 .current-phone-num {
-    width: inherit;
-    height: 60rpx;
+    width: 100%;
+    height: 64rpx;
+    font-size: 72rpx;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 64rpx;
+    text-align: center;
 
+}
+
+.current-dtmf-num {
+    width: 100%;
+    height: 64rpx;
+    font-size: 72rpx;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 64rpx;
+    text-align: center;
+
+}
+
+.small-text {
+    width: 100%;
+    height: 56rpx;
+    font-size: 40rpx;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 56rpx;
+    margin-top: 28rpx;
+    text-align: center;
 }
 
 .center-area {
@@ -351,52 +385,78 @@ page {
     flex-shrink: 2;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 80rpx;
+}
+
+.center-fillter{
+    flex-grow: 1;
+    width: 100%;
+    flex-shrink: 1;
+}
+
+.center-area-showing-bottom {
+    margin-bottom: 40rpx;
 }
 
 .dtmf-keyboard-area {
-    /* width: inherit; */
-    height: 100%;
-    padding: 40rpx;
+    width: calc(100% - 200rpx);
+    height: 696rpx;
     display: flex;
     flex-direction: column;
-    align-content: stretch;
+    justify-content: space-between;
 }
 
 .keyboard-row {
-    margin-top: 10rpx;
-    flex-grow: 1;
+    margin-top: 40rpx;
     display: flex;
     flex-direction: row;
+    height: fit-content;
+    justify-content: space-between;
+}
+
+.keyboard-row:first-child {
+    margin-top: 0rpx;
 }
 
 .dtmf-button {
-    width: 25vw;
-    height: 20vw;
-    border-radius: 30vw;
+    width: 144rpx;
+    height: 144rpx;
+    border-radius: 72rpx;
     text-align: center;
-    flex-grow: 1;
     flex-shrink: 1;
-    margin-left: 10rpx;
-    margin-right: 10rpx;
-    background-color: #63636347;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.2500);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
+.keyboard-row:last-child .dtmf-button:nth-last-child(3) .dtmf-text {
+    margin-top: 16rpx;
+}
+
+.dtmf-button:active {
+    background-color: rgba(255, 255, 255, 0.6500);
+}
+
 .dtmf-text {
     text-align: center;
-    font-size: 70rpx;
+    height: 64rpx;
+    font-size: 72rpx;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 64rpx;
 }
 
 .control-area {
-    width: 100%;
+    width: calc(100% - 200rpx);
     height: fit-content;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .control-button {
@@ -413,46 +473,59 @@ page {
 
 .control-button-img-area {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
+    height: fit-content;
 }
 
 .control-button-img {
-    background-color: #8a8a8a40;
-    border-radius: 100rpx;
-    width: 100rpx;
-    height: 100rpx;
-    padding: 40rpx;
+    width: 144rpx;
+    height: 144rpx;
+}
+
+.control-button-text {
+    height: 48rpx;
+    font-size: 32rpx;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 48rpx;
+    margin-top: 16rpx;
 }
 
 .bottom-area {
     width: inherit;
-    height: 300rpx;
+    height: fit-content;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-bottom: 154rpx;
 }
 
 .hangupBtn {
-    color: white;
-    border-radius: 80rpx;
-    background-color: rgb(213, 33, 33);
-    height: 160rpx;
-    width: 160rpx;
-    line-height: 160rpx;
-    text-align: center;
+    height: 144rpx;
+    width: 144rpx;
 }
 
 .hideDtmfBtn {
-    position: fixed;
-    right: 18%;
-    bottom: 180rpx;
-    color: white;
+    position: absolute;
+    right: 17.6%;
     height: 100rpx;
-    line-height: 100rpx;
     width: 100rpx;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hideDtmfBtnText {
+    font-size: 40rpx;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 56rpx;
 }
 
 .player {

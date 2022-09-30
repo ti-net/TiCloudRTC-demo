@@ -35,7 +35,7 @@ export default {
     mounted() {
         // 监听引擎事件
         this.appModel = AppModel()
-        console.log("index rtc client: ", this.appModel.rtcClient)
+        console.log("app model: ", this.appModel.rtcClient)
 
         this.appModel.$subscribe((mutation, state) => {
             switch (state.appUiState.stateName) {

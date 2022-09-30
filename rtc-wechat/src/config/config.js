@@ -3,8 +3,8 @@ const N = "\n"
 
 /** 小程序配置 */
 const AppConfig = {
-    VERSION_CODE: 1,
-    VERSION_NAME: "1.0.0"
+    VERSION_CODE: 2,
+    VERSION_NAME: "1.1.0"
 }
 
 /** 编译配置 */

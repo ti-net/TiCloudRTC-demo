@@ -1,30 +1,64 @@
 {
 	"pages": [
-		
-		
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationBarTitleText": "登录",
+				"disableScroll":true,
+				"navigationStyle":"custom"
 			}
 		},
+		{
+			"path": "pages/DemoCalling/DemoCalling",
+			"style": {
+				"navigationBarTitleText": "",
+				"disableScroll":true,
+				"navigationStyle":"custom"
+			}
+		},
+		
+		
+		{
+			"path": "pages/DialPanel/DialPanel",
+			"style": {
+				"navigationBarTitleText": "",
+				"disableScroll":true,
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/CallScene/CallScene",
+			"style": {
+				"navigationBarTitleText": "",
+				"disableScroll":true,
+				"navigationStyle":"custom"
+			}
+		},
+		
 		{
 			"path": "pages/calling/calling",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#000000",
+				"disableSwipeBack":true,
+				"disableScroll":true,
+				"navigationStyle":"custom"
 			}
 		},
+		
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"disableScroll":true
 			}
 		},
 		
 		{
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "我的",
+				"disableScroll":true
 			}
 		},
 		

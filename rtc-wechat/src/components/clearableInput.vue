@@ -73,8 +73,8 @@
 	}
 
 	.btnClear {
-		width: 48rpx;
-		height: 48rpx;
+		width: 32rpx;
+		height: 32rpx;
 		padding: 10rpx;
 		flex-shrink: 0;
 	}
