@@ -1,7 +1,7 @@
 
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { TiCloudRTC } from '../libs/ticloudrtc-wechat-sdk-1.0.0'
+import { TiCloudRTC } from "@tinet/ticloudrtc-wechat-sdk"
 import { HttpApiManager } from '../http/HttpApiManager'
 
 const AppModel = defineStore("AppState", () => {

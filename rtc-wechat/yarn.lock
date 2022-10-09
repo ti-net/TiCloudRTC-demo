@@ -904,6 +904,11 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@tinet/ticloudrtc-wechat-sdk@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@tinet/ticloudrtc-wechat-sdk/-/ticloudrtc-wechat-sdk-1.0.4.tgz#7471e2ceac4c6d4fb0e4804a270098a9d1c965e8"
+  integrity sha512-k8iaMuhB+NUxLihGY5v6L6S8Otrhj4qsRLkUu92tw5FtGinpLCHc7OY8p6bVnq14WXJgJ8uzaAJVfHz8mpi1gQ==
+
 "@vitejs/plugin-legacy@^1.8.2":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-legacy/-/plugin-legacy-1.8.2.tgz#2f315bcb6685b12719813fb9412851445cca636f"

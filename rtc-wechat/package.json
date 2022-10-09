@@ -45,6 +45,7 @@
     "@dcloudio/uni-mp-toutiao": "3.0.0-alpha-3060220220914001",
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-3060220220914001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3060220220914001",
+    "@tinet/ticloudrtc-wechat-sdk": "^1.0.4",
     "core-js": "^3.6.5",
     "flyio": "^0.6.2",
     "pinia": "^2.0.19",
