@@ -39,6 +39,8 @@
 
 @property (nonatomic, weak) UIButton *loginBtn;
 
+@property (nonatomic, weak) UIButton *rememberBtn;
+
 @property (nonatomic, weak) UIButton *developerButton ;
 
 @property(nonatomic, strong) NSArray *environmentArray;
@@ -50,6 +52,43 @@
 @end
 
 @implementation LoginViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
+    NSString *password = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPassword];
+    
+    dictInfomation = @{@"enterprises":@"7002485",@"userName":@"dingchao"};
+    password = @"FSWIgk9KOIwKFeva";
+    if (dictInfomation)
+    {
+        self.enterprisesField.textField.text = dictInfomation[@"enterprises"];
+        self.userNameField.textField.text = dictInfomation[@"userName"];
+        self.viewModel.enterpriseId = [dictInfomation[@"enterprises"] integerValue];
+        self.viewModel.username = dictInfomation[@"userName"];
+        
+        if (password)
+        {
+            self.rememberBtn.selected = YES;
+            self.passwordField.textField.text = password;
+            self.viewModel.password = password;
+            self.loginBtn.userInteractionEnabled = YES;
+            [self.loginBtn setBackgroundColor:kHexColor(0x00865C)];
+        }
+        else
+        {
+            self.rememberBtn.selected = NO;
+            self.loginBtn.userInteractionEnabled = NO;
+            [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
+        }
+    }
+    else
+    {
+        self.rememberBtn.selected = NO;
+        self.loginBtn.userInteractionEnabled = NO;
+        [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
+    }
+}
 
 -(void)viewDidLoad
 {
@@ -94,6 +133,10 @@
 //                customerVC.modalPresentationStyle = UIModalPresentationFullScreen;
 //                [self presentViewController:customerVC animated:NO completion:nil];
 //            }
+            
+            self.enterprisesField.textField.text = nil;
+            self.userNameField.textField.text = nil;
+            self.passwordField.textField.text = nil;
         }
         else if (self.viewModel.networkState == NetworkStateFail)
         {
@@ -156,7 +199,7 @@
     [bgView addSubview:subtitleLabel];
      */
     
-    TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, subtitleLabel.bottom + 80, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
+    TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, subtitleLabel.bottom + 50, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
 
     environmentField.delegate = self;
     [bgView addSubview:environmentField];
@@ -179,48 +222,40 @@
     passwordField.textField.secureTextEntry = YES;
     [bgView addSubview:passwordField];
     self.passwordField = passwordField;
+    
+    UIButton *rememberBtn = [[UIButton alloc]initWithFrame:CGRectMake(passwordField.right - 80, passwordField.bottom + 10, 80, 20)];
+    [rememberBtn setTitle:@"记住密码" forState:UIControlStateNormal];
+    rememberBtn.titleLabel.font = CHFont14;
+    [rememberBtn setTitleColor:kRGBColor(73, 129, 96) forState:UIControlStateNormal];
+    [rememberBtn setImage:[UIImage imageNamed:@"4-单选多选图标"] forState:UIControlStateNormal];
+    [rememberBtn setImage:[UIImage imageNamed:@"4-单选多选图标-1"] forState:UIControlStateSelected];
+    [rememberBtn addTarget:self action:@selector(didClickToRememberPassword:) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:rememberBtn];
+    self.rememberBtn = rememberBtn;
+    
+    rememberBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(rememberBtn.imageView.frame.size.width + 2.5), 0, (rememberBtn.imageView.frame.size.width + 2.5));
+    rememberBtn.imageEdgeInsets = UIEdgeInsetsMake(0, (rememberBtn.titleLabel.frame.size.width + 2.5), 0, -(rememberBtn.titleLabel.frame.size.width + 2.5));
      
-    UIButton *developerButton = [[UIButton alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 10, 85, 20)];
-    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标"] forState:UIControlStateNormal];
-    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标-1"] forState:UIControlStateSelected];
-    [developerButton setTitle:@"开发者模式" forState:UIControlStateNormal];
-    [developerButton setTitleColor:kHexColor(0x262626) forState:UIControlStateNormal];
-    developerButton.titleLabel.font = CHFont12;
-    [developerButton addTarget:self action:@selector(developerButton:) forControlEvents:UIControlEventTouchUpInside];
-    developerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
-    developerButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-//    [bgView addSubview:developerButton];
-    self.developerButton = developerButton;
+//    UIButton *developerButton = [[UIButton alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 10, 85, 20)];
+//    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标"] forState:UIControlStateNormal];
+//    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标-1"] forState:UIControlStateSelected];
+//    [developerButton setTitle:@"开发者模式" forState:UIControlStateNormal];
+//    [developerButton setTitleColor:kHexColor(0x262626) forState:UIControlStateNormal];
+//    developerButton.titleLabel.font = CHFont12;
+//    [developerButton addTarget:self action:@selector(developerButton:) forControlEvents:UIControlEventTouchUpInside];
+//    developerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
+//    developerButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+////    [bgView addSubview:developerButton];
+//    self.developerButton = developerButton;
 
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.height - 100 - 45, self.view.width - 40, 48)];
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.height - 100 , self.view.width - 40, 48)];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = CHFont16;
     [loginBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-//    [loginBtn setBackgroundColor:kHexColor(0xBDD5FF)];
     loginBtn.layer.cornerRadius = 8.0;
     [loginBtn addTarget:self action:@selector(didClickLoginBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:loginBtn];
     self.loginBtn = loginBtn;
-//    loginBtn.userInteractionEnabled = NO;
-    
-    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
-    if (dict)
-    {
-        self.enterprisesField.textField.text = dict[@"enterprises"];
-        self.userNameField.textField.text = dict[@"userName"];
-        self.passwordField.textField.text = dict[@"password"];
-        self.viewModel.enterpriseId = [dict[@"enterprises"] integerValue];
-        self.viewModel.username = dict[@"userName"];
-        self.viewModel.password = dict[@"password"];
-        
-        [loginBtn setBackgroundColor:kHexColor(0x00865C)];
-    }
-    else
-    {
-        loginBtn.userInteractionEnabled = NO;
-        
-        [loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
-    }
 }
 
 - (void)chooseEnvironment:(BOOL)isSelect
@@ -266,12 +301,12 @@
         [self showErrorView:@"请输入企业账号"];
         return;
     }
-    else if (self.enterprisesField.textField.text.length <= 0)
+    else if (self.userNameField.textField.text.length <= 0)
     {
         [self showErrorView:@"请输入用户名"];
         return;
     }
-    else if (self.enterprisesField.textField.text.length <= 0)
+    else if (self.passwordField.textField.text.length <= 0)
     {
         [self showErrorView:@"请输入密码"];
         return;
@@ -282,9 +317,22 @@
     
     [self.viewModel requestData];
     
-    NSDictionary *dict = @{@"enterprises":self.enterprisesField.textField.text,@"userName":self.userNameField.textField.text,@"password":self.passwordField.textField.text};
-    
+    NSDictionary *dict = @{@"enterprises":self.enterprisesField.textField.text,@"userName":self.userNameField.textField.text};
     [[NSUserDefaults standardUserDefaults] setValue:dict forKey:kLoginPath];
+    
+    if (self.rememberBtn.selected)
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:self.passwordField.textField.text forKey:kLoginPassword];
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:kLoginPassword];
+    }
+}
+
+- (void)didClickToRememberPassword:(UIButton *)button
+{
+    button.selected = !button.selected;
 }
 
 - (CHResolutionView *)environmentChooseView

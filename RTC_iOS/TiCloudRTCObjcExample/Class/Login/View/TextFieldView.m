@@ -58,9 +58,6 @@
         
         rightX = 30 + 10;
     }
-    
-    
-
                                                        
     UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(logoImageView.right + 5, 1, self.width - (logoImageView.right +5) - rightX, logoImageView.height)];
     textField.font = [UIFont systemFontOfSize:14];

@@ -15,5 +15,4 @@ static NSString * const kBaseUrl_Develop = @"https://rtc-api-dev.cticloud.cn";
 
 static NSString * const kBaseUrl_Formal = @"https://rtc-api.cticloud.cn";
 
-
 #endif /* CommonConfig_h */

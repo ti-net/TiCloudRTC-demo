@@ -85,6 +85,7 @@ if (@available(iOS 11.0, *)) { \
 #define CHFont17 CHFont(17)
 #define CHFont16 CHFont(16)
 #define CHFont15 CHFont(15)
+#define CHFont14 CHFont(14)
 #define CHFont13 CHFont(13)
 #define CHFont12 CHFont(12)
 #define CHFont10 CHFont(10)
@@ -125,7 +126,9 @@ static NSString * const kDomainName = @"kDomainName";
 /// SDK版本保存
 static NSString * const kSDKVersonPath = @"SDKVerson";
 
-/// 登录信息保存
+/// 登录信息保存（不包括密码）
 static NSString * const kLoginPath = @"LoginInformation";
+/// 登录密码保存
+static NSString * const kLoginPassword = @"LoginPassword";
 
 #endif /* TiGlobalDefines_h */
