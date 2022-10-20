@@ -57,9 +57,7 @@
 {
     NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
     NSString *password = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPassword];
-    
-    dictInfomation = @{@"enterprises":@"7002485",@"userName":@"dingchao"};
-    password = @"FSWIgk9KOIwKFeva";
+
     if (dictInfomation)
     {
         self.enterprisesField.textField.text = dictInfomation[@"enterprises"];
