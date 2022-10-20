@@ -117,7 +117,7 @@ const AppModel = defineStore("AppState", () => {
         let that = this
         this.rtcClient?.destroyClient({
             onSuccess: () => that.appUiState = new UiStatePayload(AppUiState.LogoutSuccess),
-            onFailed: (errorCode, errorMessage) => new UiStatePayload(
+            onFailed: (errorCode, errorMessage) => that.appUiState = new UiStatePayload(
                 AppUiState.LogoutFailed,
                 new StateLogoutFailed(`code:${errorCode},message:${errorMessage}`)
             )
@@ -237,7 +237,6 @@ const AppUiState = {
     LoginFailed: "LoginFailed",
     LogoutSuccess: "LogoutSuccess",
     LogoutFailed: "LogoutFailed",
-    CallFailed: "CallFailed",
     OnCallStart: "OnCallStart",
     Publishing: "Publishing",
     OnRinging: "OnRinging",
