@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -188,7 +189,7 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/edt_password"
         app:layout_constraintTop_toBottomOf="@+id/edt_password"
-        app:srcCompat="@drawable/icon_dev_mode_unchecked" />
+        app:srcCompat="@drawable/icon_unchecked" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_dev_mode_check"
@@ -204,6 +205,29 @@
         app:layout_constraintBottom_toBottomOf="@+id/ic_dev_check"
         app:layout_constraintStart_toEndOf="@+id/ic_dev_check"
         app:layout_constraintTop_toTopOf="@+id/ic_dev_check" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ic_save_login_msg_check"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_marginEnd="4dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_dev_check"
+        app:layout_constraintEnd_toStartOf="@+id/tv_save_login_msg_check"
+        app:layout_constraintTop_toTopOf="@+id/ic_dev_check"
+        app:srcCompat="@drawable/icon_checked" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_save_login_msg_check"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:text="@string/save_login_message"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_save_login_msg_check"
+        app:layout_constraintEnd_toEndOf="@+id/edt_password"
+        app:layout_constraintTop_toTopOf="@+id/ic_save_login_msg_check" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

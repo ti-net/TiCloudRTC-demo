@@ -20,6 +20,3 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.example.rtc_android.bean.**{*;}
--keep class com.example.rtc_android.http.**{*;}
--keep class com.example.rtc_android.utils.**{*;}

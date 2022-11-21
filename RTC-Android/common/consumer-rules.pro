@@ -1,0 +1,3 @@
+-keep class com.example.common.bean.**{*;}
+-keep class com.example.common.http.**{*;}
+-keep class com.example.common.utils.**{*;}
