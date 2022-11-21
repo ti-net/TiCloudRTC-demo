@@ -14,7 +14,7 @@ class HttpService {
 
     executePost(
         urlpath,
-        params
+        data
     ) {
         return new Promise((resolve, reject) => {
             request.execute({
@@ -22,7 +22,7 @@ class HttpService {
                 urlpath: urlpath,
                 header: {},
                 method: "POST",
-                param: params
+                data: data
             }).then(res => resolve(res))
             .catch(err => reject(err))
         })

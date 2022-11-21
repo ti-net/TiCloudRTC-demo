@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { TiCloudRTC } from "../../libs/ticloudrtc-wechat-sdk-1.0.0"
+import { TiCloudRTC } from "@tinet/ticloudrtc-wechat-sdk"
 import { AppModel, AppUiState } from "@/state/AppState"
 
 export default {

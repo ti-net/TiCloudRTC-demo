@@ -18,14 +18,11 @@ class Request {
             wx.showLoading({
                 title: '请求中...'
             })
-            log.info("WechatSDK：request start:\n", JSON.stringify({
-                "url": config.baseURL + config.urlpath,
-                "param": config.param
-            }))
+            log.info("WechatSDK：request start:\n", config)
             wx.request({
                 url: config.baseURL + config.urlpath,
                 method: config.method,
-                data: config.param,
+                data: config.data,
                 header: config.header,
                 success: res => {
                     log.info("WechatSDK：request result:\n", JSON.stringify(res.data))
@@ -44,14 +41,11 @@ class Request {
 
     executeNoLoading(config) {
         return new Promise((resolve, reject) => {
-            log.info("WechatSDK：request start:\n", JSON.stringify({
-                "url": config.baseURL + config.urlpath,
-                "param": config.param
-            }))
+            log.info("WechatSDK：request start:\n", config)
             wx.request({
                 url: config.baseURL + config.urlpath,
                 method: config.method,
-                data: config.param,
+                data: config.data,
                 header: config.header,
 
                 success: res => {
@@ -74,13 +68,10 @@ class Request {
             wx.showLoading({
                 title: '请求中...'
             })
-            log.info("WechatSDK：uploadFile start:\n", JSON.stringify({
-                "url": config.baseURL + config.urlpath,
-                "param": config.param
-            }))
+            log.info("WechatSDK：uploadFile start:\n", config)
             wx.uploadFile({
                 url: config.baseURL + config.urlpath,
-                formData: config.param,
+                formData: config.data,
                 header: config.header,
                 filePath: config.filePath,
                 name: 'screenFile',

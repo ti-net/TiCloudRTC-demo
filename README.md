@@ -10,6 +10,7 @@
 | ----------- | -------------------------------------- |
 | RTC-Android | demo for Android[RTC-Android](RTC-Android) |
 | RTC-Web     | demo for web[RTC-Web](RTC-Web)         |
+| RTC-WeChat  | demo for web[RTC-WeChat](RTC-WeChat)   |
 | Tools/      | Tools for RTC[Tools](Tools)            |
 
 ### Tools目录结构说明
