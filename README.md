@@ -8,7 +8,7 @@
 
 | 目录        | 说明                                   |
 | ----------- | -------------------------------------- |
-| RTC-Android | demo for Android[RTC-Web](RTC-Android) |
+| RTC-Android | demo for Android[RTC-Android](RTC-Android) |
 | RTC-Web     | demo for web[RTC-Web](RTC-Web)         |
 | Tools/      | Tools for RTC[Tools](Tools)            |
 
