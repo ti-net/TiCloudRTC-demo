@@ -20,12 +20,12 @@
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     if (@available(iOS 13.0, *)) {
-            UIWindowScene *windowScene = (UIWindowScene *)scene;
-            self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
-            LoginViewController *homePage = [[LoginViewController alloc] init];
-        self.window.rootViewController = homePage;
-            self.window.backgroundColor = [UIColor whiteColor];
-            [self.window makeKeyAndVisible];
+        UIWindowScene *windowScene = (UIWindowScene *)scene;
+        self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        self.window.rootViewController = loginVC;
+        self.window.backgroundColor = [UIColor whiteColor];
+        [self.window makeKeyAndVisible];
     }else{
        
     }

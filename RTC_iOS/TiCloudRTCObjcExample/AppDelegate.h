@@ -6,12 +6,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainTabBarController.h"
+//#import "MainTabBarController.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, retain) MainTabBarController *tabbarVC;
+//@property (nonatomic, retain) MainTabBarController *tabbarVC;
+
+@property (strong, nonatomic) LoginViewController *loginVC;
 
 /**
  是否已经弹出键盘 用于知识圈的判断

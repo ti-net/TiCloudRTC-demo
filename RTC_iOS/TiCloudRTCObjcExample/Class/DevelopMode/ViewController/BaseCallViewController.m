@@ -211,9 +211,9 @@
         }
         else
         {
-            LoginViewController *loginVC = [[LoginViewController alloc]init];
+//            LoginViewController *loginVC = [[LoginViewController alloc]init];
             
-            [AppDelegate shareAppDelegate].window.rootViewController = loginVC;
+            [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
         }
     } error:^(TiCloudRtcErrCode errorCode, NSString * _Nonnull errorMessage) {
         [weakSelf showErrorView:@"退出失败"];

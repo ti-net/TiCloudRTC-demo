@@ -69,10 +69,11 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else
-        {
-            LoginViewController *loginVC = [[LoginViewController alloc]init];
+        {            
             
-            [AppDelegate shareAppDelegate].window.rootViewController = loginVC;
+//            LoginViewController *loginVC = [[LoginViewController alloc]init];
+            
+            [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
         }
         
     } error:^(TiCloudRtcErrCode errorCode, NSString * _Nonnull errorMessage) {
