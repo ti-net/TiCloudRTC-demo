@@ -12,15 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LoginViewModel : BaseViewModel
 
-/// 企业编号
-@property (nonatomic, copy) NSString *identifier;
+@property (nonatomic, copy, nullable) NSString *password;
 
-/// 座席编号
-@property (nonatomic, copy) NSString *cno;
-
-@property (nonatomic, copy) NSString *password;
-
-@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy, nullable) NSString *username;
 
 @property (nonatomic, assign) NSInteger enterpriseId;
 

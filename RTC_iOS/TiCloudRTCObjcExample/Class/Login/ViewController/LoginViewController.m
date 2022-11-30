@@ -45,7 +45,7 @@
 
 @property(nonatomic, strong) NSArray *environmentArray;
 
-@property (nonatomic, weak) CHResolutionView *environmentChooseView;
+@property(nonatomic, strong) NSArray *enterprisesArray;
 
 @property(nonatomic, assign) EnvironmentType environmentType;
  
@@ -56,29 +56,39 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
-    NSString *password = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPassword];
 
     if (dictInfomation)
     {
-        self.enterprisesField.textField.text = dictInfomation[@"enterprises"];
-        self.userNameField.textField.text = dictInfomation[@"userName"];
-        self.viewModel.enterpriseId = [dictInfomation[@"enterprises"] integerValue];
-        self.viewModel.username = dictInfomation[@"userName"];
+        if([self.viewModel.baseUrl isEqualToString:kBaseUrl_Test])
+        {
+            self.environmentField.string = self.environmentArray[0];
+        }
+        else if ([self.viewModel.baseUrl isEqualToString:kBaseUrl_Develop])
+        {
+            self.environmentField.string = self.environmentArray[1];
+        }
+        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[0]])
+        {
+            self.environmentField.string = self.environmentArray[2];
+        }
+        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[1]])
+        {
+            self.environmentField.string = self.environmentArray[3];
+        }
+        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[2]])
+        {
+            self.environmentField.string = self.environmentArray[4];
+        }
+        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[3]])
+        {
+            self.environmentField.string = self.environmentArray[5];
+        }
+        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[4]])
+        {
+            self.environmentField.string = self.environmentArray[6];
+        }
         
-        if (password)
-        {
-            self.rememberBtn.selected = YES;
-            self.passwordField.textField.text = password;
-            self.viewModel.password = password;
-            self.loginBtn.userInteractionEnabled = YES;
-            [self.loginBtn setBackgroundColor:kHexColor(0x00865C)];
-        }
-        else
-        {
-            self.rememberBtn.selected = NO;
-            self.loginBtn.userInteractionEnabled = NO;
-            [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
-        }
+        [self loginDataStored:dictInfomation];
     }
     else
     {
@@ -93,7 +103,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.environmentArray = @[@"测试环境",@"开发环境",@"正式环境"];
+    self.environmentArray = @[@"测试环境",@"开发环境",@"CTICloud-1",@"CTICloud-2",@"CTICloud-5",@"CTICloud-6",@"CTICloud-9"];
+    
+    self.enterprisesArray = @[@"7100368",@"7000820",@"7500005",@"7600655",@"7900074",];
     
     self.viewModel = [LoginViewModel sharedInstance];
     
@@ -175,28 +187,7 @@
     subtitleLabel.font = CHFont12;
     subtitleLabel.textAlignment = NSTextAlignmentCenter;
     [bgView addSubview:subtitleLabel];
-    
-    /*
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.width - 64)/2, 118, 64, 64)];
-    imageView.contentMode = UIViewContentModeCenter;
-    imageView.image = [UIImage imageNamed:@"ic_launcher233 1"];
-    [bgView addSubview:imageView];
-        
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, imageView.bottom + 12, self.view.width, 34)];
-    titleLabel.text = @"TI-RTC";
-    titleLabel.textColor = kHexColor(0x595959);
-    titleLabel.font = [UIFont fontWithName:kFontNameMedium size:24];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [bgView addSubview:titleLabel];
-    
-    UILabel *subtitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, titleLabel.bottom + 5, self.view.width, 18)];
-    subtitleLabel.text = @"让客户联络效率更高，体验更好";
-    subtitleLabel.textColor = kHexColor(0x8C8C8C);
-    subtitleLabel.font = CHFont12;
-    subtitleLabel.textAlignment = NSTextAlignmentCenter;
-    [bgView addSubview:subtitleLabel];
-     */
-    
+   
     TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, subtitleLabel.bottom + 50, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
 
     environmentField.delegate = self;
@@ -233,7 +224,7 @@
     
     rememberBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(rememberBtn.imageView.frame.size.width + 2.5), 0, (rememberBtn.imageView.frame.size.width + 2.5));
     rememberBtn.imageEdgeInsets = UIEdgeInsetsMake(0, (rememberBtn.titleLabel.frame.size.width + 2.5), 0, -(rememberBtn.titleLabel.frame.size.width + 2.5));
-     
+
 //    UIButton *developerButton = [[UIButton alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 10, 85, 20)];
 //    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标"] forState:UIControlStateNormal];
 //    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标-1"] forState:UIControlStateSelected];
@@ -243,9 +234,10 @@
 //    [developerButton addTarget:self action:@selector(developerButton:) forControlEvents:UIControlEventTouchUpInside];
 //    developerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
 //    developerButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-////    [bgView addSubview:developerButton];
+//    //    [bgView addSubview:developerButton];
 //    self.developerButton = developerButton;
 
+    
     UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.height - 100 , self.view.width - 40, 48)];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = CHFont16;
@@ -256,22 +248,6 @@
     self.loginBtn = loginBtn;
 }
 
-- (void)chooseEnvironment:(BOOL)isSelect
-{
-    if (isSelect)
-    {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.environmentChooseView.height = self.environmentArray.count *self.environmentChooseView.cellHeight;
-        }];
-    }
-    else
-    {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.environmentChooseView.height = 0;
-        }];
-    }
-}
-
 - (void)developerButton:(UIButton *)button
 {
     button.selected = !button.selected;
@@ -280,14 +256,6 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
-    
-    if (self.environmentChooseView.height)
-    {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.environmentChooseView.height = 0;
-        }];
-        self.environmentField.rightBtnSelect = NO;
-    }
 }
 
 //登录按钮
@@ -315,7 +283,7 @@
     
     [self.viewModel requestData];
     
-    NSDictionary *dict = @{@"enterprises":self.enterprisesField.textField.text,@"userName":self.userNameField.textField.text};
+    NSDictionary *dict = @{@"baseUrl":self.viewModel.baseUrl,@"enterprises":self.enterprisesField.textField.text,@"userName":self.userNameField.textField.text};
     [[NSUserDefaults standardUserDefaults] setValue:dict forKey:kLoginPath];
     
     if (self.rememberBtn.selected)
@@ -333,41 +301,103 @@
     button.selected = !button.selected;
 }
 
-- (CHResolutionView *)environmentChooseView
-{
-    if (!_environmentChooseView)
-    {
-        CHResolutionView *environmentChooseView = [[CHResolutionView alloc]initWithFrame:CGRectMake(self.environmentField.left, self.environmentField.bottom - 2, self.environmentField.width - 30, 0) withData:self.environmentArray];
-        self.environmentChooseView = environmentChooseView;
-        [self.bgView addSubview:environmentChooseView];
-
-        CHWeakSelf
-        environmentChooseView.resolutionViewButtonClick = ^(EnvironmentType environmentType) {
-            weakSelf.environmentType = environmentType;
-            weakSelf.environmentField.string = weakSelf.environmentArray[environmentType];
-            
-            if (environmentType == EnvironmentType_Test)
-            {
-                weakSelf.viewModel.baseUrl = kBaseUrl_Test;
-            }
-            else if (environmentType == EnvironmentType_Develop)
-            {
-                weakSelf.viewModel.baseUrl = kBaseUrl_Develop;
-            }
-            else if (environmentType == EnvironmentType_Test)
-            {
-                weakSelf.viewModel.baseUrl = kBaseUrl_Formal;
-            }
-        };
-    }
-
-    return _environmentChooseView;
-}
-
 #pragma mark - TextFieldViewDelegate
 - (void)rightButtonClick:(BOOL)isSelect
 {
-    [self chooseEnvironment:isSelect];
+    __weak typeof(self) weakSelf = self;
+    [YBPopupMenu showRelyOnView:self.environmentField titles:self.environmentArray icons:@[] menuWidth:150.f otherSettings:^(YBPopupMenu *popupMenu) {
+        popupMenu.arrowWidth = 0;
+        popupMenu.arrowHeight = 0;
+        popupMenu.cornerRadius = 3.;
+        popupMenu.borderWidth = 1.;
+        popupMenu.borderColor = kHexColor(0xECECEC);
+        popupMenu.isShowShadow = NO;
+        popupMenu.itemHeight = 46.f;
+        popupMenu.tableView.separatorInset = UIEdgeInsetsMake(0, 14.f, 0, 0);
+        popupMenu.tableView.separatorColor = kHexColor(0xF3F6F7);
+        popupMenu.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        popupMenu.dismissOnTouchOutside = YES;
+        popupMenu.delegate = weakSelf;
+    }];
+}
+
+- (void)ybPopupMenu:(YBPopupMenu *)ybPopupMenu didSelectedAtIndex:(NSInteger)index
+{
+    self.environmentField.string = self.environmentArray[index];
+    
+    NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
+    
+    if(!index)
+    {
+        self.viewModel.baseUrl = kBaseUrl_Test;
+    }
+    else if (index == 1)
+    {
+        self.viewModel.baseUrl = kBaseUrl_Develop;
+    }
+    else
+    {
+        self.viewModel.baseUrl = kBaseUrl_Formal;
+    }
+    
+    if (dictInfomation && [dictInfomation[@"baseUrl"] isEqualToString:self.viewModel.baseUrl])
+    {
+        [self loginDataStored:dictInfomation];
+    }
+    else
+    {
+        switch (index) {
+            case 0:
+            {
+                [self setDefaultPlatform:nil];
+            }
+                break;
+            case 1:
+            {
+                [self setDefaultPlatform:nil];
+            }
+                break;
+            case 2:
+            {
+                [self setDefaultPlatform:self.enterprisesArray[0]];
+            }
+                break;
+            case 3:
+            {
+                [self setDefaultPlatform:self.enterprisesArray[1]];
+            }
+                break;
+            case 4:
+            {
+                [self setDefaultPlatform:self.enterprisesArray[2]];
+            }
+                break;
+            case 5:
+            {
+                [self setDefaultPlatform:self.enterprisesArray[3]];
+            }
+                break;
+            case 6:
+            {
+                [self setDefaultPlatform:self.enterprisesArray[4]];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+- (void)setDefaultPlatform:(NSString *)enterpriseId
+{
+    self.viewModel.enterpriseId = enterpriseId.integerValue;
+    self.enterprisesField.string = enterpriseId;
+    
+    self.userNameField.string = nil;
+    self.passwordField.string = nil;
+    self.viewModel.username = nil;
+    self.viewModel.password = nil;
 }
 
 - (void)textFieldEditing:(TextFieldView *)textFieldView
@@ -409,6 +439,34 @@
     [UIView animateWithDuration:0.25 animations:^{
         self.bgView.y = 0;
     }];
+}
+
+
+- (void)loginDataStored:(NSDictionary *)dictInfomation
+{
+    self.enterprisesField.textField.text = dictInfomation[@"enterprises"];
+    self.userNameField.textField.text = dictInfomation[@"userName"];
+    
+    self.viewModel.baseUrl = dictInfomation[@"baseUrl"];
+    self.viewModel.enterpriseId = [dictInfomation[@"enterprises"] integerValue];
+    self.viewModel.username = dictInfomation[@"userName"];
+    
+    NSString *password = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPassword];
+    
+    if (password && [password isEqualToString:@""])
+    {
+        self.rememberBtn.selected = YES;
+        self.passwordField.textField.text = password;
+        self.viewModel.password = password;
+        self.loginBtn.userInteractionEnabled = YES;
+        [self.loginBtn setBackgroundColor:kHexColor(0x00865C)];
+    }
+    else
+    {
+        self.rememberBtn.selected = NO;
+        self.loginBtn.userInteractionEnabled = NO;
+        [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
+    }
 }
 
 - (void)dealloc {

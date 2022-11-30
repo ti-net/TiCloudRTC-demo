@@ -44,7 +44,7 @@ typedef enum : NSUInteger
 
 @property (nonatomic, weak) UITextField *textField;
 
-@property(nonatomic, copy) NSString *string;
+@property(nonatomic, copy, nullable) NSString *string;
 
 @property(nonatomic, assign) BOOL rightBtnSelect;
 
