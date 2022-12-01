@@ -45,6 +45,8 @@
 
 @property(nonatomic, strong) NSArray *environmentArray;
 
+@property(nonatomic, strong) NSArray *baseUrlArray;
+
 @property(nonatomic, strong) NSArray *enterprisesArray;
 
 @property(nonatomic, assign) EnvironmentType environmentType;
@@ -83,9 +85,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.environmentArray = @[@"测试环境",@"开发环境",@"CTICloud-1",@"CTICloud-2",@"CTICloud-5",@"CTICloud-6",@"CTICloud-9"];
+    self.environmentArray = @[@"开发环境",@"测试环境",@"CTICloud-1",@"CTICloud-2",@"CTICloud-5",@"CTICloud-6",@"CTICloud-9"];
     
-    self.enterprisesArray = @[@"7002485",@"6000001",@"7100368",@"7000820",@"7500005",@"7600655",@"7900074",];
+    self.baseUrlArray = @[kBaseUrl_Develop,kBaseUrl_Test,kBaseUrl_Formal_1,kBaseUrl_Formal_2,kBaseUrl_Formal_5,kBaseUrl_Formal_6,kBaseUrl_Formal_9];
+    
+    self.enterprisesArray = @[@"6000001",@"7002485",@"7100368",@"7000820",@"7500005",@"7600655",@"7900074",];
     
     self.viewModel = [LoginViewModel sharedInstance];
     
@@ -310,42 +314,16 @@
 - (void)ybPopupMenu:(YBPopupMenu *)ybPopupMenu didSelectedAtIndex:(NSInteger)index
 {
     NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
+    self.environmentField.rightBtnSelect = NO;
+    self.environmentField.string = self.environmentArray[index];
     
-    if (dictInfomation && [dictInfomation[@"baseUrl"] isEqualToString:self.viewModel.baseUrl])
+    if (dictInfomation && [dictInfomation[@"baseUrl"] isEqualToString:self.baseUrlArray[index]])
     {
         [self loginDataStored:dictInfomation];
     }
     else
     {
-        switch (index) {
-            case 0:
-                self.viewModel.baseUrl = kBaseUrl_Test;
-                break;
-            case 1:
-                self.viewModel.baseUrl = kBaseUrl_Develop;
-                break;
-            case 2:
-                self.viewModel.baseUrl = kBaseUrl_Formal_1;
-                break;
-            case 3:
-                self.viewModel.baseUrl = kBaseUrl_Formal_2;
-                break;
-            case 4:
-                self.viewModel.baseUrl = kBaseUrl_Formal_5;
-                break;
-            case 5:
-                self.viewModel.baseUrl = kBaseUrl_Formal_6;
-                break;
-            case 6:
-                self.viewModel.baseUrl = kBaseUrl_Formal_9;
-                break;
-                
-            default:
-                break;
-        }
-        
-        self.environmentField.rightBtnSelect = NO;
-        self.environmentField.string = self.environmentArray[index];
+        self.viewModel.baseUrl = self.baseUrlArray[index];
         
         self.viewModel.enterpriseId = [self.enterprisesArray[index] integerValue];
         self.enterprisesField.string = self.enterprisesArray[index];
@@ -401,8 +379,8 @@
 
 - (void)loginDataStored:(NSDictionary *)dictInfomation
 {
-    self.enterprisesField.textField.text = dictInfomation[@"enterprises"];
-    self.userNameField.textField.text = dictInfomation[@"userName"];
+    self.enterprisesField.string = dictInfomation[@"enterprises"];
+    self.userNameField.string = dictInfomation[@"userName"];
     
     self.viewModel.baseUrl = dictInfomation[@"baseUrl"];
     self.viewModel.enterpriseId = [dictInfomation[@"enterprises"] integerValue];
@@ -410,7 +388,7 @@
     
     NSString *password = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPassword];
     
-    if (password && [password isEqualToString:@""])
+    if (password && ![password isEqualToString:@""])
     {
         self.rememberBtn.selected = YES;
         self.passwordField.textField.text = password;
