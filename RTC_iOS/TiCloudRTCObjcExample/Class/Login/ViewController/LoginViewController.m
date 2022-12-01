@@ -57,41 +57,21 @@
 {
     NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
 
-    if (dictInfomation)
+    if (dictInfomation && [self.enterprisesArray containsObject:dictInfomation[@"enterprises"]])
     {
-        if([self.viewModel.baseUrl isEqualToString:kBaseUrl_Test])
-        {
-            self.environmentField.string = self.environmentArray[0];
-        }
-        else if ([self.viewModel.baseUrl isEqualToString:kBaseUrl_Develop])
-        {
-            self.environmentField.string = self.environmentArray[1];
-        }
-        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[0]])
-        {
-            self.environmentField.string = self.environmentArray[2];
-        }
-        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[1]])
-        {
-            self.environmentField.string = self.environmentArray[3];
-        }
-        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[2]])
-        {
-            self.environmentField.string = self.environmentArray[4];
-        }
-        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[3]])
-        {
-            self.environmentField.string = self.environmentArray[5];
-        }
-        else if ([dictInfomation[@"enterprises"] isEqualToString:self.enterprisesArray[4]])
-        {
-            self.environmentField.string = self.environmentArray[6];
-        }
+        NSInteger index = [self.enterprisesArray indexOfObject:dictInfomation[@"enterprises"]];
+        
+        self.environmentField.string = self.environmentArray[index];
         
         [self loginDataStored:dictInfomation];
     }
     else
     {
+        self.environmentField.string = self.environmentArray[0];
+        self.enterprisesField.string = self.enterprisesArray[0];
+        self.viewModel.baseUrl = kBaseUrl_Test;;
+        self.viewModel.enterpriseId = [self.enterprisesArray[0] integerValue];
+        
         self.rememberBtn.selected = NO;
         self.loginBtn.userInteractionEnabled = NO;
         [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
@@ -105,7 +85,7 @@
     
     self.environmentArray = @[@"测试环境",@"开发环境",@"CTICloud-1",@"CTICloud-2",@"CTICloud-5",@"CTICloud-6",@"CTICloud-9"];
     
-    self.enterprisesArray = @[@"7100368",@"7000820",@"7500005",@"7600655",@"7900074",];
+    self.enterprisesArray = @[@"7002485",@"6000001",@"7100368",@"7000820",@"7500005",@"7600655",@"7900074",];
     
     self.viewModel = [LoginViewModel sharedInstance];
     
@@ -189,10 +169,14 @@
     [bgView addSubview:subtitleLabel];
    
     TextFieldView *environmentField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, subtitleLabel.bottom + 50, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Environment];
-
+    environmentField.textField.userInteractionEnabled = NO;
     environmentField.delegate = self;
     [bgView addSubview:environmentField];
     self.environmentField = environmentField;
+    
+    UIButton *environmentBtn = [[UIButton alloc]initWithFrame:environmentField.bounds];
+    [environmentBtn addTarget:self action:@selector(rightButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [environmentField addSubview:environmentBtn];
 
     TextFieldView *enterprisesField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, environmentField.bottom + 20, self.view.width - 2 * margin, 35) withType:TextFieldViewType_EnterprisesId];
     enterprisesField.delegate = self;
@@ -256,6 +240,8 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+    
+    self.environmentField.rightBtnSelect = NO;
 }
 
 //登录按钮
@@ -323,22 +309,7 @@
 
 - (void)ybPopupMenu:(YBPopupMenu *)ybPopupMenu didSelectedAtIndex:(NSInteger)index
 {
-    self.environmentField.string = self.environmentArray[index];
-    
     NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
-    
-    if(!index)
-    {
-        self.viewModel.baseUrl = kBaseUrl_Test;
-    }
-    else if (index == 1)
-    {
-        self.viewModel.baseUrl = kBaseUrl_Develop;
-    }
-    else
-    {
-        self.viewModel.baseUrl = kBaseUrl_Formal;
-    }
     
     if (dictInfomation && [dictInfomation[@"baseUrl"] isEqualToString:self.viewModel.baseUrl])
     {
@@ -348,56 +319,43 @@
     {
         switch (index) {
             case 0:
-            {
-                [self setDefaultPlatform:nil];
-            }
+                self.viewModel.baseUrl = kBaseUrl_Test;
                 break;
             case 1:
-            {
-                [self setDefaultPlatform:nil];
-            }
+                self.viewModel.baseUrl = kBaseUrl_Develop;
                 break;
             case 2:
-            {
-                [self setDefaultPlatform:self.enterprisesArray[0]];
-            }
+                self.viewModel.baseUrl = kBaseUrl_Formal_1;
                 break;
             case 3:
-            {
-                [self setDefaultPlatform:self.enterprisesArray[1]];
-            }
+                self.viewModel.baseUrl = kBaseUrl_Formal_2;
                 break;
             case 4:
-            {
-                [self setDefaultPlatform:self.enterprisesArray[2]];
-            }
+                self.viewModel.baseUrl = kBaseUrl_Formal_5;
                 break;
             case 5:
-            {
-                [self setDefaultPlatform:self.enterprisesArray[3]];
-            }
+                self.viewModel.baseUrl = kBaseUrl_Formal_6;
                 break;
             case 6:
-            {
-                [self setDefaultPlatform:self.enterprisesArray[4]];
-            }
+                self.viewModel.baseUrl = kBaseUrl_Formal_9;
                 break;
                 
             default:
                 break;
         }
+        
+        self.environmentField.rightBtnSelect = NO;
+        self.environmentField.string = self.environmentArray[index];
+        
+        self.viewModel.enterpriseId = [self.enterprisesArray[index] integerValue];
+        self.enterprisesField.string = self.enterprisesArray[index];
+        
+        self.userNameField.string = nil;
+        self.viewModel.username = nil;
+        
+        self.passwordField.string = nil;
+        self.viewModel.password = nil;
     }
-}
-
-- (void)setDefaultPlatform:(NSString *)enterpriseId
-{
-    self.viewModel.enterpriseId = enterpriseId.integerValue;
-    self.enterprisesField.string = enterpriseId;
-    
-    self.userNameField.string = nil;
-    self.passwordField.string = nil;
-    self.viewModel.username = nil;
-    self.viewModel.password = nil;
 }
 
 - (void)textFieldEditing:(TextFieldView *)textFieldView
@@ -440,7 +398,6 @@
         self.bgView.y = 0;
     }];
 }
-
 
 - (void)loginDataStored:(NSDictionary *)dictInfomation
 {
