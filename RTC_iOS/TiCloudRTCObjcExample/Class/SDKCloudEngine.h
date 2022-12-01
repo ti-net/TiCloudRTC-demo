@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 // SDK实例
 @property(nonatomic, strong) TiCloudRTCEngine * tiCloudEngine;
 
+// 初始化SDK
+-(void)initSDK;
+
 @end
 
 NS_ASSUME_NONNULL_END

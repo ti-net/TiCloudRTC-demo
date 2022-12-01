@@ -174,7 +174,7 @@
     }
     
     CHWeakSelf
-    [self.SDKEngine.tiCloudEngine call:callConf success:^{
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine call:callConf success:^{
         NSLog(@"call ... success");
         [weakSelf showTelephoneView:callConf.tel];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {

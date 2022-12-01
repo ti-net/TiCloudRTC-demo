@@ -18,9 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
     TelephoneViewDelegate
 >
 
-// SDK引擎实例
-@property(nonatomic, strong) SDKCloudEngine * SDKEngine;
-
 @property (nonatomic, weak)TelephoneView *telephoneView;
 
 @property (nonatomic, assign) BOOL isSelectPage;

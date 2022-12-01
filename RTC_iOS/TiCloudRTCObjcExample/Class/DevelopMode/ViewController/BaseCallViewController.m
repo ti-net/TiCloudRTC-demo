@@ -21,14 +21,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.SDKEngine = [SDKCloudEngine sharedInstancet];
+//    self.SDKEngine = [SDKCloudEngine sharedInstancet];
+    
+    [[SDKCloudEngine sharedInstancet] initSDK];
 }
 
 - (void)setIsSelectPage:(BOOL)isSelectPage
 {
     if (isSelectPage)
     {
-        [self.SDKEngine.tiCloudEngine setEventListener:self];
+        [[SDKCloudEngine sharedInstancet].tiCloudEngine setEventListener:self];
     }
 }
 
@@ -48,22 +50,22 @@
 
 -(void)hangupButtonClick
 {
-    [self.SDKEngine.tiCloudEngine hangup];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine hangup];
 }
 
 - (void)numberButtonsClick:(NSString *)number
 {
-    [self.SDKEngine.tiCloudEngine dtmf:number];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine dtmf:number];
 }
 
 - (void)localAudioButtonClick:(BOOL)isSelect
 {
-    [self.SDKEngine.tiCloudEngine setEnableLocalAudio:isSelect];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableLocalAudio:isSelect];
 }
 
 - (void)speakphoneButtonClick:(BOOL)isSelect
 {
-    [self.SDKEngine.tiCloudEngine setEnableSpeakerphone:isSelect];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableSpeakerphone:isSelect];
     
     if (self.isRinging)
     {
@@ -181,7 +183,7 @@
         if (viewModel.networkState == NetworkStateSuccess) {
             LoginModel *model = [LoginModel loginModel];
             
-            [self.SDKEngine.tiCloudEngine renewAccessToken:model.accessToken];
+            [[SDKCloudEngine sharedInstancet].tiCloudEngine renewAccessToken:model.accessToken];
         }
     }];    
 }

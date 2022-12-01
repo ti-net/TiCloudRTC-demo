@@ -16,8 +16,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         SDKEngine  = [[SDKCloudEngine alloc] init];
-        
-        [SDKEngine initSDK];
     });
     return SDKEngine;
 }

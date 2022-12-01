@@ -24,9 +24,6 @@
     TelephoneViewDelegate
 >
 
-// SDK引擎实例
-@property(nonatomic, strong) SDKCloudEngine * SDKEngine;
-
 @property(nonatomic, weak) UILabel *phoneLabel;
 
 @property(nonatomic, weak) UIButton *callBtn;
@@ -45,8 +42,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
     
-    self.SDKEngine = [SDKCloudEngine sharedInstancet];
-    [self.SDKEngine.tiCloudEngine setEventListener:self];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEventListener:self];
 
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(20 , kStatusBarHeight + 5, 70, 42)];
     backBtn.imageView.contentMode = UIViewContentModeCenter;
@@ -142,7 +138,7 @@
     callConf.tel = self.phoneLabel.text;
     callConf.type = OUTCALL_SCENCE;
     CHWeakSelf
-    [self.SDKEngine.tiCloudEngine call:callConf success:^{
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine call:callConf success:^{
         NSLog(@"call ... success");
         [weakSelf showTelephoneView:callConf.tel];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
@@ -203,25 +199,25 @@
 
 -(void)hangupButtonClick
 {
-    [self.SDKEngine.tiCloudEngine hangup];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine hangup];
 }
 
 - (void)numberButtonsClick:(NSString *)number
 {
-    [self.SDKEngine.tiCloudEngine dtmf:number];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine dtmf:number];
 }
 
 - (void)localAudioButtonClick:(BOOL)isSelect
 {
-    [self.SDKEngine.tiCloudEngine setEnableLocalAudio:isSelect];    
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableLocalAudio:isSelect];
 }
 
 
 -(void)speakphoneButtonClick:(BOOL)isSelect
 {
-    [self.SDKEngine.tiCloudEngine setEnableSpeakerphone:isSelect];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableSpeakerphone:isSelect];
     
-    self.telephoneView.speakEnable = [self.SDKEngine.tiCloudEngine isSpeakerphoneEnabled];
+    self.telephoneView.speakEnable = [[SDKCloudEngine sharedInstancet].tiCloudEngine isSpeakerphoneEnabled];
 }
 
 #pragma mark -TiCloudRTCEventDelegate
@@ -333,7 +329,7 @@
         if (viewModel.networkState == NetworkStateSuccess) {
             LoginModel *model = [LoginModel loginModel];
             
-            [self.SDKEngine.tiCloudEngine renewAccessToken:model.accessToken];
+            [[SDKCloudEngine sharedInstancet].tiCloudEngine renewAccessToken:model.accessToken];
         }
     }];
 }
