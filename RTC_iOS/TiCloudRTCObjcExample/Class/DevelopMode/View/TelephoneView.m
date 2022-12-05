@@ -287,6 +287,8 @@
 #pragma mark - 外部事件
 - (void)callingStart
 {
+    [[AppConfig getKeyWindow] bringSubviewToFront:self];
+    
     self.timeLabel.text = @"正在呼叫...";
 }
 

@@ -40,9 +40,7 @@
     self.telephoneView.phoneNumber = phoneNumber;
     self.telephoneView.delegate = self;
     [self.telephoneView callingStart];
-    
-    [self.view bringSubviewToFront:self.telephoneView];
-    
+        
     [UIView animateWithDuration:0.25 animations:^{
         self.telephoneView.y = 0;
     }];
