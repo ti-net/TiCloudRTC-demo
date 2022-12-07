@@ -55,6 +55,8 @@ class LoginFragment : Fragment() {
                 ) {
                     edtPlatformUrl.text = Editable.Factory.getInstance()
                         .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[position])
+                    edtEnterpriseId.text = Editable.Factory.getInstance()
+                        .newEditable(BuildConfig.LOGIN_ENTERPRISE_ID_VALUE[position])
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -99,6 +101,8 @@ class LoginFragment : Fragment() {
             edtPlatformUrl.text =
                 Editable.Factory.getInstance().newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[0])
             edtPlatformUrl.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
+            edtEnterpriseId.text =
+                Editable.Factory.getInstance().newEditable(BuildConfig.LOGIN_ENTERPRISE_ID_VALUE[0])
 //            spinnerEnv.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
 //            spinnerIcon.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
         }
