@@ -6,8 +6,8 @@ object ProjectConfig{
 
 object AppConfig{
     const val applicationId = "com.example.rtc_android"
-    const val versionCode = 9
-    const val versionName = "2.5.2"
+    const val versionCode = 10
+    const val versionName = "2.5.3"
 }
 
 object AppComposeConfig{
@@ -40,8 +40,13 @@ object CommonConfig{
                     "%s\n"+
             "]"
         """.trimIndent()),
-        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"测试环境\",\"正式环境\",\"开发环境\"}"),
-        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE","{\"https://rtc-api-test.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-dev.cticloud.cn\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发环境\",\"测试环境\"," +
+                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-9\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE",
+            "{\"https://rtc-api-dev.cticloud.cn\",\"https://rtc-api-test.cticloud.cn\"," +
+                    "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\"}"),
+        GradleField("String[]","LOGIN_ENTERPRISE_ID_VALUE",
+            "{\"6000001\",\"7002485\",\"7100368\",\"7000820\",\"7500005\",\"7600655\",\"7900074\"}"),
         // bugly 配置 ------------------------------
         // appId
         GradleField("String","BUGLY_APPID","\"16c04631f3\""),
@@ -83,8 +88,13 @@ object CommonConfig{
                     "%s\n"+
             "]"
         """.trimIndent()),
-        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"测试环境\",\"正式环境\",\"开发环境\"}"),
-        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE","{\"https://rtc-api-test.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-dev.cticloud.cn\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发环境\",\"测试环境\"," +
+                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-9\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_VALUE",
+            "{\"https://rtc-api-dev.cticloud.cn\",\"https://rtc-api-test.cticloud.cn\"," +
+                    "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\"}"),
+        GradleField("String[]","LOGIN_ENTERPRISE_ID_VALUE",
+            "{\"6000001\",\"7002485\",\"7100368\",\"7000820\",\"7500005\",\"7600655\",\"7900074\"}"),
         // bugly 配置 ------------------------------
         // appId
         GradleField("String","BUGLY_APPID","\"16c04631f3\""),
