@@ -7,7 +7,7 @@ target 'TiCloudRTCObjcExample' do
  
   # Pods for TiCloudRTCObjcExample
 
-  pod 'TiCloudRTC'
+#  pod 'TiCloudRTC'
   
   # YTKNetworking
   pod 'YTKNetwork'

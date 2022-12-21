@@ -6,13 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "MainTabBarController.h"
 #import "LoginViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-//@property (nonatomic, retain) MainTabBarController *tabbarVC;
 
 @property (strong, nonatomic) LoginViewController *loginVC;
 

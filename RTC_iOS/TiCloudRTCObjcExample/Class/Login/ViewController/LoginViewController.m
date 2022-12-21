@@ -10,7 +10,7 @@
 #import "MainTabBarController.h"
 #import "LoginModel.h"
 #import "LoginViewModel.h"
-
+#import "AppConfig.h"
 #import "TextFieldView.h"
 #import "CommonConfig.h"
 #import "CHResolutionView.h"
@@ -36,6 +36,9 @@
 @property (nonatomic, weak) TextFieldView *userNameField;
 
 @property (nonatomic, weak) TextFieldView *passwordField;
+
+/// 主叫号码
+@property (nonatomic, weak) TextFieldView *callerNumberField;
 
 @property (nonatomic, weak) UIButton *loginBtn;
 
@@ -153,7 +156,7 @@
     [self.view addSubview:bgView];
     self.bgView = bgView;
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.width - 50)/2, 118, 50, 50)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.width - 50)/2, 100, 50, 50)];
     imageView.contentMode = UIViewContentModeCenter;
     imageView.image = [UIImage imageNamed:@"topLogo"];
     [bgView addSubview:imageView];
@@ -200,7 +203,14 @@
     [bgView addSubview:passwordField];
     self.passwordField = passwordField;
     
-    UIButton *rememberBtn = [[UIButton alloc]initWithFrame:CGRectMake(passwordField.right - 80, passwordField.bottom + 10, 80, 20)];
+    TextFieldView *callerNumberField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 20, self.view.width - 2 * margin, 35) withType:TextFieldViewType_EnterprisesId];
+    callerNumberField.delegate = self;
+    callerNumberField.textField.secureTextEntry = YES;
+    [bgView addSubview:callerNumberField];
+    self.callerNumberField = callerNumberField;
+    callerNumberField.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入主叫号码（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    UIButton *rememberBtn = [[UIButton alloc]initWithFrame:CGRectMake(callerNumberField.right - 80, callerNumberField.bottom + 10, 80, 20)];
     [rememberBtn setTitle:@"记住密码" forState:UIControlStateNormal];
     rememberBtn.titleLabel.font = CHFont14;
     [rememberBtn setTitleColor:kRGBColor(73, 129, 96) forState:UIControlStateNormal];
@@ -266,6 +276,20 @@
     {
         [self showErrorView:@"请输入密码"];
         return;
+    }
+    else if (self.callerNumberField.textField.text.length)
+    {
+        BOOL isPhone = [AppConfig isValidatePhoneNumber:self.callerNumberField.textField.text];
+        
+        if (!isPhone)
+        {
+            [self showErrorView:@"请输入正确的主叫手机号码"];
+            return;
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] setValue:self.callerNumberField.textField.text forKey:kCallerNumber];
+        }
     }
 
     //请求登录

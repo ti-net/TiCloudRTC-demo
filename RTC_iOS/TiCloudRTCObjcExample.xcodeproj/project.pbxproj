@@ -17,6 +17,16 @@
 		185D9A6028C1D66200D4CC1D /* TextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A5F28C1D66200D4CC1D /* TextFieldView.m */; };
 		185D9A6328C1EEF900D4CC1D /* CHResolutionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6128C1EEF900D4CC1D /* CHResolutionView.m */; };
 		185D9A6B28C33F7900D4CC1D /* TelephoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6A28C33F7900D4CC1D /* TelephoneView.m */; };
+		189A862A2952FFAA006E13C3 /* Agorafdkaac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86242952FFA2006E13C3 /* Agorafdkaac.framework */; };
+		189A862B2952FFAA006E13C3 /* Agorafdkaac.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86242952FFA2006E13C3 /* Agorafdkaac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		189A862C2952FFAC006E13C3 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */; };
+		189A862D2952FFAC006E13C3 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		189A862E2952FFAE006E13C3 /* AgoraRtmKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */; };
+		189A862F2952FFAE006E13C3 /* AgoraRtmKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		189A86302952FFB0006E13C3 /* AgoraSoundTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */; };
+		189A86312952FFB0006E13C3 /* AgoraSoundTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		189A86342952FFD1006E13C3 /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86322952FFC8006E13C3 /* TiCloudRTC.framework */; };
+		189A86352952FFD1006E13C3 /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86322952FFC8006E13C3 /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2244EE2E28AF727B002FD992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE2D28AF727B002FD992 /* AppDelegate.m */; };
 		2244EE3128AF727B002FD992 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE3028AF727B002FD992 /* SceneDelegate.m */; };
 		2244EE3728AF727B002FD992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2244EE3528AF727B002FD992 /* Main.storyboard */; };
@@ -94,6 +104,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				189A862F2952FFAE006E13C3 /* AgoraRtmKit.framework in Embed Frameworks */,
+				189A862D2952FFAC006E13C3 /* AgoraRtcKit.framework in Embed Frameworks */,
+				189A862B2952FFAA006E13C3 /* Agorafdkaac.framework in Embed Frameworks */,
+				189A86312952FFB0006E13C3 /* AgoraSoundTouch.framework in Embed Frameworks */,
+				189A86352952FFD1006E13C3 /* TiCloudRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +137,11 @@
 		185D9A6728C1F13F00D4CC1D /* CommonConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonConfig.h; sourceTree = "<group>"; };
 		185D9A6928C33F7900D4CC1D /* TelephoneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TelephoneView.h; sourceTree = "<group>"; };
 		185D9A6A28C33F7900D4CC1D /* TelephoneView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelephoneView.m; sourceTree = "<group>"; };
+		189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraSoundTouch.framework; sourceTree = "<group>"; };
+		189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtmKit.framework; sourceTree = "<group>"; };
+		189A86242952FFA2006E13C3 /* Agorafdkaac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Agorafdkaac.framework; sourceTree = "<group>"; };
+		189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
+		189A86322952FFC8006E13C3 /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
 		1DCB02E45FC96759954A0F6B /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1DDF697C0E490A0DB22440FB /* Pods-TiCloudRTCObjcExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExampleTests/Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		2244EE2928AF727B002FD992 /* TiCloudRTCObjcExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCloudRTCObjcExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,7 +240,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189A862C2952FFAC006E13C3 /* AgoraRtcKit.framework in Frameworks */,
+				189A86302952FFB0006E13C3 /* AgoraSoundTouch.framework in Frameworks */,
+				189A862E2952FFAE006E13C3 /* AgoraRtmKit.framework in Frameworks */,
+				189A86342952FFD1006E13C3 /* TiCloudRTC.framework in Frameworks */,
 				5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */,
+				189A862A2952FFAA006E13C3 /* Agorafdkaac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +303,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		189A86212952FFA2006E13C3 /* AgoraSDK */ = {
+			isa = PBXGroup;
+			children = (
+				189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */,
+				189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */,
+				189A86242952FFA2006E13C3 /* Agorafdkaac.framework */,
+				189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */,
+			);
+			path = AgoraSDK;
+			sourceTree = "<group>";
+		};
 		2244EE2028AF727B002FD992 = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +339,8 @@
 		2244EE2B28AF727B002FD992 /* TiCloudRTCObjcExample */ = {
 			isa = PBXGroup;
 			children = (
+				189A86322952FFC8006E13C3 /* TiCloudRTC.framework */,
+				189A86212952FFA2006E13C3 /* AgoraSDK */,
 				22A534D928B4C98B002D7AC4 /* Tools */,
 				22A0CBD028B3A29400D429DB /* Category */,
 				22A0CB9F28B38F8B00D429DB /* Class */,

@@ -149,11 +149,11 @@
     TiCloudRTCCallConfig * callConf = [[TiCloudRTCCallConfig alloc] init];
     if (button.tag == 100)
     {
-        callConf.type = AGENT_SCENCE;
+        callConf.type = TiCloudRtcScence_AGENTSCENCE;
     }
     else if (button.tag == 101)
     {
-        callConf.type = AGENT_SCENCE;
+        callConf.type = TiCloudRtcScence_AGENTSCENCE;
         
         if (self.selectNode)
         {// 节点呼叫

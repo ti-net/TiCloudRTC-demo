@@ -30,6 +30,12 @@
     config.enterpriseId = model.enterpriseId;
     config.userId = model.userName;
     
+    NSString *callerNumber = [[NSUserDefaults standardUserDefaults] valueForKey:kCallerNumber];
+    if (callerNumber.length)
+    {
+        config.callerNumber = callerNumber;
+    }
+    
     config.accessToken = [LoginModel loginModel].accessToken;
     self.tiCloudEngine = [TiCloudRTCEngine createClient:config success:^{
             NSLog(@"createClient success..");

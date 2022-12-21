@@ -130,5 +130,7 @@ static NSString * const kSDKVersonPath = @"SDKVerson";
 static NSString * const kLoginPath = @"LoginInformation";
 /// 登录密码保存
 static NSString * const kLoginPassword = @"LoginPassword";
+/// 主叫号码
+static NSString * const kCallerNumber = @"callerNumber";
 
 #endif /* TiGlobalDefines_h */

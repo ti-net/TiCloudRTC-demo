@@ -136,7 +136,7 @@
     
     TiCloudRTCCallConfig * callConf = [[TiCloudRTCCallConfig alloc] init];
     callConf.tel = self.phoneLabel.text;
-    callConf.type = OUTCALL_SCENCE;
+    callConf.type = TiCloudRtcScence_OUTCALLSCENCE;
     CHWeakSelf
     [[SDKCloudEngine sharedInstancet].tiCloudEngine call:callConf success:^{
         NSLog(@"call ... success");

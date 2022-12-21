@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
 //    self.SDKEngine = [SDKCloudEngine sharedInstancet];
     
-    [[SDKCloudEngine sharedInstancet] initSDK];
+    
 }
 
 - (void)setIsSelectPage:(BOOL)isSelectPage

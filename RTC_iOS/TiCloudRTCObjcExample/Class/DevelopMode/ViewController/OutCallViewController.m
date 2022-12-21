@@ -15,7 +15,8 @@
     UITextField *obClidNumberTF;
     // 随路数据
     UITextField *alongRoadTF;
-    
+    /// 主叫号码
+    UITextField *callerNumberTF;
     // 外呼按钮
     UIButton *outCallBtn;
 }
@@ -28,14 +29,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[SDKCloudEngine sharedInstancet] initSDK];
 }
 - (void)setupSubviews
 {
     CGFloat Margin = 20;
+    CGFloat MargimY = 50;
+    CGFloat MarginH = 70;
     
     NSLog(@"OutCallViewController setupSubviews");
     outCallNumberTF = [[UITextField alloc] init];
-    outCallNumberTF.frame = CGRectMake(Margin, 50.f, self.view.width - 2 *Margin, 40.f);
+    outCallNumberTF.frame = CGRectMake(Margin, MargimY, self.view.width - 2 *Margin, 40.f);
     outCallNumberTF.font = CHFont13;
     outCallNumberTF.textAlignment = NSTextAlignmentCenter;
     outCallNumberTF.placeholder = @"请输入客户号码";
@@ -44,7 +48,7 @@
     outCallNumberTF.layer.cornerRadius = 6;
         
     obClidNumberTF = [[UITextField alloc] init];
-    obClidNumberTF.frame = CGRectMake(Margin, 120.f, self.view.width - 2 *Margin, 40.f);
+    obClidNumberTF.frame = CGRectMake(Margin, MargimY + MarginH, self.view.width - 2 *Margin, 40.f);
     obClidNumberTF.font = CHFont13;
     obClidNumberTF.textAlignment = NSTextAlignmentCenter;
     obClidNumberTF.placeholder = @"请输入外显号码(可选)";
@@ -53,13 +57,22 @@
     obClidNumberTF.layer.cornerRadius = 6;
     
     alongRoadTF = [[UITextField alloc] init];
-    alongRoadTF.frame = CGRectMake(Margin, 190.f, self.view.width - 2 *Margin, 40.f);
+    alongRoadTF.frame = CGRectMake(Margin, MargimY + 2*MarginH, self.view.width - 2 *Margin, 40.f);
     alongRoadTF.font = CHFont13;
     alongRoadTF.placeholder = @"请输入随路数据(可选)";
     alongRoadTF.textAlignment = NSTextAlignmentCenter;
     alongRoadTF.layer.borderWidth = 1.0;
     alongRoadTF.layer.borderColor = UIColor.grayColor.CGColor;
     alongRoadTF.layer.cornerRadius = 6;
+    
+    callerNumberTF = [[UITextField alloc] init];
+    callerNumberTF.frame = CGRectMake(Margin, MargimY + 3 *MarginH, self.view.width - 2 *Margin, 40.f);
+    callerNumberTF.font = CHFont13;
+    callerNumberTF.placeholder = @"请输入主叫号码(可选)";
+    callerNumberTF.textAlignment = NSTextAlignmentCenter;
+    callerNumberTF.layer.borderWidth = 1.0;
+    callerNumberTF.layer.borderColor = UIColor.grayColor.CGColor;
+    callerNumberTF.layer.cornerRadius = 6;
     
     outCallBtn = [[UIButton alloc] init];
     outCallBtn.frame = CGRectMake(Margin, self.view.height - kNavTop - kTabBarHeight - 100 - 45, self.view.width - 2 *Margin, 40.f);
@@ -72,6 +85,7 @@
     [self.view addSubview:outCallNumberTF];
     [self.view addSubview:obClidNumberTF];
     [self.view addSubview:alongRoadTF];
+    [self.view addSubview:callerNumberTF];
 }
 
 
@@ -132,7 +146,7 @@
     
     [self.view endEditing:YES];
     
-    if (!outCallNumberTF.text)
+    if (!outCallNumberTF.text.length)
     {
         [self showErrorView:@"请输入客户号码"];
         return;
@@ -148,10 +162,28 @@
         }
     }
     
+    
+    
     TiCloudRTCCallConfig * callConf = [[TiCloudRTCCallConfig alloc] init];
     callConf.tel = outCallNumberTF.text;
-    callConf.type = OUTCALL_SCENCE;
+    callConf.type = TiCloudRtcScence_OUTCALLSCENCE;
     callConf.clid = obClidNumberTF.text;
+    
+    if (callerNumberTF.text.length)
+    {
+        BOOL isPhone = [AppConfig isValidatePhoneNumber:callerNumberTF.text];
+        
+        if (!isPhone)
+        {
+            [self showErrorView:@"请输入正确的主叫手机号码"];
+            return;
+        }
+        else
+        {
+            callConf.callerNumber = callerNumberTF.text;
+        }
+    }
+    
     CHWeakSelf
     [[SDKCloudEngine sharedInstancet].tiCloudEngine call:callConf success:^{
         NSLog(@"call ... success");
