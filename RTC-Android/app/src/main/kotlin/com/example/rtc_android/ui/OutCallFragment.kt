@@ -44,7 +44,9 @@ class OutCallFragment : Fragment() {
                                 edtOutCallUserField.text.toString()
                             ),
                             type = 6 // 6 为外呼场景
-                        )
+                        ).apply {
+                            callerNumber = binding.edtCallerNumber.text.toString()
+                        }
                     )
                 }
             }
