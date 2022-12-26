@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_out_call_tel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_out_call_clid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -39,12 +39,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
+        android:background="@drawable/shape_demo_btn_bg"
         android:text="@string/call"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_out_call_user_field"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -57,6 +59,19 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_out_call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_out_call_clid" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_caller_number" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_caller_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="真实主叫号码(必填,用于回呼)"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/edt_out_call_clid"
+        app:layout_constraintStart_toStartOf="@+id/edt_out_call_clid"
+        app:layout_constraintTop_toBottomOf="@+id/edt_out_call_clid"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

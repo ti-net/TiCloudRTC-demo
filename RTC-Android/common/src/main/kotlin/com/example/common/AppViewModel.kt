@@ -195,7 +195,9 @@ class AppViewModel : ViewModel() {
                 requestUniqueId = "",
                 userField = callIntent.userField,
                 type = callIntent.type
-            )
+            ).apply {
+                callerNumber = callIntent.callerNumber
+            }
         )
     }
 
@@ -448,7 +450,9 @@ sealed interface AppIntent {
         val clid: String,
         val userField: String,
         val type: Int
-    ) : AppIntent
+    ) : AppIntent {
+        var callerNumber: String = ""
+    }
 
     object Hangup : AppIntent
 
