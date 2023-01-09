@@ -91,6 +91,27 @@
         app:layout_constraintStart_toStartOf="@+id/edt_username"
         app:layout_constraintTop_toBottomOf="@+id/edt_username" />
 
+    <com.example.rtc_android.weight.EditTextWithDelete
+        android:id="@+id/edt_caller_number"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:drawablePadding="10dp"
+        android:hint="@string/please_enter_optional_caller_number"
+        android:inputType="phone"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:singleLine="true"
+        android:textSize="16sp"
+        android:theme="@style/EditTextWithDelete"
+        app:drawableFocus="@drawable/icon_building"
+        app:drawableUnFocus="@drawable/icon_building"
+        app:isHideLine="true"
+        app:isPassword="false"
+        app:layout_constraintEnd_toEndOf="@+id/edt_password"
+        app:layout_constraintStart_toStartOf="@+id/edt_password"
+        app:layout_constraintTop_toBottomOf="@+id/edt_password"
+        tools:text="dfsfds" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="0dp"
@@ -129,7 +150,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.17000002"
+        app:layout_constraintVertical_bias="0.120000005"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -183,12 +204,10 @@
         android:id="@+id/ic_dev_check"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="7dp"
         android:padding="4dp"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/edt_password"
-        app:layout_constraintTop_toBottomOf="@+id/edt_password"
+        app:layout_constraintStart_toStartOf="@+id/edt_caller_number"
+        app:layout_constraintTop_toBottomOf="@+id/edt_caller_number"
         app:srcCompat="@drawable/icon_unchecked" />
 
     <androidx.appcompat.widget.AppCompatTextView

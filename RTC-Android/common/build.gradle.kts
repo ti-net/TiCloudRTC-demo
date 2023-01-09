@@ -88,5 +88,5 @@ dependencies {
     api("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:2.1.0@aar")
+    api("com.github.ti-net:TiCloud-RTC-Android:2.1.1@aar")
 }

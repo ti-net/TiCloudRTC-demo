@@ -6,8 +6,8 @@ object ProjectConfig{
 
 object AppConfig{
     const val applicationId = "com.example.rtc_android"
-    const val versionCode = 12
-    const val versionName = "2.6.1"
+    const val versionCode = 13
+    const val versionName = "2.6.2"
 }
 
 object AppComposeConfig{
@@ -58,6 +58,7 @@ object CommonConfig{
         GradleResField("string","default_enterprise_id","\"\""),
         GradleResField("string","default_username","\"\""),
         GradleResField("string","default_password","\"\""),
+        GradleResField("string","default_caller_number","\"\""),
     )
 
     val debugFields = listOf(
@@ -105,6 +106,7 @@ object CommonConfig{
         GradleResField("string","default_enterprise_id","\"\""),
         GradleResField("string","default_username","\"\""),
         GradleResField("string","default_password","\"\""),
+        GradleResField("string","default_caller_number","\"\""),
     )
 }
 

@@ -69,6 +69,8 @@ class LoginFragment : Fragment() {
                     .newEditable(resources.getString(R.string.default_username))
                 edtPassword.text = Editable.Factory.getInstance()
                     .newEditable(resources.getString(R.string.default_password))
+                edtCallerNumber.text = Editable.Factory.getInstance()
+                    .newEditable(resources.getString(R.string.default_caller_number))
                 true
             }
             btnLogin.setOnClickListener {
@@ -79,7 +81,8 @@ class LoginFragment : Fragment() {
                             platformUrl = edtPlatformUrl.text.toString(),
                             enterpriseId = edtEnterpriseId.text.toString(),
                             username = edtUsername.text.toString(),
-                            password = edtPassword.text.toString()
+                            password = edtPassword.text.toString(),
+                            callerNumber = edtCallerNumber.text.toString()
                         )
                     )
                 }
@@ -131,6 +134,8 @@ class LoginFragment : Fragment() {
                             .newEditable(loginMessage.username)
                         edtPassword.text = Editable.Factory.getInstance()
                             .newEditable(loginMessage.password)
+                        edtCallerNumber.text = Editable.Factory.getInstance()
+                            .newEditable(loginMessage.callerNumber)
                     }
                 }
         }
