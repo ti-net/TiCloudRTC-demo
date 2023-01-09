@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="真实主叫号码(非必填,用于回呼)"
+        android:hint="@string/please_enter_optional_caller_number"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="@+id/edt_out_call_clid"
         app:layout_constraintStart_toStartOf="@+id/edt_out_call_clid"

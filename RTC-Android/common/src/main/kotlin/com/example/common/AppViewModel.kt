@@ -91,11 +91,13 @@ class AppViewModel : ViewModel() {
     private var enterpriseId = ""
     private var username = ""
     private var password = ""
+    private var callerNumber = ""
 
     private val Context.loginDataStore: DataStore<Preferences> by preferencesDataStore("login_message")
     private val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
     private val KEY_USERNAME = stringPreferencesKey("key_username")
     private val KEY_PASSWORD = stringPreferencesKey("key_password")
+    private val KEY_CALLER_NUMBER = stringPreferencesKey("key_caller_number")
     private val KEY_IS_SAVE_LOGIN_MESSAGE = booleanPreferencesKey("key_is_save_login_message")
 
     suspend fun getLoginMessageFromLocalStore(context: Context): StateFlow<LoginMessage> {
@@ -104,7 +106,8 @@ class AppViewModel : ViewModel() {
             LoginMessage(
                 enterpriseId = it[KEY_ENTERPRISE_ID] ?: "",
                 username = it[KEY_USERNAME] ?: "",
-                password = it[KEY_PASSWORD] ?: ""
+                password = it[KEY_PASSWORD] ?: "",
+                callerNumber = it[KEY_CALLER_NUMBER] ?: ""
             )
         }.stateIn(viewModelScope)
     }
@@ -227,6 +230,7 @@ class AppViewModel : ViewModel() {
         enterpriseId = loginIntent.enterpriseId
         username = loginIntent.username
         password = loginIntent.password
+        callerNumber = loginIntent.callerNumber
 
         HttpServiceManager.tiCloudHttpService.login(
             LoginParams(
@@ -258,6 +262,7 @@ class AppViewModel : ViewModel() {
                             }else{
                                 it[KEY_PASSWORD] = ""
                             }
+                            it[KEY_CALLER_NUMBER] = this@AppViewModel.callerNumber
                             it[KEY_IS_SAVE_LOGIN_MESSAGE] =
                                 this@AppViewModel.isSaveLoginMessage.value
                         }
@@ -279,6 +284,7 @@ class AppViewModel : ViewModel() {
                             accessToken = accessToken,
                         ).apply {
                             isDebug = true
+                            callerNumber = this@AppViewModel.callerNumber
                         },
                         resultCallback = object : CreateResultCallback {
                             override fun onFailed(errorCode: Int, errorMessage: String) {
@@ -440,7 +446,8 @@ sealed interface AppIntent {
         val platformUrl: String,
         val enterpriseId: String,
         val username: String,
-        val password: String
+        val password: String,
+        val callerNumber: String = ""
     ) : AppIntent
 
     object Logout : AppIntent
@@ -509,7 +516,8 @@ sealed interface AppUiState {
 data class LoginMessage(
     val enterpriseId: String = "",
     val username: String = "",
-    val password: String = ""
+    val password: String = "",
+    val callerNumber: String = ""
 )
 
 
