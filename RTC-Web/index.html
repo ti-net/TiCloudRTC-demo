@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TiCloud Voice Web Demo</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="vendor/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <!--线上环境请使用release版本，snapshot仅供测试使用、不保证稳定性-->
+    <script type="text/javascript" src="https://rtc-sdk.cticloud.cn/sdk/snapshot/TiCloudRTC.js"></script>
+</head>
+
+<body>
+<div id="headConteny">
+    <div class="head">
+        <img class="headBg" src="assets/headBg.png" alt="">
+        <img class="headTitle" src="assets/headTitle.png" alt="">
+        <div class="environmentBtn" id="environment">CTICloud-测试环境</div>
+        <div id="logoutButton" class="loginBth" onclick="logout()">退出</div>
+    </div>
+    <div class="container-fluid">
+        <div class="row" style="background-color: #ffffff;">
+            <div class="fromWrap col-8">
+                <h4 class="text-left">欢迎来到RTC+CC！</h4>
+                <div class="authScene">
+                    <form>
+                        <div class="form-row" style="margin: 0px 20px;">
+                            <div class="form-group col-md-4">
+                                <label for="enterpriseId"><span style="color: red;">*</span>企业ID：</label>
+                                <input id="enterpriseId" type="text" class="form-control" placeholder="请输入企业ID">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="username">用户名称：</label>
+                                <input id="username" type="text" class="form-control" placeholder="请输入用户名称,随意字符即可">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="accessToken">AccessToken：</label>
+                                <input id="accessToken" type="text" class="form-control" placeholder="请输入accessToken">
+                            </div>
+
+                        </div>
+                        <div class="btnCommon" id="authContent">
+                            <button id="authButton" type="button" class="btn btn-primary" onclick="register()"
+                                    >初始化
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- 外呼场景 -->
+                <div class="outboundScene">
+                    <form>
+                        <div class="titleCommon">
+                            <img src="assets/call.png" alt="">
+                            <span>外呼场景</span>
+                        </div>
+                        <div class="form-row" style="margin: 0px 20px;">
+                            <div class="form-group col-md-4">
+                                <label for="tel"><span style="color: red;">*</span>客户号码：</label>
+                                <input id="tel" type="text" class="form-control" placeholder="请输入客户号码"
+                                       oninput="customTel(1)">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="clid">外显号码：</label>
+                                <input id="clid" type="text" class="form-control" placeholder="请输入外显号码">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="callerNumber">真实主叫：</label>
+                                <input id="callerNumber" type="text" class="form-control" placeholder="请输入真实主叫">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="userField">随路数据：</label>
+                                <input id="userField" type="text" class="form-control" placeholder="请输入随路数据">
+                            </div>
+                        </div>
+                        <div class="btnCommon" id="callButtonContent">
+                            <button id="callButton" type="button" class="btn btn-primary" onclick="call(event,6,1)"
+                                    disabled>呼叫
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- 客服场景 -->
+                <div class="customerService container-fluid">
+                    <div class="titleCommon" style="border: 0px; margin-left: 0;">
+                        <img src="assets/customerService.png" alt="">
+                        <span>客服场景</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <form class="kfWrapLeft">
+                                <div class="form-group">
+                                    <div class="kfBtnCommon">点击下方按钮可直接联系客服【95092】</div>
+                                </div>
+                                <div class="form-group" style="margin: 0 30px 30px">
+                                    <label for="callLeftUserField">随路数据：</label>
+                                    <input id="callLeftUserField" type="text" class="form-control"
+                                           placeholder="请输入随路数据">
+                                </div>
+                                <div class="form-group" id="keyNumberContent" style="margin: 0 30px 30px;">
+                                </div>
+                                <div class="btnCommon" id="callLeftButtonConent">
+                                    <button id="callLeftButton" type="button" class="btn btn-primary"
+                                            onclick="call(event,1,2)">联系客服
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <form class="kfWrapRight">
+                                <div class="form-group">
+                                    <div class="kfBtnCommon">点击下方按钮可直接联系客服【95092】</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row" style="margin: 0 30px;">
+                                        <div class="form-group col-md-6">
+                                            <select id="rootNode" class="form-control" style="color: #6c757d;" disabled>
+                                                <option selected>根节点</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <select id="childNode" class="form-control">
+                                                <option selected value="1">播放节点</option>
+                                                <option value="2">队列节点</option>
+                                                <option value="3">直呼节点</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="callRightUserField">随路数据：</label>
+                                            <input id="callRightUserField" type="text" class="form-control"
+                                                   placeholder="请输入随路数据">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btnCommon" id="callRightButtonContent">
+                                    <button type="button" id="callRightButton" class="btn btn-primary"
+                                            onclick="call(event,1,3)">联系客服
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 事件日志 -->
+            <div class="col-4 timeLineContain">
+                <div class="d-flex justify-content-between" style="height: 40px;">
+                    <p style="font-size: 16px; font-weight: 600;">事件日志</p>
+                    <div>
+                        <img src="assets/clearIcon.png" alt="">
+                        <span style="color: #4385FF;" onclick="cleanLog()">清除日志</span>
+                    </div>
+                </div>
+                <div class="row timeLineWrap" id="eventLog">
+                    <div class="col-2" id="timecenter">
+                        <div id="cicleContant"
+                             style="height:1px;  border-left:1px   solid  #959297; position:absolute; top: 6px;">
+                            <ul id="cicle">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-10" id="timeright">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
