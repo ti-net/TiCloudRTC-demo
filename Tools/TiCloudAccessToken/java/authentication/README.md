@@ -12,14 +12,14 @@
         //请替换为天润分配给您的企业密钥
         static String token = "xxxxxxxxxxxxx";
         //请替换为您的用户ID
-        static Integer userId = 112412512;
+        static String userId = "112412512";
         //AccessToken的有效期最大为一小时
         static int expirationTimeInSeconds = 3600;
 
-        public String buildAccessToken(Integer enterpriseId, Integer userId, String token, Integer expirationTimeInSeconds) {
+        public String buildAccessToken(Integer enterpriseId, String userId, String token, Integer expirationTimeInSeconds) {
             AccessTokenBuilder accessTokenBuilder = new AccessTokenBuilder();
             int timestamp = (int) (System.currentTimeMillis() / 1000 + expirationTimeInSeconds);
-            String result = accessTokenBuilder.buildAccessToken(String.valueOf(enterpriseId), token, String.valueOf(userId), timestamp);
+            String result = accessTokenBuilder.buildAccessToken(String.valueOf(enterpriseId), token, userId, timestamp);
             return result;
         }
 
