@@ -68,7 +68,7 @@
     callerNumberTF = [[UITextField alloc] init];
     callerNumberTF.frame = CGRectMake(Margin, MargimY + 3 *MarginH, self.view.width - 2 *Margin, 40.f);
     callerNumberTF.font = CHFont13;
-    callerNumberTF.placeholder = @"请输入主叫号码(可选)";
+    callerNumberTF.placeholder = @"请输入回呼号（可选）";
     callerNumberTF.textAlignment = NSTextAlignmentCenter;
     callerNumberTF.layer.borderWidth = 1.0;
     callerNumberTF.layer.borderColor = UIColor.grayColor.CGColor;

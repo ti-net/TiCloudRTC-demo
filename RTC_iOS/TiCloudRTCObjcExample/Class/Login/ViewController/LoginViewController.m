@@ -208,7 +208,7 @@
     callerNumberField.textField.secureTextEntry = YES;
     [bgView addSubview:callerNumberField];
     self.callerNumberField = callerNumberField;
-    callerNumberField.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入主叫号码（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    callerNumberField.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入回呼号（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
     UIButton *rememberBtn = [[UIButton alloc]initWithFrame:CGRectMake(callerNumberField.right - 80, callerNumberField.bottom + 10, 80, 20)];
     [rememberBtn setTitle:@"记住密码" forState:UIControlStateNormal];
