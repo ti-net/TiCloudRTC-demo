@@ -8,7 +8,7 @@
 #import "BaseCallViewController.h"
 #import "LoginModel.h"
 #import "LoginViewController.h"
-#import "LoginViewModel.h"
+//#import "LoginViewModel.h"
 
 @interface BaseCallViewController ()
 
@@ -20,9 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//    self.SDKEngine = [SDKCloudEngine sharedInstancet];
-    
     
 }
 
@@ -30,7 +27,7 @@
 {
     if (isSelectPage)
     {
-        [[SDKCloudEngine sharedInstancet].tiCloudEngine setEventListener:self];
+        [[SDKCloudEngine sharedInstance].tiCloudEngine setEventListener:self];
     }
 }
 
@@ -50,22 +47,22 @@
 
 -(void)hangupButtonClick
 {
-    [[SDKCloudEngine sharedInstancet].tiCloudEngine hangup];
+    [[SDKCloudEngine sharedInstance].tiCloudEngine hangup];
 }
 
 - (void)numberButtonsClick:(NSString *)number
 {
-    [[SDKCloudEngine sharedInstancet].tiCloudEngine dtmf:number];
+    [[SDKCloudEngine sharedInstance].tiCloudEngine dtmf:number];
 }
 
 - (void)localAudioButtonClick:(BOOL)isSelect
 {
-    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableLocalAudio:isSelect];
+    [[SDKCloudEngine sharedInstance].tiCloudEngine setEnableLocalAudio:isSelect];
 }
 
 - (void)speakphoneButtonClick:(BOOL)isSelect
 {
-    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableSpeakerphone:isSelect];
+    [[SDKCloudEngine sharedInstance].tiCloudEngine setEnableSpeakerphone:isSelect];
     
     if (self.isRinging)
     {
@@ -174,18 +171,10 @@
 - (void)onAccessTokenWillExpire:(nonnull NSString *)accessToken
 {
     NSLog(@"用户端回调：onAccessTokenWillExpire");
-    LoginViewModel *viewModel = [LoginViewModel sharedInstance];
     
-    [viewModel requestData];
+    LoginModel *model = [LoginModel loginModel];
     
-    @weakify(self);
-    [RACObserve(viewModel, networkState) subscribeNext:^(NSNumber *networkState) {
-        if (viewModel.networkState == NetworkStateSuccess) {
-            LoginModel *model = [LoginModel loginModel];
-            
-            [[SDKCloudEngine sharedInstancet].tiCloudEngine renewAccessToken:model.accessToken];
-        }
-    }];    
+    [[SDKCloudEngine sharedInstance].tiCloudEngine renewAccessToken:model.accessToken];
 }
 
 /**
@@ -199,7 +188,7 @@
     
     
     CHWeakSelf
-    [[SDKCloudEngine sharedInstancet].tiCloudEngine destroyClient:^{
+    [[SDKCloudEngine sharedInstance].tiCloudEngine destroyClient:^{
         
         [weakSelf.telephoneView callingEnd];
         

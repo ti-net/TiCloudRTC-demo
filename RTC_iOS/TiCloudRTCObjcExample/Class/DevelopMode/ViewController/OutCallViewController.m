@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[SDKCloudEngine sharedInstancet] initSDK];
+//    [[SDKCloudEngine sharedInstance] initSDK];
 }
 - (void)setupSubviews
 {
@@ -185,7 +185,7 @@
     }
     
     CHWeakSelf
-    [[SDKCloudEngine sharedInstancet].tiCloudEngine call:callConf success:^{
+    [[SDKCloudEngine sharedInstance].tiCloudEngine call:callConf success:^{
         NSLog(@"call ... success");
         [weakSelf showTelephoneView:callConf.tel];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
