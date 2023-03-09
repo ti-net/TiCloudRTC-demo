@@ -172,9 +172,9 @@
 {
     NSLog(@"用户端回调：onAccessTokenWillExpire");
     
-    LoginModel *model = [LoginModel loginModel];
-    
-    [[SDKCloudEngine sharedInstance].tiCloudEngine renewAccessToken:model.accessToken];
+//    LoginModel *model = [LoginModel loginModel];
+//
+//    [[SDKCloudEngine sharedInstance].tiCloudEngine renewAccessToken:model.accessToken];
 }
 
 /**
@@ -202,8 +202,6 @@
         }
         else
         {
-//            LoginViewController *loginVC = [[LoginViewController alloc]init];
-            
             [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
         }
     } error:^(TiCloudRtcErrCode errorCode, NSString * _Nonnull errorMessage) {

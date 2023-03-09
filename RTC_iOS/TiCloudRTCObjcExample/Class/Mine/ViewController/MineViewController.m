@@ -69,10 +69,7 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else
-        {            
-            
-//            LoginViewController *loginVC = [[LoginViewController alloc]init];
-            
+        {
             [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
         }
         

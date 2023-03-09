@@ -13,7 +13,7 @@
 #import "TextFieldView.h"
 #import "CommonConfig.h"
 #import "CHResolutionView.h"
-#import "CustomerDataViewController.h"
+//#import "CustomerDataViewController.h"
 #import "SDKCloudEngine.h"
 
 @interface LoginViewController ()

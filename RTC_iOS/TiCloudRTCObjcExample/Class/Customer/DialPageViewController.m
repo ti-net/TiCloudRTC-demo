@@ -320,8 +320,8 @@
 - (void)onAccessTokenWillExpire:(nonnull NSString *)accessToken
 {
     NSLog(@"用户端回调：onAccessTokenWillExpire");
-    LoginModel *model = [LoginModel loginModel];
-    [[SDKCloudEngine sharedInstance].tiCloudEngine renewAccessToken:model.accessToken];
+//    LoginModel *model = [LoginModel loginModel];
+//    [[SDKCloudEngine sharedInstance].tiCloudEngine renewAccessToken:model.accessToken];
 }
 
 /**
