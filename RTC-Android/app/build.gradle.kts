@@ -30,33 +30,61 @@ android {
     buildTypes {
         release {
 
-            isMinifyEnabled= true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             signingConfig = signingConfigs.getByName("release")
 
             CommonConfig.releaseFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
             }
 
             CommonConfig.releaseResValue.forEach {
-                resValue(it.type,it.fieldName,it.fieldValue)
+                resValue(it.type, it.fieldName, it.fieldValue)
             }
         }
-        debug{
-            isMinifyEnabled= false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
             CommonConfig.debugFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
             }
 
             CommonConfig.debugResValue.forEach {
-                resValue(it.type,it.fieldName,it.fieldValue)
+                resValue(it.type, it.fieldName, it.fieldValue)
             }
         }
 
     }
+
+    val DimensionCase = "Case"
+
+    flavorDimensions += listOf(DimensionCase)
+
+    productFlavors {
+        create("demo") {
+            dimension = DimensionCase
+
+            CommonConfig.demoFields.forEach {
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
+            }
+        }
+        create("innerTest") {
+            dimension = DimensionCase
+
+            CommonConfig.innerTestFields.forEach {
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
         targetCompatibility(JavaVersion.VERSION_1_8)
@@ -65,14 +93,15 @@ android {
         jvmTarget = "1.8"
     }
 
-    viewBinding{
-        isEnabled = true
+    viewBinding {
+        enable = true
     }
+    namespace = "com.example.rtc_android"
 
     android.applicationVariants.all {
         outputs.all {
             (this as? BaseVariantOutputImpl)?.outputFileName =
-                "RTC-Android-demo${if(flavorName == "")"" else "_$flavorName"}_${AppConfig.versionName}_${buildType.name}.apk"
+                "RTC-Android-demo${if (flavorName == "") "" else "_$flavorName"}_${AppConfig.versionName}_${buildType.name}.apk"
         }
     }
 }
@@ -82,6 +111,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.5.1")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.1")

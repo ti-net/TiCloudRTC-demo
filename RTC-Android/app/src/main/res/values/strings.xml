@@ -16,7 +16,6 @@
     <string name="enterprise_id">企业ID</string>
     <string name="enterprise_id_hint">请输入企业 ID</string>
     <string name="user_id_hint">请输入用户 ID</string>
-    <string name="password_hint">请输入密码</string>
     <string name="dev_mode">开发者模式</string>
     <string name="platform_url">平台地址</string>
     <string name="out_call_scene">外呼场景</string>

@@ -6,8 +6,8 @@ object ProjectConfig{
 
 object AppConfig{
     const val applicationId = "com.example.rtc_android"
-    const val versionCode = 13
-    const val versionName = "2.6.2"
+    const val versionCode = 14
+    const val versionName = "2.7.0"
 }
 
 object AppComposeConfig{
@@ -107,6 +107,14 @@ object CommonConfig{
         GradleResField("string","default_username","\"\""),
         GradleResField("string","default_password","\"\""),
         GradleResField("string","default_caller_number","\"\""),
+    )
+
+    val demoFields = listOf(
+        GradleField("int","DEFAULT_SPINNER_SELECTION","1")
+    )
+
+    val innerTestFields = listOf(
+        GradleField("int","DEFAULT_SPINNER_SELECTION","0")
     )
 }
 
