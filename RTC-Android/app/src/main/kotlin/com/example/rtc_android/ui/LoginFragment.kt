@@ -102,10 +102,12 @@ class LoginFragment : Fragment() {
             }
         }.apply {
             edtPlatformUrl.text =
-                Editable.Factory.getInstance().newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[0])
+                Editable.Factory.getInstance()
+                    .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[BuildConfig.DEFAULT_SPINNER_SELECTION])
             edtPlatformUrl.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
             edtEnterpriseId.text =
-                Editable.Factory.getInstance().newEditable(BuildConfig.LOGIN_ENTERPRISE_ID_VALUE[0])
+                Editable.Factory.getInstance()
+                    .newEditable(BuildConfig.LOGIN_ENTERPRISE_ID_VALUE[BuildConfig.DEFAULT_SPINNER_SELECTION])
 //            spinnerEnv.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
 //            spinnerIcon.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
         }
@@ -119,6 +121,7 @@ class LoginFragment : Fragment() {
             binding.spinnerEnv.adapter = it
         }
 
+        binding.spinnerEnv.setSelection(BuildConfig.DEFAULT_SPINNER_SELECTION)
 
         obsState()
     }
@@ -200,10 +203,10 @@ class LoginFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.isSaveLoginMessage.collect{isSaveLoginMsg ->
-                        if(isSaveLoginMsg){
+                    viewModel.isSaveLoginMessage.collect { isSaveLoginMsg ->
+                        if (isSaveLoginMsg) {
                             binding.icSaveLoginMsgCheck.setImageResource(R.drawable.icon_checked)
-                        }else{
+                        } else {
                             binding.icSaveLoginMsgCheck.setImageResource(R.drawable.icon_unchecked)
                         }
                     }

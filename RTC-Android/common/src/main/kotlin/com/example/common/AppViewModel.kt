@@ -11,25 +11,15 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.common.bean.BaseResult
-import com.example.common.bean.LoginParams
-import com.example.common.bean.LoginResult
 import com.example.common.http.HttpServiceManager
-import com.example.common.http.HttpUtils.enqueueWithLog
-import com.example.common.http.HttpUtils.parseHttpResult
 import com.tencent.bugly.crashreport.CrashReport
-import com.tinet.ticloudrtc.CreateResultCallback
 import com.tinet.ticloudrtc.DestroyResultCallback
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
-import com.tinet.ticloudrtc.bean.CreateClientOption
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,66 +29,66 @@ class AppViewModel : ViewModel() {
     val intentChannel: Channel<AppIntent> = Channel(Channel.UNLIMITED)
 
     /** UI 状态 */
-    private val _appUiState = MutableStateFlow<AppUiState>(AppUiState.WaitToLogin)
+    internal val _appUiState = MutableStateFlow<AppUiState>(AppUiState.WaitToLogin)
     val appUiState = _appUiState.asStateFlow()
 
     /** 静音状态，true：静音，false：非静音 */
-    private val _muteState = MutableStateFlow(false)
+    internal val _muteState = MutableStateFlow(false)
     val muteState = _muteState.asStateFlow()
 
     /** 扬声器状态，true：扬声器打开，false：扬声器关闭 */
-    private val _speakerphoneOpenSate = MutableStateFlow(false)
+    internal val _speakerphoneOpenSate = MutableStateFlow(false)
     val speakerphoneOpenState = _speakerphoneOpenSate.asStateFlow()
 
-    private val DEFAULT_BIGGER_TEXT = ""
+    internal val DEFAULT_BIGGER_TEXT = ""
 
     /** 呼叫中界面大文本内容 */
-    private val _biggerText = MutableStateFlow(DEFAULT_BIGGER_TEXT)
+    internal val _biggerText = MutableStateFlow(DEFAULT_BIGGER_TEXT)
     val biggerText = _biggerText.asStateFlow()
 
-    private val CALLING_TIP = "外呼中..."
+    internal val CALLING_TIP = "外呼中..."
 
     /** 呼叫中界面小文本内容 */
-    private val _smallText = MutableStateFlow(CALLING_TIP)
+    internal val _smallText = MutableStateFlow(CALLING_TIP)
     val smallText = _smallText.asStateFlow()
 
-    private val DEFAULT_DTMF_PANEL_STATE = false
+    internal val DEFAULT_DTMF_PANEL_STATE = false
 
     /** dtmf 键盘打开标识，true：打开 dtmf 键盘，false：关闭 dtmf 键盘 */
-    private val _isShowDtmfPanel =
+    internal val _isShowDtmfPanel =
         MutableStateFlow(DEFAULT_DTMF_PANEL_STATE)
     val isShowDtmfPanel = _isShowDtmfPanel.asStateFlow()
 
     /** 开发者模式标识，true：开发者模式，false：非开发者模式 */
-    private val _isDevMode = MutableStateFlow(true)
+    internal val _isDevMode = MutableStateFlow(true)
     val isDevMode = _isDevMode.asStateFlow()
 
     /** 保存登录信息标识，true：登录时保存登录信息，false：登录时不保存登录信息 */
-    private val _isSaveLoginMessage = MutableStateFlow(true)
+    internal val _isSaveLoginMessage = MutableStateFlow(true)
     val isSaveLoginMessage = _isSaveLoginMessage.asStateFlow()
 
     /** 通话事件计时器 */
-    private var callingTimer: Timer? = null
+    internal var callingTimer: Timer? = null
 
-    private var rtcClient: TiCloudRTC? = null
+    internal var rtcClient: TiCloudRTC? = null
 
     /** 当前通话中号码 */
-    private var currentTel = ""
+    internal var currentTel = ""
 
     /** 当前 dtmf 输入记录 */
-    private var currentDtmfHistory = ""
+    internal var currentDtmfHistory = ""
 
-    private var enterpriseId = ""
-    private var username = ""
-    private var password = ""
-    private var callerNumber = ""
+    internal var enterpriseId = ""
+    internal var username = ""
+    internal var password = ""
+    internal var callerNumber = ""
 
-    private val Context.loginDataStore: DataStore<Preferences> by preferencesDataStore("login_message")
-    private val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
-    private val KEY_USERNAME = stringPreferencesKey("key_username")
-    private val KEY_PASSWORD = stringPreferencesKey("key_password")
-    private val KEY_CALLER_NUMBER = stringPreferencesKey("key_caller_number")
-    private val KEY_IS_SAVE_LOGIN_MESSAGE = booleanPreferencesKey("key_is_save_login_message")
+    internal val Context.loginDataStore: DataStore<Preferences> by preferencesDataStore("login_message")
+    internal val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
+    internal val KEY_USERNAME = stringPreferencesKey("key_username")
+    internal val KEY_PASSWORD = stringPreferencesKey("key_password")
+    internal val KEY_CALLER_NUMBER = stringPreferencesKey("key_caller_number")
+    internal val KEY_IS_SAVE_LOGIN_MESSAGE = booleanPreferencesKey("key_is_save_login_message")
 
     suspend fun getLoginMessageFromLocalStore(context: Context): StateFlow<LoginMessage> {
         return context.loginDataStore.data.map {
@@ -142,7 +132,7 @@ class AppViewModel : ViewModel() {
 
     fun isMute() = muteState.value
 
-    private fun resetCallingState() {
+    internal fun resetCallingState() {
         _muteState.value = false
         _speakerphoneOpenSate.value = false
         callingTimer?.cancel()
@@ -164,27 +154,27 @@ class AppViewModel : ViewModel() {
 
     fun isUseSpeakerphone(): Boolean = rtcClient?.isSpeakerphoneEnabled() ?: false
 
-    private fun sendDtmf(intent: AppIntent.SendDtmf) {
+    internal fun sendDtmf(intent: AppIntent.SendDtmf) {
         currentDtmfHistory += intent.digits
         _biggerText.value = currentDtmfHistory
         rtcClient?.dtmf(intent.digits)
     }
 
-    private fun useSpeakerphone(intent: AppIntent.UseSpeakerphone) {
+    internal fun useSpeakerphone(intent: AppIntent.UseSpeakerphone) {
         rtcClient?.setEnableSpeakerphone(intent.isUse)
         _speakerphoneOpenSate.value = intent.isUse
     }
 
-    private fun mute(muteIntent: AppIntent.Mute) {
+    internal fun mute(muteIntent: AppIntent.Mute) {
         rtcClient?.setEnableLocalAudio(muteIntent.isMute.not())
         _muteState.value = muteIntent.isMute
     }
 
-    private fun hangup() {
+    internal fun hangup() {
         rtcClient?.hangup()
     }
 
-    private fun call(callIntent: AppIntent.Call) {
+    internal fun call(callIntent: AppIntent.Call) {
         if (callIntent.tel.isEmpty() && callIntent.type == 6) {
             _appUiState.value = AppUiState.CallFailed("号码不正确")
             return
@@ -205,11 +195,7 @@ class AppViewModel : ViewModel() {
     }
 
 
-    /**
-     * 注：当前的登录只是虚假的登录，仅供 demo 获取初始化参数，
-     *      正式使用时，请使用 /interface/v10/rtc/getAccessToken 获取初始化参数
-     */
-    private fun login(loginIntent: AppIntent.Login) {
+    internal fun login(loginIntent: AppIntent.Login) {
 
         CrashReport.initCrashReport(loginIntent.context, BuildConfig.BUGLY_APPID, BuildConfig.DEBUG)
 
@@ -232,88 +218,27 @@ class AppViewModel : ViewModel() {
         password = loginIntent.password
         callerNumber = loginIntent.callerNumber
 
-        HttpServiceManager.tiCloudHttpService.login(
-            LoginParams(
-                enterpriseId = enterpriseId.toInt(),
-                username = username,
-                password = password
-            )
-        ).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
-            override fun onResponse(
-                call: Call<BaseResult<LoginResult>>,
-                response: Response<BaseResult<LoginResult>>
-            ) {
-                Log.i(LOG_TAG, "登录接口请求成功")
-                Log.i(LOG_TAG, "返回结果： ${response.body()}")
-                val loginResult = response.parseHttpResult()
-                if (loginResult.code == 200) {
-                    Log.i(LOG_TAG, "获取初始化参数成功")
-
-                    var rtcEndpoint = ""
-                    var enterpriseId = 0
-                    var accessToken = ""
-
-                    viewModelScope.launch {
-                        loginIntent.context.loginDataStore.edit {
-                            it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
-                            it[KEY_USERNAME] = this@AppViewModel.username
-                            if (isSaveLoginMessage.value) {
-                                it[KEY_PASSWORD] = this@AppViewModel.password
-                            }else{
-                                it[KEY_PASSWORD] = ""
-                            }
-                            it[KEY_CALLER_NUMBER] = this@AppViewModel.callerNumber
-                            it[KEY_IS_SAVE_LOGIN_MESSAGE] =
-                                this@AppViewModel.isSaveLoginMessage.value
-                        }
-                    }
-
-                    loginResult.result?.also {
-                        rtcEndpoint = it.rtcEndpoint
-                        enterpriseId = it.enterpriseId
-                        accessToken = it.accessToken
-                    }
-
-                    // 创建 RTC 客户端
-                    TiCloudRTC.createClient(
-                        context = loginIntent.context,
-                        CreateClientOption(
-                            rtcEndpoint = rtcEndpoint,
-                            enterpriseId = enterpriseId.toString(),
-                            userId = loginIntent.username,
-                            accessToken = accessToken,
-                        ).apply {
-                            isDebug = true
-                            callerNumber = this@AppViewModel.callerNumber
-                        },
-                        resultCallback = object : CreateResultCallback {
-                            override fun onFailed(errorCode: Int, errorMessage: String) {
-                                _appUiState.value = AppUiState.LoginFailed(errorMessage)
-                            }
-
-                            override fun onSuccess(rtcClient: TiCloudRTC) {
-                                this@AppViewModel.rtcClient = rtcClient
-                                rtcClient.setEventListener(CustomEventListener())
-                                _appUiState.value = AppUiState.LoginSuccess
-                            }
-                        }
-                    )
-                } else {
-                    Log.i(LOG_TAG, "返回结果无效")
-                    _appUiState.value = AppUiState.LoginFailed(loginResult.message)
-                }
-            }
-
-            override fun onFailure(call: Call<BaseResult<LoginResult>>, t: Throwable) {
-                Log.i(LOG_TAG, "登录接口请求失败")
-                _appUiState.value = AppUiState.LoginFailed(t.message ?: "接口访问错误")
-            }
-
-        })
-
+        loginExt(loginIntent)
     }
 
-    private fun logout() {
+    internal fun saveLoginState(loginIntent: AppIntent.Login) {
+        viewModelScope.launch {
+            loginIntent.context.loginDataStore.edit {
+                it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
+                it[KEY_USERNAME] = this@AppViewModel.username
+                if (isSaveLoginMessage.value) {
+                    it[KEY_PASSWORD] = this@AppViewModel.password
+                } else {
+                    it[KEY_PASSWORD] = ""
+                }
+                it[KEY_CALLER_NUMBER] = this@AppViewModel.callerNumber
+                it[KEY_IS_SAVE_LOGIN_MESSAGE] =
+                    this@AppViewModel.isSaveLoginMessage.value
+            }
+        }
+    }
+
+    internal fun logout() {
         rtcClient?.destroyClient(object : DestroyResultCallback {
             override fun onFailed(errorCode: Int, errorMessage: String) {
                 _appUiState.value = AppUiState.LogoutFailed(errorMessage)
@@ -327,7 +252,7 @@ class AppViewModel : ViewModel() {
         })
     }
 
-    private inner class CustomEventListener : TiCloudRTCEventListener() {
+    internal inner class CustomEventListener : TiCloudRTCEventListener() {
 
         override fun onCallingStart(requestUniqueId: String) {
             _appUiState.value = AppUiState.OnCallStart
@@ -377,42 +302,7 @@ class AppViewModel : ViewModel() {
         }
 
         override fun onAccessTokenWillExpire(accessToken: String) {
-            Log.i(
-                "AccessToken",
-                "onAccessTokenWillExpire ---- ${
-                    SimpleDateFormat(
-                        "yyyy-MM-dd hh:mm:ss",
-                        Locale.getDefault()
-                    ).format(Date())
-                }"
-            )
-            HttpServiceManager.tiCloudHttpService.login(
-                LoginParams(
-                    enterpriseId = enterpriseId.toInt(),
-                    username = username,
-                    password = password
-                )
-            ).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
-                override fun onResponse(
-                    call: Call<BaseResult<LoginResult>>,
-                    response: Response<BaseResult<LoginResult>>
-                ) {
-                    val loginResult = response.parseHttpResult()
-                    if (loginResult.isSuccessful) {
-                        // 更新 access token
-                        rtcClient?.renewAccessToken(loginResult.result!!.accessToken)
-                    } else {
-                        _appUiState.value =
-                            AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${loginResult.message}")
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResult<LoginResult>>, t: Throwable) {
-                    _appUiState.value =
-                        AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${t.message}")
-                }
-
-            })
+            onAccessTokenWillExpireExt(accessToken)
         }
 
         override fun onAccessTokenHasExpired() {
@@ -436,7 +326,7 @@ class AppViewModel : ViewModel() {
     }
 
     companion object {
-        private var LOG_TAG = AppViewModel::class.java.simpleName
+        internal var LOG_TAG = AppViewModel::class.java.simpleName
     }
 }
 
@@ -507,6 +397,8 @@ sealed interface AppUiState {
         val errorCode: Int,
         val errorMessage: String
     ) : AppUiState
+
+    object OnAccessTokenWillExpire : AppUiState
 
     class OnRefreshTokenFailed(val errorMsg: String) : AppUiState
 

@@ -69,14 +69,14 @@ fun MainPageContent(
     val item = remember {
         mutableStateListOf(
             BottomNavItem(
-                R.mipmap.icon_main_keyboard,
-                R.mipmap.icon_main_keyboard_select,
+                R.mipmap.app_compose_icon_main_keyboard,
+                R.mipmap.app_compose_icon_main_keyboard_select,
                 context.getString(R.string.app_compose_dial_panel),
                 NavRoute.DIAL
             ),
             BottomNavItem(
-                R.mipmap.icon_main_mine,
-                R.mipmap.icon_main_mine_select,
+                R.mipmap.app_compose_icon_main_mine,
+                R.mipmap.app_compose_icon_main_mine_select,
                 context.getString(R.string.app_compose_mine),
                 NavRoute.MINE
             )

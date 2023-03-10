@@ -19,26 +19,40 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled=false
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
 
             CommonConfig.releaseFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
             }
         }
 
-        debug{
+        debug {
             signingConfig = signingConfigs.getByName("debug")
 
             CommonConfig.debugFields.forEach {
-                buildConfigField(it.type,it.fieldName,it.fieldValue)
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
             }
         }
 
     }
+
+    val DimensionCase = "Case"
+
+    flavorDimensions += listOf(DimensionCase)
+
+    productFlavors {
+        create("demo") {
+            dimension = DimensionCase
+        }
+        create("innerTest") {
+            dimension = DimensionCase
+        }
+    }
+
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
         targetCompatibility(JavaVersion.VERSION_1_8)
@@ -46,6 +60,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    namespace = "com.example.common"
 }
 
 dependencies {
@@ -57,6 +72,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.5.1")
     api("androidx.datastore:datastore-preferences:1.0.0")
     api("androidx.datastore:datastore-preferences-core:1.0.0")
 
@@ -88,5 +104,5 @@ dependencies {
     api("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:2.1.1@aar")
+    api("com.github.ti-net:TiCloud-RTC-Android:2.2.0@aar")
 }

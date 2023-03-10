@@ -62,6 +62,27 @@ android {
 
     }
 
+    val DimensionCase = "Case"
+
+    flavorDimensions += listOf(DimensionCase)
+
+    productFlavors {
+        create("demo") {
+            dimension = DimensionCase
+
+            CommonConfig.demoFields.forEach {
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
+            }
+        }
+        create("innerTest") {
+            dimension = DimensionCase
+
+            CommonConfig.innerTestFields.forEach {
+                buildConfigField(it.type, it.fieldName, it.fieldValue)
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
         targetCompatibility(JavaVersion.VERSION_1_8)
@@ -83,6 +104,7 @@ android {
             excludes += mutableSetOf("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+    namespace = "com.example.rtc_android_compose"
 
     android.applicationVariants.all {
         outputs.all {

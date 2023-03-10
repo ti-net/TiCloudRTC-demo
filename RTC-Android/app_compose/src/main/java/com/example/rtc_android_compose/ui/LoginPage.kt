@@ -53,7 +53,7 @@ fun LoginPage(
             .background(Color.White),
         horizontalAlignment = CenterHorizontally
     ) {
-        Image(painter = painterResource(id = R.mipmap.ic_launcher),
+        Image(painter = painterResource(id = R.mipmap.app_compose_ic_launcher),
             contentDescription = "",
             modifier = Modifier
                 .shadow(elevation = 20.dp, shape = RoundedCornerShape(20))
