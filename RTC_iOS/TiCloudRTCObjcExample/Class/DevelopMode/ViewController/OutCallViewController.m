@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [[SDKCloudEngine sharedInstance] initSDK];
+    [[SDKCloudEngine sharedInstancet] initSDK];
 }
 - (void)setupSubviews
 {
@@ -153,13 +153,13 @@
     }
     else
     {
-        BOOL isPhone = [AppConfig isValidatePhoneNumber:outCallNumberTF.text];
-        
-        if (!isPhone)
-        {
-            [self showErrorView:@"请输入正确的手机号码"];
-            return;
-        }
+//        BOOL isPhone = [AppConfig isValidatePhoneNumber:outCallNumberTF.text];
+//
+//        if (!isPhone)
+//        {
+//            [self showErrorView:@"请输入正确的手机号码"];
+//            return;
+//        }
     }
     
     
@@ -171,21 +171,21 @@
     
     if (callerNumberTF.text.length)
     {
-        BOOL isPhone = [AppConfig isValidatePhoneNumber:callerNumberTF.text];
-        
-        if (!isPhone)
-        {
-            [self showErrorView:@"请输入正确的主叫手机号码"];
-            return;
-        }
-        else
+//        BOOL isPhone = [AppConfig isValidatePhoneNumber:callerNumberTF.text];
+//        
+//        if (!isPhone)
+//        {
+//            [self showErrorView:@"请输入正确的主叫手机号码"];
+//            return;
+//        }
+//        else
         {
             callConf.callerNumber = callerNumberTF.text;
         }
     }
     
     CHWeakSelf
-    [[SDKCloudEngine sharedInstance].tiCloudEngine call:callConf success:^{
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine call:callConf success:^{
         NSLog(@"call ... success");
         [weakSelf showTelephoneView:callConf.tel];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {

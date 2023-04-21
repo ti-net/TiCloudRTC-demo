@@ -8,7 +8,7 @@
 #import "BaseCallViewController.h"
 #import "LoginModel.h"
 #import "LoginViewController.h"
-//#import "LoginViewModel.h"
+#import "LoginViewModel.h"
 
 @interface BaseCallViewController ()
 
@@ -20,6 +20,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
+//    self.SDKEngine = [SDKCloudEngine sharedInstancet];
+    
     
 }
 
@@ -27,7 +30,7 @@
 {
     if (isSelectPage)
     {
-        [[SDKCloudEngine sharedInstance].tiCloudEngine setEventListener:self];
+        [[SDKCloudEngine sharedInstancet].tiCloudEngine setEventListener:self];
     }
 }
 
@@ -47,22 +50,22 @@
 
 -(void)hangupButtonClick
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine hangup];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine hangup];
 }
 
 - (void)numberButtonsClick:(NSString *)number
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine dtmf:number];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine dtmf:number];
 }
 
 - (void)localAudioButtonClick:(BOOL)isSelect
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine setEnableLocalAudio:isSelect];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableLocalAudio:isSelect];
 }
 
 - (void)speakphoneButtonClick:(BOOL)isSelect
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine setEnableSpeakerphone:isSelect];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableSpeakerphone:isSelect];
     
     if (self.isRinging)
     {
@@ -171,10 +174,18 @@
 - (void)onAccessTokenWillExpire:(nonnull NSString *)accessToken
 {
     NSLog(@"用户端回调：onAccessTokenWillExpire");
+    LoginViewModel *viewModel = [LoginViewModel sharedInstance];
     
-//    LoginModel *model = [LoginModel loginModel];
-//
-//    [[SDKCloudEngine sharedInstance].tiCloudEngine renewAccessToken:model.accessToken];
+    [viewModel requestData];
+    
+    @weakify(self);
+    [RACObserve(viewModel, networkState) subscribeNext:^(NSNumber *networkState) {
+        if (viewModel.networkState == NetworkStateSuccess) {
+            LoginModel *model = [LoginModel loginModel];
+            
+            [[SDKCloudEngine sharedInstancet].tiCloudEngine renewAccessToken:model.accessToken];
+        }
+    }];    
 }
 
 /**
@@ -188,7 +199,7 @@
     
     
     CHWeakSelf
-    [[SDKCloudEngine sharedInstance].tiCloudEngine destroyClient:^{
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine destroyClient:^{
         
         [weakSelf.telephoneView callingEnd];
         
@@ -202,6 +213,8 @@
         }
         else
         {
+//            LoginViewController *loginVC = [[LoginViewController alloc]init];
+            
             [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
         }
     } error:^(TiCloudRtcErrCode errorCode, NSString * _Nonnull errorMessage) {

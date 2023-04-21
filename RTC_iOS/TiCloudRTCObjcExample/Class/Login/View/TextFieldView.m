@@ -67,12 +67,11 @@
     self.textField = textField;
     [textField addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
     
-//    NSAttributedString *attString1 = [[NSAttributedString alloc]initWithString:@"请输入企业ID" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
-//
-////    NSAttributedString *attString2 = [[NSAttributedString alloc]initWithString:@"请输入用户名" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
-//    NSAttributedString *attString2 = [[NSAttributedString alloc]initWithString:@"请输入accessToken" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
-//
-//    NSAttributedString *attString3 = [[NSAttributedString alloc]initWithString:@"请输入密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    NSAttributedString *attString1 = [[NSAttributedString alloc]initWithString:@"请输入企业ID" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    NSAttributedString *attString2 = [[NSAttributedString alloc]initWithString:@"请输入用户名" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    NSAttributedString *attString3 = [[NSAttributedString alloc]initWithString:@"请输入密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
     
     UIImage *orImage = nil;
@@ -90,7 +89,7 @@
             
         case TextFieldViewType_EnterprisesId:
                         
-//            textField.attributedPlaceholder = attString1;
+            textField.attributedPlaceholder = attString1;
             orImage = [UIImage imageNamed:@"building-2-line 1"];
             logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [logoImageView setTintColor:kRGBColor(73, 129, 96)];
@@ -98,7 +97,7 @@
             
         case TextFieldViewType_UserName:
             
-//            textField.attributedPlaceholder = attString2;
+            textField.attributedPlaceholder = attString2;
             orImage = [UIImage imageNamed:@"user"];
             logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [logoImageView setTintColor:kRGBColor(73, 129, 96)];
@@ -106,7 +105,7 @@
             
         case TextFieldViewType_Password:
             
-//            textField.attributedPlaceholder = attString3;
+            textField.attributedPlaceholder = attString3;
             orImage = [UIImage imageNamed:@"lock-on"];
             logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [logoImageView setTintColor:kRGBColor(73, 129, 96)];
@@ -140,15 +139,6 @@
     {
         self.textField.text = nil;
     }
-}
-
-- (void)setPlaceholder:(NSString *)placeholder
-{
-    _placeholder = placeholder;
-    
-    NSAttributedString *attString = [[NSAttributedString alloc]initWithString:placeholder attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
-    
-    self.textField.attributedPlaceholder = attString;
 }
 
 - (void)setEnvironmentType:(EnvironmentType)environmentType

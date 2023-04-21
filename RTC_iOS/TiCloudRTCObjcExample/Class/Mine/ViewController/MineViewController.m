@@ -63,13 +63,16 @@
 
 - (void)logoutButtonClick
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine destroyClient:^{
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine destroyClient:^{
         if (@available(iOS 13.0, *))
         {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else
-        {
+        {            
+            
+//            LoginViewController *loginVC = [[LoginViewController alloc]init];
+            
             [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
         }
         

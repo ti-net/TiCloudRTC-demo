@@ -39,6 +39,10 @@ target 'TiCloudRTCObjcExample' do
   
   #UISegmentedControl
   pod 'WMPageController'
+  
+  
+  pod 'AgoraAudio_iOS/RtcBasic', '4.1.1'
+  pod 'AgoraRtm_iOS', '1.5.1'
 
   target 'TiCloudRTCObjcExampleTests' do
     inherit! :search_paths

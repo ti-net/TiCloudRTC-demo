@@ -26,7 +26,6 @@ typedef enum : NSUInteger
 
 @protocol TextFieldViewDelegate <NSObject>
 
-@optional
 - (void)rightButtonClick:(BOOL)isSelect;
 
 - (void)textFieldBeginEditing;
@@ -46,8 +45,6 @@ typedef enum : NSUInteger
 @property (nonatomic, weak) UITextField *textField;
 
 @property(nonatomic, copy, nullable) NSString *string;
-
-@property(nonatomic, copy, nullable) NSString *placeholder;
 
 @property(nonatomic, assign) BOOL rightBtnSelect;
 

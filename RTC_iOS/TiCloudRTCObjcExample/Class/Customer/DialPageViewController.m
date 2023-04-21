@@ -10,7 +10,7 @@
 #import "TelephoneView.h"
 #import "AppConfig.h"
 #import "LoginViewController.h"
-//#import "LoginViewModel.h"
+#import "LoginViewModel.h"
 #import "LoginModel.h"
 
 #define MarginH  30
@@ -42,7 +42,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
     
-    [[SDKCloudEngine sharedInstance].tiCloudEngine setEventListener:self];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEventListener:self];
 
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(20 , kStatusBarHeight + 5, 70, 42)];
     backBtn.imageView.contentMode = UIViewContentModeCenter;
@@ -128,17 +128,17 @@
 
 - (void)callBtnClick
 {
-    if (![AppConfig isValidatePhoneNumber:self.phoneLabel.text])
-    {
-        [self showErrorView:@"请输入正确手机号"];
-        return;
-    }
+//    if (![AppConfig isValidatePhoneNumber:self.phoneLabel.text])
+//    {
+//        [self showErrorView:@"请输入正确手机号"];
+//        return;
+//    }
     
     TiCloudRTCCallConfig * callConf = [[TiCloudRTCCallConfig alloc] init];
     callConf.tel = self.phoneLabel.text;
     callConf.type = TiCloudRtcScence_OUTCALLSCENCE;
     CHWeakSelf
-    [[SDKCloudEngine sharedInstance].tiCloudEngine call:callConf success:^{
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine call:callConf success:^{
         NSLog(@"call ... success");
         [weakSelf showTelephoneView:callConf.tel];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
@@ -199,25 +199,25 @@
 
 -(void)hangupButtonClick
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine hangup];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine hangup];
 }
 
 - (void)numberButtonsClick:(NSString *)number
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine dtmf:number];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine dtmf:number];
 }
 
 - (void)localAudioButtonClick:(BOOL)isSelect
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine setEnableLocalAudio:isSelect];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableLocalAudio:isSelect];
 }
 
 
 -(void)speakphoneButtonClick:(BOOL)isSelect
 {
-    [[SDKCloudEngine sharedInstance].tiCloudEngine setEnableSpeakerphone:isSelect];
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine setEnableSpeakerphone:isSelect];
     
-    self.telephoneView.speakEnable = [[SDKCloudEngine sharedInstance].tiCloudEngine isSpeakerphoneEnabled];
+    self.telephoneView.speakEnable = [[SDKCloudEngine sharedInstancet].tiCloudEngine isSpeakerphoneEnabled];
 }
 
 #pragma mark -TiCloudRTCEventDelegate
@@ -320,8 +320,18 @@
 - (void)onAccessTokenWillExpire:(nonnull NSString *)accessToken
 {
     NSLog(@"用户端回调：onAccessTokenWillExpire");
-//    LoginModel *model = [LoginModel loginModel];
-//    [[SDKCloudEngine sharedInstance].tiCloudEngine renewAccessToken:model.accessToken];
+    LoginViewModel *viewModel = [LoginViewModel sharedInstance];
+    
+    [viewModel requestData];
+    
+    @weakify(self);
+    [RACObserve(viewModel, networkState) subscribeNext:^(NSNumber *networkState) {
+        if (viewModel.networkState == NetworkStateSuccess) {
+            LoginModel *model = [LoginModel loginModel];
+            
+            [[SDKCloudEngine sharedInstancet].tiCloudEngine renewAccessToken:model.accessToken];
+        }
+    }];
 }
 
 /**
@@ -332,7 +342,7 @@
 {
     NSLog(@"用户端回调：onAccessTokenHasExpired");
     CHWeakSelf
-    [[SDKCloudEngine sharedInstance].tiCloudEngine destroyClient:^{
+    [[SDKCloudEngine sharedInstancet].tiCloudEngine destroyClient:^{
         
         [weakSelf.telephoneView callingEnd];
         

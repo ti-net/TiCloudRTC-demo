@@ -11,10 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SDKCloudEngine : NSObject
 
-+ (instancetype)sharedInstance;
++ (instancetype)sharedInstancet;
 
 // SDK实例
 @property(nonatomic, strong) TiCloudRTCEngine * tiCloudEngine;
+
+// 初始化SDK
+-(void)initSDK;
 
 @end
 

@@ -7,7 +7,6 @@
 //
 
 #import "BaseNavigationController.h"
-#import "UIButton+EnlargeEdge.h"
 
 @interface BaseNavigationController () <UINavigationControllerDelegate>
 
@@ -62,7 +61,7 @@
     [backButton addTarget:self
                    action:@selector(popSelf)
          forControlEvents:UIControlEventTouchUpInside];
-    [backButton setEnlargeEdgeWithTop:50.f right:50.f bottom:50.f left:50.f];
+//    [backButton setEnlargeEdgeWithTop:50.f right:50.f bottom:50.f left:50.f];
     [view addSubview:backButton];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:view];
     return backItem;

@@ -17,16 +17,8 @@
 		185D9A6028C1D66200D4CC1D /* TextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A5F28C1D66200D4CC1D /* TextFieldView.m */; };
 		185D9A6328C1EEF900D4CC1D /* CHResolutionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6128C1EEF900D4CC1D /* CHResolutionView.m */; };
 		185D9A6B28C33F7900D4CC1D /* TelephoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6A28C33F7900D4CC1D /* TelephoneView.m */; };
-		189A862A2952FFAA006E13C3 /* Agorafdkaac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86242952FFA2006E13C3 /* Agorafdkaac.framework */; };
-		189A862B2952FFAA006E13C3 /* Agorafdkaac.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86242952FFA2006E13C3 /* Agorafdkaac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		189A862C2952FFAC006E13C3 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */; };
-		189A862D2952FFAC006E13C3 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		189A862E2952FFAE006E13C3 /* AgoraRtmKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */; };
-		189A862F2952FFAE006E13C3 /* AgoraRtmKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		189A86302952FFB0006E13C3 /* AgoraSoundTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */; };
-		189A86312952FFB0006E13C3 /* AgoraSoundTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		189A86342952FFD1006E13C3 /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86322952FFC8006E13C3 /* TiCloudRTC.framework */; };
-		189A86352952FFD1006E13C3 /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 189A86322952FFC8006E13C3 /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		18797EFE29C95693000D140A /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18797EF029C95672000D140A /* TiCloudRTC.framework */; };
+		18797EFF29C95693000D140A /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18797EF029C95672000D140A /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2244EE2E28AF727B002FD992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE2D28AF727B002FD992 /* AppDelegate.m */; };
 		2244EE3128AF727B002FD992 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE3028AF727B002FD992 /* SceneDelegate.m */; };
 		2244EE3728AF727B002FD992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2244EE3528AF727B002FD992 /* Main.storyboard */; };
@@ -42,6 +34,7 @@
 		22A0CBCB28B3A05F00D429DB /* DomainNameSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBC828B3A05F00D429DB /* DomainNameSave.m */; };
 		22A0CBD628B3A2AF00D429DB /* NSObject+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBD228B3A2AF00D429DB /* NSObject+Common.m */; };
 		22A0CBDF28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBDB28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m */; };
+		22A5342E28B473E6002D7AC4 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5342D28B473E6002D7AC4 /* LoginViewModel.m */; };
 		22A5343828B4A797002D7AC4 /* NSDictionary+TRTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5343728B4A797002D7AC4 /* NSDictionary+TRTool.m */; };
 		22A5344A28B4B3DF002D7AC4 /* UIImage+PureColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5344828B4B3DF002D7AC4 /* UIImage+PureColorImage.m */; };
 		22A534C528B4C6F8002D7AC4 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534A028B4C6F8002D7AC4 /* MineViewController.m */; };
@@ -60,7 +53,6 @@
 		22A5351528B4CFA1002D7AC4 /* NSDate+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5351128B4CFA1002D7AC4 /* NSDate+Calculation.m */; };
 		22A5351628B4CFA1002D7AC4 /* NSDate+TimeFormatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5351428B4CFA1002D7AC4 /* NSDate+TimeFormatting.m */; };
 		22A5351928B4D109002D7AC4 /* NSObject+ShowError.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5351828B4D109002D7AC4 /* NSObject+ShowError.m */; };
-		22A5352028B4D457002D7AC4 /* UIButton+EnlargeEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5351F28B4D457002D7AC4 /* UIButton+EnlargeEdge.m */; };
 		22A5352828B4DAA0002D7AC4 /* DemoPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5352728B4DAA0002D7AC4 /* DemoPageController.m */; };
 		22A5352B28B4DB53002D7AC4 /* OutCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5352A28B4DB53002D7AC4 /* OutCallViewController.m */; };
 		22A5352E28B4DB70002D7AC4 /* AgentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5352D28B4DB70002D7AC4 /* AgentViewController.m */; };
@@ -103,11 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				189A862F2952FFAE006E13C3 /* AgoraRtmKit.framework in Embed Frameworks */,
-				189A862D2952FFAC006E13C3 /* AgoraRtcKit.framework in Embed Frameworks */,
-				189A862B2952FFAA006E13C3 /* Agorafdkaac.framework in Embed Frameworks */,
-				189A86312952FFB0006E13C3 /* AgoraSoundTouch.framework in Embed Frameworks */,
-				189A86352952FFD1006E13C3 /* TiCloudRTC.framework in Embed Frameworks */,
+				18797EFF29C95693000D140A /* TiCloudRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,11 +124,7 @@
 		185D9A6728C1F13F00D4CC1D /* CommonConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonConfig.h; sourceTree = "<group>"; };
 		185D9A6928C33F7900D4CC1D /* TelephoneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TelephoneView.h; sourceTree = "<group>"; };
 		185D9A6A28C33F7900D4CC1D /* TelephoneView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelephoneView.m; sourceTree = "<group>"; };
-		189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraSoundTouch.framework; sourceTree = "<group>"; };
-		189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtmKit.framework; sourceTree = "<group>"; };
-		189A86242952FFA2006E13C3 /* Agorafdkaac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Agorafdkaac.framework; sourceTree = "<group>"; };
-		189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
-		189A86322952FFC8006E13C3 /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
+		18797EF029C95672000D140A /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
 		1DCB02E45FC96759954A0F6B /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1DDF697C0E490A0DB22440FB /* Pods-TiCloudRTCObjcExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExampleTests/Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		2244EE2928AF727B002FD992 /* TiCloudRTCObjcExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCloudRTCObjcExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +157,8 @@
 		22A0CBDB28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GeneralConfiguration.m"; sourceTree = "<group>"; };
 		22A0CBDC28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GeneralConfiguration.h"; sourceTree = "<group>"; };
 		22A0CBE128B3A63100D429DB /* TiGlobalDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TiGlobalDefines.h; sourceTree = "<group>"; };
+		22A5342C28B473E6002D7AC4 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
+		22A5342D28B473E6002D7AC4 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		22A5343628B4A797002D7AC4 /* NSDictionary+TRTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+TRTool.h"; sourceTree = "<group>"; };
 		22A5343728B4A797002D7AC4 /* NSDictionary+TRTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+TRTool.m"; sourceTree = "<group>"; };
 		22A5344828B4B3DF002D7AC4 /* UIImage+PureColorImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PureColorImage.m"; sourceTree = "<group>"; };
@@ -209,8 +195,6 @@
 		22A5351428B4CFA1002D7AC4 /* NSDate+TimeFormatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeFormatting.m"; sourceTree = "<group>"; };
 		22A5351728B4D109002D7AC4 /* NSObject+ShowError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ShowError.h"; sourceTree = "<group>"; };
 		22A5351828B4D109002D7AC4 /* NSObject+ShowError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ShowError.m"; sourceTree = "<group>"; };
-		22A5351E28B4D457002D7AC4 /* UIButton+EnlargeEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeEdge.h"; sourceTree = "<group>"; };
-		22A5351F28B4D457002D7AC4 /* UIButton+EnlargeEdge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeEdge.m"; sourceTree = "<group>"; };
 		22A5352628B4DAA0002D7AC4 /* DemoPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoPageController.h; sourceTree = "<group>"; };
 		22A5352728B4DAA0002D7AC4 /* DemoPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoPageController.m; sourceTree = "<group>"; };
 		22A5352928B4DB53002D7AC4 /* OutCallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutCallViewController.h; sourceTree = "<group>"; };
@@ -237,12 +221,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				189A862C2952FFAC006E13C3 /* AgoraRtcKit.framework in Frameworks */,
-				189A86302952FFB0006E13C3 /* AgoraSoundTouch.framework in Frameworks */,
-				189A862E2952FFAE006E13C3 /* AgoraRtmKit.framework in Frameworks */,
-				189A86342952FFD1006E13C3 /* TiCloudRTC.framework in Frameworks */,
+				18797EFE29C95693000D140A /* TiCloudRTC.framework in Frameworks */,
 				5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */,
-				189A862A2952FFAA006E13C3 /* Agorafdkaac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,17 +280,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		189A86212952FFA2006E13C3 /* AgoraSDK */ = {
-			isa = PBXGroup;
-			children = (
-				189A86222952FFA2006E13C3 /* AgoraSoundTouch.framework */,
-				189A86232952FFA2006E13C3 /* AgoraRtmKit.framework */,
-				189A86242952FFA2006E13C3 /* Agorafdkaac.framework */,
-				189A86252952FFA2006E13C3 /* AgoraRtcKit.framework */,
-			);
-			path = AgoraSDK;
-			sourceTree = "<group>";
-		};
 		2244EE2028AF727B002FD992 = {
 			isa = PBXGroup;
 			children = (
@@ -336,8 +305,7 @@
 		2244EE2B28AF727B002FD992 /* TiCloudRTCObjcExample */ = {
 			isa = PBXGroup;
 			children = (
-				189A86322952FFC8006E13C3 /* TiCloudRTC.framework */,
-				189A86212952FFA2006E13C3 /* AgoraSDK */,
+				18797EF029C95672000D140A /* TiCloudRTC.framework */,
 				22A534D928B4C98B002D7AC4 /* Tools */,
 				22A0CBD028B3A29400D429DB /* Category */,
 				22A0CB9F28B38F8B00D429DB /* Class */,
@@ -407,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				185D9A6828C33EE000D4CC1D /* View */,
+				22A5342928B473B0002D7AC4 /* ViewModel */,
 				22A0CBA328B38FBE00D429DB /* Model */,
 				22A0CBA628B38FBE00D429DB /* ViewController */,
 			);
@@ -480,7 +449,6 @@
 			isa = PBXGroup;
 			children = (
 				22A5352F28B4DD4A002D7AC4 /* WMPageController */,
-				22A5351D28B4D457002D7AC4 /* UIButton */,
 				22A5351028B4CFA1002D7AC4 /* NSDate */,
 				22A5350828B4CCD4002D7AC4 /* UIView */,
 				22A5350428B4CC1C002D7AC4 /* NSString */,
@@ -510,6 +478,15 @@
 				22A0CBDB28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m */,
 			);
 			path = MBProgress;
+			sourceTree = "<group>";
+		};
+		22A5342928B473B0002D7AC4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				22A5342C28B473E6002D7AC4 /* LoginViewModel.h */,
+				22A5342D28B473E6002D7AC4 /* LoginViewModel.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		22A5343528B4A776002D7AC4 /* NSDictionary */ = {
@@ -593,15 +570,6 @@
 				22A5351428B4CFA1002D7AC4 /* NSDate+TimeFormatting.m */,
 			);
 			path = NSDate;
-			sourceTree = "<group>";
-		};
-		22A5351D28B4D457002D7AC4 /* UIButton */ = {
-			isa = PBXGroup;
-			children = (
-				22A5351E28B4D457002D7AC4 /* UIButton+EnlargeEdge.h */,
-				22A5351F28B4D457002D7AC4 /* UIButton+EnlargeEdge.m */,
-			);
-			path = UIButton;
 			sourceTree = "<group>";
 		};
 		22A5352128B4D88C002D7AC4 /* DevelopMode */ = {
@@ -893,7 +861,6 @@
 				185C597F28C74DE800AFB9DA /* CustomerDataViewController.m in Sources */,
 				22A5351528B4CFA1002D7AC4 /* NSDate+Calculation.m in Sources */,
 				22A534F928B4CA01002D7AC4 /* BaseViewController.m in Sources */,
-				22A5352028B4D457002D7AC4 /* UIButton+EnlargeEdge.m in Sources */,
 				1856D90728C5DC04008A2C32 /* BaseCallViewController.m in Sources */,
 				2244EE2E28AF727B002FD992 /* AppDelegate.m in Sources */,
 				22A0CBAB28B38FBF00D429DB /* LoginViewController.m in Sources */,
@@ -904,6 +871,7 @@
 				22A5352828B4DAA0002D7AC4 /* DemoPageController.m in Sources */,
 				22A5350B28B4CCD4002D7AC4 /* UIViewExt.m in Sources */,
 				22A5351628B4CFA1002D7AC4 /* NSDate+TimeFormatting.m in Sources */,
+				22A5342E28B473E6002D7AC4 /* LoginViewModel.m in Sources */,
 				22A5350228B4CA01002D7AC4 /* BaseModel.m in Sources */,
 				22A534DF28B4C99A002D7AC4 /* ZYAlertView.m in Sources */,
 				22A534FC28B4CA01002D7AC4 /* BaseTableViewCell.m in Sources */,
@@ -1129,7 +1097,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1170,7 +1138,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

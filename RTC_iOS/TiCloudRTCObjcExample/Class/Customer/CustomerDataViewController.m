@@ -89,7 +89,8 @@
     }
     else
     {
-        self.errorPhoneLabel.hidden = [AppConfig isValidatePhoneNumber:textField.text];
+        self.errorPhoneLabel.hidden = NO;
+//        self.errorPhoneLabel.hidden = [AppConfig isValidatePhoneNumber:textField.text];
     }
 }
 
