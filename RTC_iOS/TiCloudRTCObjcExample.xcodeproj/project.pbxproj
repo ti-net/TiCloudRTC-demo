@@ -1,0 +1,1264 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1856D90128C5B947008A2C32 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90028C5B947008A2C32 /* AppConfig.m */; };
+		1856D90728C5DC04008A2C32 /* BaseCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90628C5DC04008A2C32 /* BaseCallViewController.m */; };
+		1856D91028C5FA77008A2C32 /* DrawShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90F28C5FA77008A2C32 /* DrawShapeView.m */; };
+		185C597B28C73D4C00AFB9DA /* SDKCloudEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C597A28C73D4C00AFB9DA /* SDKCloudEngine.m */; };
+		185C597F28C74DE800AFB9DA /* CustomerDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C597E28C74DE800AFB9DA /* CustomerDataViewController.m */; };
+		185C598228C74F3800AFB9DA /* CustomerField.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C598128C74F3800AFB9DA /* CustomerField.m */; };
+		185C598528C7590400AFB9DA /* DialPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C598428C7590400AFB9DA /* DialPageViewController.m */; };
+		185D9A6028C1D66200D4CC1D /* TextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A5F28C1D66200D4CC1D /* TextFieldView.m */; };
+		185D9A6328C1EEF900D4CC1D /* CHResolutionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6128C1EEF900D4CC1D /* CHResolutionView.m */; };
+		185D9A6B28C33F7900D4CC1D /* TelephoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6A28C33F7900D4CC1D /* TelephoneView.m */; };
+		18797EFE29C95693000D140A /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18797EF029C95672000D140A /* TiCloudRTC.framework */; };
+		18797EFF29C95693000D140A /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18797EF029C95672000D140A /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2244EE2E28AF727B002FD992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE2D28AF727B002FD992 /* AppDelegate.m */; };
+		2244EE3128AF727B002FD992 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE3028AF727B002FD992 /* SceneDelegate.m */; };
+		2244EE3728AF727B002FD992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2244EE3528AF727B002FD992 /* Main.storyboard */; };
+		2244EE3928AF727C002FD992 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2244EE3828AF727C002FD992 /* Assets.xcassets */; };
+		2244EE3C28AF727C002FD992 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2244EE3A28AF727C002FD992 /* LaunchScreen.storyboard */; };
+		2244EE3F28AF727C002FD992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE3E28AF727C002FD992 /* main.m */; };
+		2244EE4928AF727C002FD992 /* TiCloudRTCObjcExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE4828AF727C002FD992 /* TiCloudRTCObjcExampleTests.m */; };
+		2244EE5328AF727C002FD992 /* TiCloudRTCObjcExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE5228AF727C002FD992 /* TiCloudRTCObjcExampleUITests.m */; };
+		2244EE5528AF727C002FD992 /* TiCloudRTCObjcExampleUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE5428AF727C002FD992 /* TiCloudRTCObjcExampleUITestsLaunchTests.m */; };
+		22A0CBAA28B38FBF00D429DB /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBA428B38FBE00D429DB /* LoginModel.m */; };
+		22A0CBAB28B38FBF00D429DB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBA728B38FBE00D429DB /* LoginViewController.m */; };
+		22A0CBC028B39EA700D429DB /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBBC28B39EA700D429DB /* MainTabBarController.m */; };
+		22A0CBCB28B3A05F00D429DB /* DomainNameSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBC828B3A05F00D429DB /* DomainNameSave.m */; };
+		22A0CBD628B3A2AF00D429DB /* NSObject+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBD228B3A2AF00D429DB /* NSObject+Common.m */; };
+		22A0CBDF28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A0CBDB28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m */; };
+		22A5342E28B473E6002D7AC4 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5342D28B473E6002D7AC4 /* LoginViewModel.m */; };
+		22A5343828B4A797002D7AC4 /* NSDictionary+TRTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5343728B4A797002D7AC4 /* NSDictionary+TRTool.m */; };
+		22A5344A28B4B3DF002D7AC4 /* UIImage+PureColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5344828B4B3DF002D7AC4 /* UIImage+PureColorImage.m */; };
+		22A534C528B4C6F8002D7AC4 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534A028B4C6F8002D7AC4 /* MineViewController.m */; };
+		22A534DF28B4C99A002D7AC4 /* ZYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534DE28B4C99A002D7AC4 /* ZYAlertView.m */; };
+		22A534F828B4CA01002D7AC4 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534E028B4CA00002D7AC4 /* BaseNavigationController.m */; };
+		22A534F928B4CA01002D7AC4 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534E228B4CA00002D7AC4 /* BaseViewController.m */; };
+		22A534FA28B4CA01002D7AC4 /* BaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534E428B4CA00002D7AC4 /* BaseViewModel.m */; };
+		22A534FC28B4CA01002D7AC4 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534E928B4CA00002D7AC4 /* BaseTableViewCell.m */; };
+		22A534FD28B4CA01002D7AC4 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534EB28B4CA00002D7AC4 /* BaseView.m */; };
+		22A5350028B4CA01002D7AC4 /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534EE28B4CA00002D7AC4 /* ErrorModel.m */; };
+		22A5350128B4CA01002D7AC4 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534EF28B4CA00002D7AC4 /* BaseTableView.m */; };
+		22A5350228B4CA01002D7AC4 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A534F328B4CA00002D7AC4 /* BaseModel.m */; };
+		22A5350728B4CC29002D7AC4 /* NSString+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5350628B4CC29002D7AC4 /* NSString+Frame.m */; };
+		22A5350B28B4CCD4002D7AC4 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5350928B4CCD4002D7AC4 /* UIViewExt.m */; };
+		22A5350F28B4CF14002D7AC4 /* TRLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5350E28B4CF14002D7AC4 /* TRLoadingView.m */; };
+		22A5351528B4CFA1002D7AC4 /* NSDate+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5351128B4CFA1002D7AC4 /* NSDate+Calculation.m */; };
+		22A5351628B4CFA1002D7AC4 /* NSDate+TimeFormatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5351428B4CFA1002D7AC4 /* NSDate+TimeFormatting.m */; };
+		22A5351928B4D109002D7AC4 /* NSObject+ShowError.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5351828B4D109002D7AC4 /* NSObject+ShowError.m */; };
+		22A5352828B4DAA0002D7AC4 /* DemoPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5352728B4DAA0002D7AC4 /* DemoPageController.m */; };
+		22A5352B28B4DB53002D7AC4 /* OutCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5352A28B4DB53002D7AC4 /* OutCallViewController.m */; };
+		22A5352E28B4DB70002D7AC4 /* AgentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5352D28B4DB70002D7AC4 /* AgentViewController.m */; };
+		22A5353228B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5353128B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.m */; };
+		2D6342875CCF2FD6DC2D851F /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668D8C015A42923DC56D1BF4 /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework */; };
+		5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D051593A43F3F3032FE2D124 /* Pods_TiCloudRTCObjcExample.framework */; };
+		8CE498E03F5C21E26E406243 /* Pods_TiCloudRTCObjcExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4904D98AEFFFE29BB9CBBD4 /* Pods_TiCloudRTCObjcExampleTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2244EE4528AF727C002FD992 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2244EE2128AF727B002FD992 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2244EE2828AF727B002FD992;
+			remoteInfo = TiCloudRTCObjcExample;
+		};
+		2244EE4F28AF727C002FD992 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2244EE2128AF727B002FD992 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2244EE2828AF727B002FD992;
+			remoteInfo = TiCloudRTCObjcExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1820C37928C9D9890045188B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2244EE8028AF7320002FD992 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18797EFF29C95693000D140A /* TiCloudRTC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1856D8FF28C5B947008A2C32 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
+		1856D90028C5B947008A2C32 /* AppConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
+		1856D90528C5DC04008A2C32 /* BaseCallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseCallViewController.h; sourceTree = "<group>"; };
+		1856D90628C5DC04008A2C32 /* BaseCallViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseCallViewController.m; sourceTree = "<group>"; };
+		1856D90E28C5FA77008A2C32 /* DrawShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawShapeView.h; sourceTree = "<group>"; };
+		1856D90F28C5FA77008A2C32 /* DrawShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawShapeView.m; sourceTree = "<group>"; };
+		185C597928C73D4C00AFB9DA /* SDKCloudEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKCloudEngine.h; sourceTree = "<group>"; };
+		185C597A28C73D4C00AFB9DA /* SDKCloudEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKCloudEngine.m; sourceTree = "<group>"; };
+		185C597D28C74DE800AFB9DA /* CustomerDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerDataViewController.h; sourceTree = "<group>"; };
+		185C597E28C74DE800AFB9DA /* CustomerDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerDataViewController.m; sourceTree = "<group>"; };
+		185C598028C74F3800AFB9DA /* CustomerField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerField.h; sourceTree = "<group>"; };
+		185C598128C74F3800AFB9DA /* CustomerField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerField.m; sourceTree = "<group>"; };
+		185C598328C7590400AFB9DA /* DialPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DialPageViewController.h; sourceTree = "<group>"; };
+		185C598428C7590400AFB9DA /* DialPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DialPageViewController.m; sourceTree = "<group>"; };
+		185D9A5E28C1D66200D4CC1D /* TextFieldView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldView.h; sourceTree = "<group>"; };
+		185D9A5F28C1D66200D4CC1D /* TextFieldView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldView.m; sourceTree = "<group>"; };
+		185D9A6128C1EEF900D4CC1D /* CHResolutionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHResolutionView.m; sourceTree = "<group>"; };
+		185D9A6228C1EEF900D4CC1D /* CHResolutionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHResolutionView.h; sourceTree = "<group>"; };
+		185D9A6728C1F13F00D4CC1D /* CommonConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonConfig.h; sourceTree = "<group>"; };
+		185D9A6928C33F7900D4CC1D /* TelephoneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TelephoneView.h; sourceTree = "<group>"; };
+		185D9A6A28C33F7900D4CC1D /* TelephoneView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelephoneView.m; sourceTree = "<group>"; };
+		18797EF029C95672000D140A /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
+		1DCB02E45FC96759954A0F6B /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1DDF697C0E490A0DB22440FB /* Pods-TiCloudRTCObjcExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExampleTests/Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		2244EE2928AF727B002FD992 /* TiCloudRTCObjcExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCloudRTCObjcExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2244EE2C28AF727B002FD992 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2244EE2D28AF727B002FD992 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2244EE2F28AF727B002FD992 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		2244EE3028AF727B002FD992 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		2244EE3628AF727B002FD992 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2244EE3828AF727C002FD992 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2244EE3B28AF727C002FD992 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2244EE3D28AF727C002FD992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2244EE3E28AF727C002FD992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2244EE4428AF727C002FD992 /* TiCloudRTCObjcExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TiCloudRTCObjcExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2244EE4828AF727C002FD992 /* TiCloudRTCObjcExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TiCloudRTCObjcExampleTests.m; sourceTree = "<group>"; };
+		2244EE4E28AF727C002FD992 /* TiCloudRTCObjcExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TiCloudRTCObjcExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2244EE5228AF727C002FD992 /* TiCloudRTCObjcExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TiCloudRTCObjcExampleUITests.m; sourceTree = "<group>"; };
+		2244EE5428AF727C002FD992 /* TiCloudRTCObjcExampleUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TiCloudRTCObjcExampleUITestsLaunchTests.m; sourceTree = "<group>"; };
+		22A0CBA428B38FBE00D429DB /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
+		22A0CBA528B38FBE00D429DB /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
+		22A0CBA728B38FBE00D429DB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		22A0CBA928B38FBE00D429DB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		22A0CBBC28B39EA700D429DB /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
+		22A0CBBD28B39EA700D429DB /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
+		22A0CBC628B3A05F00D429DB /* DomainNameSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomainNameSave.h; sourceTree = "<group>"; };
+		22A0CBC728B3A05F00D429DB /* TIMURLDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIMURLDefine.h; sourceTree = "<group>"; };
+		22A0CBC828B3A05F00D429DB /* DomainNameSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomainNameSave.m; sourceTree = "<group>"; };
+		22A0CBD228B3A2AF00D429DB /* NSObject+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Common.m"; sourceTree = "<group>"; };
+		22A0CBD528B3A2AF00D429DB /* NSObject+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Common.h"; sourceTree = "<group>"; };
+		22A0CBD828B3A39100D429DB /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		22A0CBDB28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GeneralConfiguration.m"; sourceTree = "<group>"; };
+		22A0CBDC28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GeneralConfiguration.h"; sourceTree = "<group>"; };
+		22A0CBE128B3A63100D429DB /* TiGlobalDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TiGlobalDefines.h; sourceTree = "<group>"; };
+		22A5342C28B473E6002D7AC4 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
+		22A5342D28B473E6002D7AC4 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
+		22A5343628B4A797002D7AC4 /* NSDictionary+TRTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+TRTool.h"; sourceTree = "<group>"; };
+		22A5343728B4A797002D7AC4 /* NSDictionary+TRTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+TRTool.m"; sourceTree = "<group>"; };
+		22A5344828B4B3DF002D7AC4 /* UIImage+PureColorImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PureColorImage.m"; sourceTree = "<group>"; };
+		22A5344928B4B3DF002D7AC4 /* UIImage+PureColorImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PureColorImage.h"; sourceTree = "<group>"; };
+		22A5349B28B4C6F8002D7AC4 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineViewController.h; path = ViewController/MineViewController.h; sourceTree = "<group>"; };
+		22A534A028B4C6F8002D7AC4 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineViewController.m; path = ViewController/MineViewController.m; sourceTree = "<group>"; };
+		22A534DD28B4C99A002D7AC4 /* ZYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYAlertView.h; sourceTree = "<group>"; };
+		22A534DE28B4C99A002D7AC4 /* ZYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYAlertView.m; sourceTree = "<group>"; };
+		22A534E028B4CA00002D7AC4 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		22A534E128B4CA00002D7AC4 /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		22A534E228B4CA00002D7AC4 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		22A534E328B4CA00002D7AC4 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		22A534E428B4CA00002D7AC4 /* BaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewModel.m; sourceTree = "<group>"; };
+		22A534E628B4CA00002D7AC4 /* BaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewModel.h; sourceTree = "<group>"; };
+		22A534E828B4CA00002D7AC4 /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		22A534E928B4CA00002D7AC4 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
+		22A534EA28B4CA00002D7AC4 /* ErrorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorModel.h; sourceTree = "<group>"; };
+		22A534EB28B4CA00002D7AC4 /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
+		22A534EE28B4CA00002D7AC4 /* ErrorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorModel.m; sourceTree = "<group>"; };
+		22A534EF28B4CA00002D7AC4 /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
+		22A534F028B4CA00002D7AC4 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		22A534F128B4CA00002D7AC4 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
+		22A534F328B4CA00002D7AC4 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		22A534F428B4CA00002D7AC4 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
+		22A5350528B4CC29002D7AC4 /* NSString+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Frame.h"; sourceTree = "<group>"; };
+		22A5350628B4CC29002D7AC4 /* NSString+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Frame.m"; sourceTree = "<group>"; };
+		22A5350928B4CCD4002D7AC4 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
+		22A5350A28B4CCD4002D7AC4 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
+		22A5350D28B4CF14002D7AC4 /* TRLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRLoadingView.h; sourceTree = "<group>"; };
+		22A5350E28B4CF14002D7AC4 /* TRLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRLoadingView.m; sourceTree = "<group>"; };
+		22A5351128B4CFA1002D7AC4 /* NSDate+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Calculation.m"; sourceTree = "<group>"; };
+		22A5351228B4CFA1002D7AC4 /* NSDate+TimeFormatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeFormatting.h"; sourceTree = "<group>"; };
+		22A5351328B4CFA1002D7AC4 /* NSDate+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Calculation.h"; sourceTree = "<group>"; };
+		22A5351428B4CFA1002D7AC4 /* NSDate+TimeFormatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeFormatting.m"; sourceTree = "<group>"; };
+		22A5351728B4D109002D7AC4 /* NSObject+ShowError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ShowError.h"; sourceTree = "<group>"; };
+		22A5351828B4D109002D7AC4 /* NSObject+ShowError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ShowError.m"; sourceTree = "<group>"; };
+		22A5352628B4DAA0002D7AC4 /* DemoPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoPageController.h; sourceTree = "<group>"; };
+		22A5352728B4DAA0002D7AC4 /* DemoPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoPageController.m; sourceTree = "<group>"; };
+		22A5352928B4DB53002D7AC4 /* OutCallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutCallViewController.h; sourceTree = "<group>"; };
+		22A5352A28B4DB53002D7AC4 /* OutCallViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutCallViewController.m; sourceTree = "<group>"; };
+		22A5352C28B4DB70002D7AC4 /* AgentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentViewController.h; sourceTree = "<group>"; };
+		22A5352D28B4DB70002D7AC4 /* AgentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentViewController.m; sourceTree = "<group>"; };
+		22A5353028B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMPageController+TRSetupStyle.h"; sourceTree = "<group>"; };
+		22A5353128B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMPageController+TRSetupStyle.m"; sourceTree = "<group>"; };
+		22B3A75528B633A0006C91AC /* Agorafdkaac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agorafdkaac.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/Agorafdkaac.framework; sourceTree = "<group>"; };
+		22B3A75628B633A0006C91AC /* AgoraRtmKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtmKit.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/AgoraRtmKit.framework; sourceTree = "<group>"; };
+		22B3A75728B633A0006C91AC /* AgoraSoundTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraSoundTouch.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/AgoraSoundTouch.framework; sourceTree = "<group>"; };
+		22B3A75828B633A0006C91AC /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/AgoraRtcKit.framework; sourceTree = "<group>"; };
+		32472FC7DF18C902939593EA /* Pods-TiCloudRTCObjcExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample.debug.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample/Pods-TiCloudRTCObjcExample.debug.xcconfig"; sourceTree = "<group>"; };
+		540A9EEA843CBC05708B16CC /* Pods-TiCloudRTCObjcExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExampleTests/Pods-TiCloudRTCObjcExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		668D8C015A42923DC56D1BF4 /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F6CE858EA262B76A6234674 /* Pods-TiCloudRTCObjcExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample/Pods-TiCloudRTCObjcExample.release.xcconfig"; sourceTree = "<group>"; };
+		D051593A43F3F3032FE2D124 /* Pods_TiCloudRTCObjcExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TiCloudRTCObjcExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4904D98AEFFFE29BB9CBBD4 /* Pods_TiCloudRTCObjcExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TiCloudRTCObjcExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB19123D8DE5354CB97DA1A4 /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2244EE2628AF727B002FD992 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18797EFE29C95693000D140A /* TiCloudRTC.framework in Frameworks */,
+				5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2244EE4128AF727C002FD992 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CE498E03F5C21E26E406243 /* Pods_TiCloudRTCObjcExampleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2244EE4B28AF727C002FD992 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D6342875CCF2FD6DC2D851F /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		185C597528C73CA600AFB9DA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				185D9A6928C33F7900D4CC1D /* TelephoneView.h */,
+				185D9A6A28C33F7900D4CC1D /* TelephoneView.m */,
+				1856D90E28C5FA77008A2C32 /* DrawShapeView.h */,
+				1856D90F28C5FA77008A2C32 /* DrawShapeView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		185C597C28C74D9F00AFB9DA /* Customer */ = {
+			isa = PBXGroup;
+			children = (
+				185C597D28C74DE800AFB9DA /* CustomerDataViewController.h */,
+				185C597E28C74DE800AFB9DA /* CustomerDataViewController.m */,
+				185C598328C7590400AFB9DA /* DialPageViewController.h */,
+				185C598428C7590400AFB9DA /* DialPageViewController.m */,
+				185C598028C74F3800AFB9DA /* CustomerField.h */,
+				185C598128C74F3800AFB9DA /* CustomerField.m */,
+			);
+			path = Customer;
+			sourceTree = "<group>";
+		};
+		185D9A6828C33EE000D4CC1D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				185D9A5E28C1D66200D4CC1D /* TextFieldView.h */,
+				185D9A5F28C1D66200D4CC1D /* TextFieldView.m */,
+				185D9A6228C1EEF900D4CC1D /* CHResolutionView.h */,
+				185D9A6128C1EEF900D4CC1D /* CHResolutionView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2244EE2028AF727B002FD992 = {
+			isa = PBXGroup;
+			children = (
+				2244EE2B28AF727B002FD992 /* TiCloudRTCObjcExample */,
+				2244EE4728AF727C002FD992 /* TiCloudRTCObjcExampleTests */,
+				2244EE5128AF727C002FD992 /* TiCloudRTCObjcExampleUITests */,
+				2244EE2A28AF727B002FD992 /* Products */,
+				22A0CB9328B3746D00D429DB /* Frameworks */,
+				2D8AB638A7C36F17301A93F9 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		2244EE2A28AF727B002FD992 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2244EE2928AF727B002FD992 /* TiCloudRTCObjcExample.app */,
+				2244EE4428AF727C002FD992 /* TiCloudRTCObjcExampleTests.xctest */,
+				2244EE4E28AF727C002FD992 /* TiCloudRTCObjcExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2244EE2B28AF727B002FD992 /* TiCloudRTCObjcExample */ = {
+			isa = PBXGroup;
+			children = (
+				18797EF029C95672000D140A /* TiCloudRTC.framework */,
+				22A534D928B4C98B002D7AC4 /* Tools */,
+				22A0CBD028B3A29400D429DB /* Category */,
+				22A0CB9F28B38F8B00D429DB /* Class */,
+				2244EE2C28AF727B002FD992 /* AppDelegate.h */,
+				2244EE2D28AF727B002FD992 /* AppDelegate.m */,
+				2244EE2F28AF727B002FD992 /* SceneDelegate.h */,
+				2244EE3028AF727B002FD992 /* SceneDelegate.m */,
+				2244EE3528AF727B002FD992 /* Main.storyboard */,
+				2244EE3828AF727C002FD992 /* Assets.xcassets */,
+				2244EE3A28AF727C002FD992 /* LaunchScreen.storyboard */,
+				2244EE3D28AF727C002FD992 /* Info.plist */,
+				2244EE3E28AF727C002FD992 /* main.m */,
+				22A0CBD828B3A39100D429DB /* PrefixHeader.pch */,
+				22A0CBE128B3A63100D429DB /* TiGlobalDefines.h */,
+			);
+			path = TiCloudRTCObjcExample;
+			sourceTree = "<group>";
+		};
+		2244EE4728AF727C002FD992 /* TiCloudRTCObjcExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				2244EE4828AF727C002FD992 /* TiCloudRTCObjcExampleTests.m */,
+			);
+			path = TiCloudRTCObjcExampleTests;
+			sourceTree = "<group>";
+		};
+		2244EE5128AF727C002FD992 /* TiCloudRTCObjcExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2244EE5228AF727C002FD992 /* TiCloudRTCObjcExampleUITests.m */,
+				2244EE5428AF727C002FD992 /* TiCloudRTCObjcExampleUITestsLaunchTests.m */,
+			);
+			path = TiCloudRTCObjcExampleUITests;
+			sourceTree = "<group>";
+		};
+		22A0CB9328B3746D00D429DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22B3A75528B633A0006C91AC /* Agorafdkaac.framework */,
+				22B3A75828B633A0006C91AC /* AgoraRtcKit.framework */,
+				22B3A75628B633A0006C91AC /* AgoraRtmKit.framework */,
+				22B3A75728B633A0006C91AC /* AgoraSoundTouch.framework */,
+				D051593A43F3F3032FE2D124 /* Pods_TiCloudRTCObjcExample.framework */,
+				668D8C015A42923DC56D1BF4 /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework */,
+				D4904D98AEFFFE29BB9CBBD4 /* Pods_TiCloudRTCObjcExampleTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22A0CB9F28B38F8B00D429DB /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				185C597928C73D4C00AFB9DA /* SDKCloudEngine.h */,
+				185C597A28C73D4C00AFB9DA /* SDKCloudEngine.m */,
+				185C597C28C74D9F00AFB9DA /* Customer */,
+				22A5352128B4D88C002D7AC4 /* DevelopMode */,
+				22A5343C28B4B2C2002D7AC4 /* Mine */,
+				22A0CBC528B3A05F00D429DB /* Config */,
+				22A0CBBB28B39EA700D429DB /* TabBar */,
+				22A0CBB028B394F200D429DB /* Base */,
+				22A0CBA228B38F9800D429DB /* Login */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		22A0CBA228B38F9800D429DB /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				185D9A6828C33EE000D4CC1D /* View */,
+				22A5342928B473B0002D7AC4 /* ViewModel */,
+				22A0CBA328B38FBE00D429DB /* Model */,
+				22A0CBA628B38FBE00D429DB /* ViewController */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		22A0CBA328B38FBE00D429DB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22A0CBA528B38FBE00D429DB /* LoginModel.h */,
+				22A0CBA428B38FBE00D429DB /* LoginModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		22A0CBA628B38FBE00D429DB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				22A0CBA928B38FBE00D429DB /* LoginViewController.h */,
+				22A0CBA728B38FBE00D429DB /* LoginViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		22A0CBB028B394F200D429DB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				22A534E328B4CA00002D7AC4 /* BaseModel.h */,
+				22A534F328B4CA00002D7AC4 /* BaseModel.m */,
+				22A534E828B4CA00002D7AC4 /* BaseNavigationController.h */,
+				22A534E028B4CA00002D7AC4 /* BaseNavigationController.m */,
+				22A534F428B4CA00002D7AC4 /* BaseTableView.h */,
+				22A534EF28B4CA00002D7AC4 /* BaseTableView.m */,
+				22A534F128B4CA00002D7AC4 /* BaseTableViewCell.h */,
+				22A534E928B4CA00002D7AC4 /* BaseTableViewCell.m */,
+				22A534E128B4CA00002D7AC4 /* BaseView.h */,
+				22A534EB28B4CA00002D7AC4 /* BaseView.m */,
+				22A534F028B4CA00002D7AC4 /* BaseViewController.h */,
+				22A534E228B4CA00002D7AC4 /* BaseViewController.m */,
+				22A534E628B4CA00002D7AC4 /* BaseViewModel.h */,
+				22A534E428B4CA00002D7AC4 /* BaseViewModel.m */,
+				22A534EA28B4CA00002D7AC4 /* ErrorModel.h */,
+				22A534EE28B4CA00002D7AC4 /* ErrorModel.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		22A0CBBB28B39EA700D429DB /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				22A0CBBD28B39EA700D429DB /* MainTabBarController.h */,
+				22A0CBBC28B39EA700D429DB /* MainTabBarController.m */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		22A0CBC528B3A05F00D429DB /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				22A0CBC728B3A05F00D429DB /* TIMURLDefine.h */,
+				185D9A6728C1F13F00D4CC1D /* CommonConfig.h */,
+				22A0CBC628B3A05F00D429DB /* DomainNameSave.h */,
+				22A0CBC828B3A05F00D429DB /* DomainNameSave.m */,
+				1856D8FF28C5B947008A2C32 /* AppConfig.h */,
+				1856D90028C5B947008A2C32 /* AppConfig.m */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		22A0CBD028B3A29400D429DB /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				22A5352F28B4DD4A002D7AC4 /* WMPageController */,
+				22A5351028B4CFA1002D7AC4 /* NSDate */,
+				22A5350828B4CCD4002D7AC4 /* UIView */,
+				22A5350428B4CC1C002D7AC4 /* NSString */,
+				22A5344428B4B39F002D7AC4 /* UIImage */,
+				22A5343528B4A776002D7AC4 /* NSDictionary */,
+				22A0CBDA28B3A55700D429DB /* MBProgress */,
+				22A0CBD128B3A2AF00D429DB /* NSObject */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		22A0CBD128B3A2AF00D429DB /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				22A5351728B4D109002D7AC4 /* NSObject+ShowError.h */,
+				22A5351828B4D109002D7AC4 /* NSObject+ShowError.m */,
+				22A0CBD228B3A2AF00D429DB /* NSObject+Common.m */,
+				22A0CBD528B3A2AF00D429DB /* NSObject+Common.h */,
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
+		22A0CBDA28B3A55700D429DB /* MBProgress */ = {
+			isa = PBXGroup;
+			children = (
+				22A0CBDC28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.h */,
+				22A0CBDB28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m */,
+			);
+			path = MBProgress;
+			sourceTree = "<group>";
+		};
+		22A5342928B473B0002D7AC4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				22A5342C28B473E6002D7AC4 /* LoginViewModel.h */,
+				22A5342D28B473E6002D7AC4 /* LoginViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		22A5343528B4A776002D7AC4 /* NSDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				22A5343628B4A797002D7AC4 /* NSDictionary+TRTool.h */,
+				22A5343728B4A797002D7AC4 /* NSDictionary+TRTool.m */,
+			);
+			path = NSDictionary;
+			sourceTree = "<group>";
+		};
+		22A5343C28B4B2C2002D7AC4 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				22A5349B28B4C6F8002D7AC4 /* MineViewController.h */,
+				22A534A028B4C6F8002D7AC4 /* MineViewController.m */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		22A5344428B4B39F002D7AC4 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				22A5344928B4B3DF002D7AC4 /* UIImage+PureColorImage.h */,
+				22A5344828B4B3DF002D7AC4 /* UIImage+PureColorImage.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		22A534D928B4C98B002D7AC4 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				22A5350C28B4CF14002D7AC4 /* TRLoadingView */,
+				22A534DC28B4C99A002D7AC4 /* ZYAlertView */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		22A534DC28B4C99A002D7AC4 /* ZYAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				22A534DD28B4C99A002D7AC4 /* ZYAlertView.h */,
+				22A534DE28B4C99A002D7AC4 /* ZYAlertView.m */,
+			);
+			path = ZYAlertView;
+			sourceTree = "<group>";
+		};
+		22A5350428B4CC1C002D7AC4 /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				22A5350528B4CC29002D7AC4 /* NSString+Frame.h */,
+				22A5350628B4CC29002D7AC4 /* NSString+Frame.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		22A5350828B4CCD4002D7AC4 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				22A5350928B4CCD4002D7AC4 /* UIViewExt.m */,
+				22A5350A28B4CCD4002D7AC4 /* UIViewExt.h */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		22A5350C28B4CF14002D7AC4 /* TRLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				22A5350D28B4CF14002D7AC4 /* TRLoadingView.h */,
+				22A5350E28B4CF14002D7AC4 /* TRLoadingView.m */,
+			);
+			path = TRLoadingView;
+			sourceTree = "<group>";
+		};
+		22A5351028B4CFA1002D7AC4 /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				22A5351128B4CFA1002D7AC4 /* NSDate+Calculation.m */,
+				22A5351228B4CFA1002D7AC4 /* NSDate+TimeFormatting.h */,
+				22A5351328B4CFA1002D7AC4 /* NSDate+Calculation.h */,
+				22A5351428B4CFA1002D7AC4 /* NSDate+TimeFormatting.m */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
+		22A5352128B4D88C002D7AC4 /* DevelopMode */ = {
+			isa = PBXGroup;
+			children = (
+				185C597528C73CA600AFB9DA /* View */,
+				22A5352328B4DA42002D7AC4 /* ViewController */,
+			);
+			path = DevelopMode;
+			sourceTree = "<group>";
+		};
+		22A5352328B4DA42002D7AC4 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				22A5352628B4DAA0002D7AC4 /* DemoPageController.h */,
+				22A5352728B4DAA0002D7AC4 /* DemoPageController.m */,
+				22A5352928B4DB53002D7AC4 /* OutCallViewController.h */,
+				22A5352A28B4DB53002D7AC4 /* OutCallViewController.m */,
+				22A5352C28B4DB70002D7AC4 /* AgentViewController.h */,
+				22A5352D28B4DB70002D7AC4 /* AgentViewController.m */,
+				1856D90528C5DC04008A2C32 /* BaseCallViewController.h */,
+				1856D90628C5DC04008A2C32 /* BaseCallViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		22A5352F28B4DD4A002D7AC4 /* WMPageController */ = {
+			isa = PBXGroup;
+			children = (
+				22A5353028B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.h */,
+				22A5353128B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.m */,
+			);
+			path = WMPageController;
+			sourceTree = "<group>";
+		};
+		2D8AB638A7C36F17301A93F9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				32472FC7DF18C902939593EA /* Pods-TiCloudRTCObjcExample.debug.xcconfig */,
+				9F6CE858EA262B76A6234674 /* Pods-TiCloudRTCObjcExample.release.xcconfig */,
+				FB19123D8DE5354CB97DA1A4 /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig */,
+				1DCB02E45FC96759954A0F6B /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig */,
+				540A9EEA843CBC05708B16CC /* Pods-TiCloudRTCObjcExampleTests.debug.xcconfig */,
+				1DDF697C0E490A0DB22440FB /* Pods-TiCloudRTCObjcExampleTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2244EE2828AF727B002FD992 /* TiCloudRTCObjcExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2244EE5828AF727C002FD992 /* Build configuration list for PBXNativeTarget "TiCloudRTCObjcExample" */;
+			buildPhases = (
+				5A6F297ED71C0796642AD5D6 /* [CP] Check Pods Manifest.lock */,
+				2244EE2528AF727B002FD992 /* Sources */,
+				2244EE2628AF727B002FD992 /* Frameworks */,
+				2244EE2728AF727B002FD992 /* Resources */,
+				2244EE8028AF7320002FD992 /* Embed Frameworks */,
+				E48F7431EA2094A69D021C34 /* [CP] Embed Pods Frameworks */,
+				1820C37928C9D9890045188B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TiCloudRTCObjcExample;
+			productName = TiCloudRTCObjcExample;
+			productReference = 2244EE2928AF727B002FD992 /* TiCloudRTCObjcExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2244EE4328AF727C002FD992 /* TiCloudRTCObjcExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2244EE5B28AF727C002FD992 /* Build configuration list for PBXNativeTarget "TiCloudRTCObjcExampleTests" */;
+			buildPhases = (
+				E5D6ED28CB685424ABB45D2D /* [CP] Check Pods Manifest.lock */,
+				2244EE4028AF727C002FD992 /* Sources */,
+				2244EE4128AF727C002FD992 /* Frameworks */,
+				2244EE4228AF727C002FD992 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2244EE4628AF727C002FD992 /* PBXTargetDependency */,
+			);
+			name = TiCloudRTCObjcExampleTests;
+			productName = TiCloudRTCObjcExampleTests;
+			productReference = 2244EE4428AF727C002FD992 /* TiCloudRTCObjcExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2244EE4D28AF727C002FD992 /* TiCloudRTCObjcExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2244EE5E28AF727C002FD992 /* Build configuration list for PBXNativeTarget "TiCloudRTCObjcExampleUITests" */;
+			buildPhases = (
+				EEEB61BB7B6BEE837EB33701 /* [CP] Check Pods Manifest.lock */,
+				2244EE4A28AF727C002FD992 /* Sources */,
+				2244EE4B28AF727C002FD992 /* Frameworks */,
+				2244EE4C28AF727C002FD992 /* Resources */,
+				367CBA4DD5021F5341B6221B /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2244EE5028AF727C002FD992 /* PBXTargetDependency */,
+			);
+			name = TiCloudRTCObjcExampleUITests;
+			productName = TiCloudRTCObjcExampleUITests;
+			productReference = 2244EE4E28AF727C002FD992 /* TiCloudRTCObjcExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2244EE2128AF727B002FD992 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					2244EE2828AF727B002FD992 = {
+						CreatedOnToolsVersion = 13.4;
+					};
+					2244EE4328AF727C002FD992 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 2244EE2828AF727B002FD992;
+					};
+					2244EE4D28AF727C002FD992 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 2244EE2828AF727B002FD992;
+					};
+				};
+			};
+			buildConfigurationList = 2244EE2428AF727B002FD992 /* Build configuration list for PBXProject "TiCloudRTCObjcExample" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2244EE2028AF727B002FD992;
+			productRefGroup = 2244EE2028AF727B002FD992;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2244EE2828AF727B002FD992 /* TiCloudRTCObjcExample */,
+				2244EE4328AF727C002FD992 /* TiCloudRTCObjcExampleTests */,
+				2244EE4D28AF727C002FD992 /* TiCloudRTCObjcExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2244EE2728AF727B002FD992 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2244EE3C28AF727C002FD992 /* LaunchScreen.storyboard in Resources */,
+				2244EE3928AF727C002FD992 /* Assets.xcassets in Resources */,
+				2244EE3728AF727B002FD992 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2244EE4228AF727C002FD992 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2244EE4C28AF727C002FD992 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		367CBA4DD5021F5341B6221B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5A6F297ED71C0796642AD5D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TiCloudRTCObjcExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E48F7431EA2094A69D021C34 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample/Pods-TiCloudRTCObjcExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample/Pods-TiCloudRTCObjcExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample/Pods-TiCloudRTCObjcExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5D6ED28CB685424ABB45D2D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TiCloudRTCObjcExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEEB61BB7B6BEE837EB33701 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2244EE2528AF727B002FD992 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				185C597F28C74DE800AFB9DA /* CustomerDataViewController.m in Sources */,
+				22A5351528B4CFA1002D7AC4 /* NSDate+Calculation.m in Sources */,
+				22A534F928B4CA01002D7AC4 /* BaseViewController.m in Sources */,
+				1856D90728C5DC04008A2C32 /* BaseCallViewController.m in Sources */,
+				2244EE2E28AF727B002FD992 /* AppDelegate.m in Sources */,
+				22A0CBAB28B38FBF00D429DB /* LoginViewController.m in Sources */,
+				22A5343828B4A797002D7AC4 /* NSDictionary+TRTool.m in Sources */,
+				1856D91028C5FA77008A2C32 /* DrawShapeView.m in Sources */,
+				22A0CBDF28B3A55700D429DB /* MBProgressHUD+GeneralConfiguration.m in Sources */,
+				22A534FA28B4CA01002D7AC4 /* BaseViewModel.m in Sources */,
+				22A5352828B4DAA0002D7AC4 /* DemoPageController.m in Sources */,
+				22A5350B28B4CCD4002D7AC4 /* UIViewExt.m in Sources */,
+				22A5351628B4CFA1002D7AC4 /* NSDate+TimeFormatting.m in Sources */,
+				22A5342E28B473E6002D7AC4 /* LoginViewModel.m in Sources */,
+				22A5350228B4CA01002D7AC4 /* BaseModel.m in Sources */,
+				22A534DF28B4C99A002D7AC4 /* ZYAlertView.m in Sources */,
+				22A534FC28B4CA01002D7AC4 /* BaseTableViewCell.m in Sources */,
+				2244EE3F28AF727C002FD992 /* main.m in Sources */,
+				22A534C528B4C6F8002D7AC4 /* MineViewController.m in Sources */,
+				22A5350128B4CA01002D7AC4 /* BaseTableView.m in Sources */,
+				185C597B28C73D4C00AFB9DA /* SDKCloudEngine.m in Sources */,
+				22A0CBCB28B3A05F00D429DB /* DomainNameSave.m in Sources */,
+				22A5353228B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.m in Sources */,
+				22A534FD28B4CA01002D7AC4 /* BaseView.m in Sources */,
+				185C598528C7590400AFB9DA /* DialPageViewController.m in Sources */,
+				22A5351928B4D109002D7AC4 /* NSObject+ShowError.m in Sources */,
+				185D9A6328C1EEF900D4CC1D /* CHResolutionView.m in Sources */,
+				22A5344A28B4B3DF002D7AC4 /* UIImage+PureColorImage.m in Sources */,
+				22A5352E28B4DB70002D7AC4 /* AgentViewController.m in Sources */,
+				22A5350F28B4CF14002D7AC4 /* TRLoadingView.m in Sources */,
+				2244EE3128AF727B002FD992 /* SceneDelegate.m in Sources */,
+				185C598228C74F3800AFB9DA /* CustomerField.m in Sources */,
+				185D9A6B28C33F7900D4CC1D /* TelephoneView.m in Sources */,
+				22A0CBC028B39EA700D429DB /* MainTabBarController.m in Sources */,
+				1856D90128C5B947008A2C32 /* AppConfig.m in Sources */,
+				185D9A6028C1D66200D4CC1D /* TextFieldView.m in Sources */,
+				22A0CBAA28B38FBF00D429DB /* LoginModel.m in Sources */,
+				22A534F828B4CA01002D7AC4 /* BaseNavigationController.m in Sources */,
+				22A5350028B4CA01002D7AC4 /* ErrorModel.m in Sources */,
+				22A5350728B4CC29002D7AC4 /* NSString+Frame.m in Sources */,
+				22A5352B28B4DB53002D7AC4 /* OutCallViewController.m in Sources */,
+				22A0CBD628B3A2AF00D429DB /* NSObject+Common.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2244EE4028AF727C002FD992 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2244EE4928AF727C002FD992 /* TiCloudRTCObjcExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2244EE4A28AF727C002FD992 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2244EE5528AF727C002FD992 /* TiCloudRTCObjcExampleUITestsLaunchTests.m in Sources */,
+				2244EE5328AF727C002FD992 /* TiCloudRTCObjcExampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2244EE4628AF727C002FD992 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2244EE2828AF727B002FD992 /* TiCloudRTCObjcExample */;
+			targetProxy = 2244EE4528AF727C002FD992 /* PBXContainerItemProxy */;
+		};
+		2244EE5028AF727C002FD992 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2244EE2828AF727B002FD992 /* TiCloudRTCObjcExample */;
+			targetProxy = 2244EE4F28AF727C002FD992 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2244EE3528AF727B002FD992 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2244EE3628AF727B002FD992 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2244EE3A28AF727C002FD992 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2244EE3B28AF727C002FD992 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2244EE5628AF727C002FD992 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2244EE5728AF727C002FD992 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2244EE5928AF727C002FD992 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32472FC7DF18C902939593EA /* Pods-TiCloudRTCObjcExample.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4LP59GT9G;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TiCloudRTCObjcExample/AgoraSDK",
+					"$(PROJECT_DIR)/TiCloudRTCObjcExample",
+				);
+				GCC_PREFIX_HEADER = TiCloudRTCObjcExample/PrefixHeader.pch;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TiCloudRTCObjcExample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ti-RTC";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "请点击“好”以允许，若不允许, 你将无法完整使用呼叫功能";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjc";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
+			};
+			name = Debug;
+		};
+		2244EE5A28AF727C002FD992 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F6CE858EA262B76A6234674 /* Pods-TiCloudRTCObjcExample.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4LP59GT9G;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TiCloudRTCObjcExample/AgoraSDK",
+					"$(PROJECT_DIR)/TiCloudRTCObjcExample",
+				);
+				GCC_PREFIX_HEADER = TiCloudRTCObjcExample/PrefixHeader.pch;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TiCloudRTCObjcExample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ti-RTC";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "请点击“好”以允许，若不允许, 你将无法完整使用呼叫功能";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjc";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
+			};
+			name = Release;
+		};
+		2244EE5C28AF727C002FD992 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 540A9EEA843CBC05708B16CC /* Pods-TiCloudRTCObjcExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4LP59GT9G;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjcExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TiCloudRTCObjcExample.app/TiCloudRTCObjcExample";
+			};
+			name = Debug;
+		};
+		2244EE5D28AF727C002FD992 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DDF697C0E490A0DB22440FB /* Pods-TiCloudRTCObjcExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4LP59GT9G;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjcExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TiCloudRTCObjcExample.app/TiCloudRTCObjcExample";
+			};
+			name = Release;
+		};
+		2244EE5F28AF727C002FD992 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB19123D8DE5354CB97DA1A4 /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4LP59GT9G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjcExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TiCloudRTCObjcExample;
+			};
+			name = Debug;
+		};
+		2244EE6028AF727C002FD992 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DCB02E45FC96759954A0F6B /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4LP59GT9G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjcExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TiCloudRTCObjcExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2244EE2428AF727B002FD992 /* Build configuration list for PBXProject "TiCloudRTCObjcExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2244EE5628AF727C002FD992 /* Debug */,
+				2244EE5728AF727C002FD992 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2244EE5828AF727C002FD992 /* Build configuration list for PBXNativeTarget "TiCloudRTCObjcExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2244EE5928AF727C002FD992 /* Debug */,
+				2244EE5A28AF727C002FD992 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2244EE5B28AF727C002FD992 /* Build configuration list for PBXNativeTarget "TiCloudRTCObjcExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2244EE5C28AF727C002FD992 /* Debug */,
+				2244EE5D28AF727C002FD992 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2244EE5E28AF727C002FD992 /* Build configuration list for PBXNativeTarget "TiCloudRTCObjcExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2244EE5F28AF727C002FD992 /* Debug */,
+				2244EE6028AF727C002FD992 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2244EE2128AF727B002FD992 /* Project object */;
+}
