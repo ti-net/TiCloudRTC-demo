@@ -16,6 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
     HttpServiceManager.tiCloudHttpService.login(
@@ -64,7 +65,10 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
                             _appUiState.value = AppUiState.LoginFailed(errorMessage)
                         }
 
-                        override fun onSuccess(rtcClient: TiCloudRTC) {
+                        override fun onSuccess(
+                            rtcClient: TiCloudRTC,
+                            fields: HashMap<String, String>
+                        ) {
                             this@loginExt.rtcClient = rtcClient
                             rtcClient.setEventListener(CustomEventListener())
                             _appUiState.value = AppUiState.LoginSuccess
