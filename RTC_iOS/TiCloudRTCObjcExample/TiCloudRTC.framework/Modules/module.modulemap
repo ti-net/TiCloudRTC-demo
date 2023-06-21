@@ -1,0 +1,6 @@
+framework module TiCloudRTC {
+  umbrella header "TiCloudRTC.h"
+
+  export *
+  module * { export * }
+}
