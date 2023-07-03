@@ -25,11 +25,13 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
                 _appUiState.value = AppUiState.LoginFailed(errorMessage)
             }
 
-            override fun onSuccess(rtcClient: TiCloudRTC) {
+            override fun onSuccess(rtcClient: TiCloudRTC, fields: HashMap<String, String>) {
                 this@loginExt.rtcClient = rtcClient
                 rtcClient.setEventListener(CustomEventListener())
                 _appUiState.value = AppUiState.LoginSuccess
             }
+
+
         }
     )
 }
