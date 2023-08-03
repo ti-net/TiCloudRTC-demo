@@ -76,7 +76,7 @@ dependencies {
     api("androidx.datastore:datastore-preferences:1.0.0")
     api("androidx.datastore:datastore-preferences-core:1.0.0")
 
-    // kotlin 携程
+    // kotlin 协程
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
