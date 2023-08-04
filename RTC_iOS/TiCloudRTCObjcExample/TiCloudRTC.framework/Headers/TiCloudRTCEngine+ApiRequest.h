@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 刷新AccessToken
 - (void)renewAccessToken:(NSString *)accessToken success:(void(^)(NSInteger expires))successBlock error:(void(^)(TiCloudRtcErrCode nErrorCode, NSString *errorDes))errorBlock;
 
+/// 上传日志
+//- (void)uploadLogs:(NSString *)accessToken success:(void(^)(NSInteger expires))successBlock error:(void(^)(TiCloudRtcErrCode nErrorCode, NSString *errorDes))errorBlock;
+- (void)uploadLogs:(NSArray *)logs;
+
 @end
 
 NS_ASSUME_NONNULL_END

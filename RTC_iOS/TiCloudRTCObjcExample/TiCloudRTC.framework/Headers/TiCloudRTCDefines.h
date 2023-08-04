@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, TiCloudRtcErrCode)
     ERR_RTC_ERROR                    = 10006,   // "内部 RTC 错误"
     ERR_TOKEN_EXPIRED                = 10007,   // "token 已过期"
     ERR_TOKEN_INVALID                = 10008,   // "token 无效"
+    ERR_TOKEN_PERIOD_TOO_SHORT       = 10009,   // "token 有效期过短，有效期最小为 10 分钟"
     
     // 外呼相关错误码
     ERR_CALL_FAILED_PARAMS_INCORRECT = 11001,   // "外呼失败：参数不正确"
