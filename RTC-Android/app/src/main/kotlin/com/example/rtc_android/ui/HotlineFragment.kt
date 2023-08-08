@@ -65,7 +65,7 @@ class HotlineFragment : Fragment() {
                 viewModel.viewModelScope.launch {
                     viewModel.intentChannel.send(
                         AppIntent.Call(
-                            tel = "",
+                            tel = edtAgentTel2.text.toString(),
                             clid = "",
                             userField = String.format(
                                 nodeIvrUserFieldMap[currentSelectedNode()!!]!!,
@@ -80,7 +80,7 @@ class HotlineFragment : Fragment() {
                 viewModel.viewModelScope.launch {
                     viewModel.intentChannel.send(
                         AppIntent.Call(
-                            tel = "",
+                            tel = edtAgentTel1.text.toString(),
                             clid = "",
                             userField = String.format(
                                 BuildConfig.CALL_AGENT_USER_FIELD,

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView2"
@@ -37,7 +36,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="根节点"
+        android:text="@string/rootNode"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
@@ -54,7 +53,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="直呼节点"
+        android:text="@string/node1"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -72,7 +71,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="播放节点"
+        android:text="@string/node2"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -88,7 +87,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="队列节点"
+        android:text="@string/node3"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/edt_hotline_user_field"
@@ -191,12 +190,12 @@
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/tip_user_field"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/btn_hotline_call"
+        app:layout_constraintBottom_toTopOf="@+id/edt_agent_tel_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
@@ -246,14 +245,37 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="随路数据（可选）"
+        android:hint="@string/userField"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/edt_agent_tel_1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/edt_agent_tel_1"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:hint="@string/agent_real_tel"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="@+id/edt_agent_user_field"
+        app:layout_constraintStart_toStartOf="@+id/edt_agent_user_field" />
+
+    <EditText
+        android:id="@+id/edt_agent_tel_2"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:hint="@string/agent_real_tel"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/btn_hotline_call"
+        app:layout_constraintEnd_toEndOf="@+id/edt_node_user_field"
+        app:layout_constraintStart_toStartOf="@+id/edt_node_user_field" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
