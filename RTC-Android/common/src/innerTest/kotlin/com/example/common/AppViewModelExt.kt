@@ -1,7 +1,6 @@
+package com.example.common
+
 import android.util.Log
-import com.example.common.AppIntent
-import com.example.common.AppUiState
-import com.example.common.AppViewModel
 import com.example.common.bean.BaseResult
 import com.example.common.bean.LoginParams
 import com.example.common.bean.LoginResult
