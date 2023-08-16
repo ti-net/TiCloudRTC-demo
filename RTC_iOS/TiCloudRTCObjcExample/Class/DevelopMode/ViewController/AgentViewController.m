@@ -13,6 +13,8 @@
 /// 客服号码
 @property(nonatomic, weak) UIButton *serviceNumber;
 
+@property(nonatomic, weak) UITextField *telTF1;
+
 @property(nonatomic, weak) UIButton *rootBtn;
 
 @property(nonatomic, weak) UIButton *chooseBtn;
@@ -22,6 +24,8 @@
 @property(nonatomic, weak) UIButton *directBtn;
 
 @property(nonatomic, weak) UITextField *alongRoadTF;
+
+@property(nonatomic, weak) UITextField *telTF2;
 
 @property(nonatomic, assign) NSInteger selectNode;
 
@@ -54,8 +58,19 @@
     UIButton *topCallBtn = [self creatButtonWithFrame:CGRectMake(self.view.width - LeftMargin - 100, serviceNumber.top, 100, ButtonHeight) title:@"联系客服" action:@selector(callButtonsClick:)];
     [topCallBtn setBackgroundColor:kHexColor(0x00865C)];
     topCallBtn.tag = 100;
+    
+    UITextField *telTF1 = [[UITextField alloc] init];
+    telTF1.frame = CGRectMake(LeftMargin, topCallBtn.bottom + 20, self.view.width - 2 *LeftMargin, 40.f);
+    telTF1.font = CHFont13;
+    telTF1.textAlignment = NSTextAlignmentCenter;
+    telTF1.placeholder = @"真实被叫（可选）";
+    telTF1.layer.borderWidth = 1.0;
+    telTF1.layer.borderColor = UIColor.grayColor.CGColor;
+    telTF1.layer.cornerRadius = 6;
+    [self.view addSubview:telTF1];
+    self.telTF1 = telTF1;
         
-    UIView *dividerLine = [[UIView alloc]initWithFrame:CGRectMake(0, topCallBtn.bottom + 30, self.view.width, 1.0)];
+    UIView *dividerLine = [[UIView alloc]initWithFrame:CGRectMake(0, telTF1.bottom + 30, self.view.width, 1.0)];
     dividerLine.backgroundColor = UIColor.grayColor;
     [self.view addSubview:dividerLine];
     
@@ -69,7 +84,6 @@
     directBtn.tag = 3;
     self.directBtn = directBtn;
     
-    
     UIButton *chooseBtn = [self creatButtonWithFrame:CGRectMake(directBtn.right +nodeMargin, directBtn.top, nodeButtonW, ButtonHeight) title:@"播放节点" action:@selector(nodeButtonsClick:)];
     chooseBtn.tag = 1;
     self.chooseBtn = chooseBtn;
@@ -77,23 +91,8 @@
     UIButton *queueBtn = [self creatButtonWithFrame:CGRectMake(chooseBtn.right +nodeMargin, chooseBtn.top, nodeButtonW, ButtonHeight) title:@"队列节点" action:@selector(nodeButtonsClick:)];
     queueBtn.tag = 2;
     self.queueBtn = queueBtn;
-    
-    /*
-    UIButton *chooseBtn = [self creatButtonWithFrame:CGRectMake(nodeMargin, rootBtn.bottom + 50, nodeButtonW, ButtonHeight) title:@"选择" action:@selector(nodeButtonsClick:)];
-    chooseBtn.tag = 1;
-    self.chooseBtn = chooseBtn;
-
-    UIButton *queueBtn = [self creatButtonWithFrame:CGRectMake(chooseBtn.right +nodeMargin, chooseBtn.top, nodeButtonW, ButtonHeight) title:@"队列" action:@selector(nodeButtonsClick:)];
-    queueBtn.tag = 2;
-    self.queueBtn = queueBtn;
-
-
-    UIButton *directBtn = [self creatButtonWithFrame:CGRectMake(queueBtn.right +nodeMargin, queueBtn.top, nodeButtonW, ButtonHeight) title:@"直呼" action:@selector(nodeButtonsClick:)];
-    directBtn.tag = 3;
-    self.directBtn = directBtn;
-     */
-    
-    UIButton *buttonCallBtn = [self creatButtonWithFrame:CGRectMake(LeftMargin, self.view.height - kNavTop - kTabBarHeight - 100 - 45, self.view.width - 2 *LeftMargin, 40) title:@"联系客服" action:@selector(callButtonsClick:)];
+   
+    UIButton *buttonCallBtn = [self creatButtonWithFrame:CGRectMake(LeftMargin, self.view.height - kNavTop - kTabBarHeight - 50 - 45, self.view.width - 2 *LeftMargin, 40) title:@"联系客服" action:@selector(callButtonsClick:)];
     [buttonCallBtn setBackgroundColor:kHexColor(0x00865C)];
     buttonCallBtn.tag = 101;
 
@@ -107,6 +106,17 @@
     alongRoadTF.layer.cornerRadius = 6;
     [self.view addSubview:alongRoadTF];
     self.alongRoadTF = alongRoadTF;
+    
+    UITextField *telTF2 = [[UITextField alloc] init];
+    telTF2.frame = CGRectMake(LeftMargin, alongRoadTF.bottom + 20, self.view.width - 2 *LeftMargin, 40.f);
+    telTF2.font = CHFont13;
+    telTF2.textAlignment = NSTextAlignmentCenter;
+    telTF2.placeholder = @"真实被叫（可选）";
+    telTF2.layer.borderWidth = 1.0;
+    telTF2.layer.borderColor = UIColor.grayColor.CGColor;
+    telTF2.layer.cornerRadius = 6;
+    [self.view addSubview:telTF2];
+    self.telTF2 = telTF2;
         
     [self nodesLine];
 }
@@ -146,15 +156,24 @@
 
 - (void)callButtonsClick:(UIButton *)button
 {
+    [self.view endEditing:YES];
+    
     TiCloudRTCCallConfig * callConf = [[TiCloudRTCCallConfig alloc] init];
+    callConf.type = TiCloudRtcScence_AGENTSCENCE;
+    
     if (button.tag == 100)
     {
-        callConf.type = TiCloudRtcScence_AGENTSCENCE;
+        if (self.telTF1.text.length)
+        {
+            callConf.tel = self.telTF1.text;
+        }
     }
     else if (button.tag == 101)
     {
-        callConf.type = TiCloudRtcScence_AGENTSCENCE;
-        
+        if (self.telTF2.text.length)
+        {
+            callConf.tel = self.telTF2.text;
+        }
         if (self.selectNode)
         {// 节点呼叫
             NSDictionary *userField = @{@"name":@"ivrNode",@"value":[NSString stringWithFormat:@"%ld",self.selectNode],@"type":@1};

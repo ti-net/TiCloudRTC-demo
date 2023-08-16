@@ -205,7 +205,6 @@
     
     TextFieldView *callerNumberField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 20, self.view.width - 2 * margin, 35) withType:TextFieldViewType_EnterprisesId];
     callerNumberField.delegate = self;
-    callerNumberField.textField.secureTextEntry = YES;
     [bgView addSubview:callerNumberField];
     self.callerNumberField = callerNumberField;
     callerNumberField.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入回呼号（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
@@ -223,19 +222,6 @@
     rememberBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(rememberBtn.imageView.frame.size.width + 2.5), 0, (rememberBtn.imageView.frame.size.width + 2.5));
     rememberBtn.imageEdgeInsets = UIEdgeInsetsMake(0, (rememberBtn.titleLabel.frame.size.width + 2.5), 0, -(rememberBtn.titleLabel.frame.size.width + 2.5));
 
-//    UIButton *developerButton = [[UIButton alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 10, 85, 20)];
-//    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标"] forState:UIControlStateNormal];
-//    [developerButton setImage:[UIImage imageNamed:@"4-单选多选图标-1"] forState:UIControlStateSelected];
-//    [developerButton setTitle:@"开发者模式" forState:UIControlStateNormal];
-//    [developerButton setTitleColor:kHexColor(0x262626) forState:UIControlStateNormal];
-//    developerButton.titleLabel.font = CHFont12;
-//    [developerButton addTarget:self action:@selector(developerButton:) forControlEvents:UIControlEventTouchUpInside];
-//    developerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
-//    developerButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-//    //    [bgView addSubview:developerButton];
-//    self.developerButton = developerButton;
-
-    
     UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.height - 100 , self.view.width - 40, 48)];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = CHFont16;
@@ -277,7 +263,8 @@
         [self showErrorView:@"请输入密码"];
         return;
     }
-    else if (self.callerNumberField.textField.text.length)
+    
+    if (self.callerNumberField.textField.text.length)
     {
 //        BOOL isPhone = [AppConfig isValidatePhoneNumber:self.callerNumberField.textField.text];
 //
@@ -290,6 +277,10 @@
         {
             [[NSUserDefaults standardUserDefaults] setValue:self.callerNumberField.textField.text forKey:kCallerNumber];
         }
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:kCallerNumber];
     }
 
     //请求登录

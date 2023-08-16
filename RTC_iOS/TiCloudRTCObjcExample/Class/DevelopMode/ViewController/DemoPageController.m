@@ -31,7 +31,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"演示";
     
-    self.pageTitleArray = @[@"外呼场景", @"坐席场景"];
+    self.pageTitleArray = @[@"外呼场景", @"客服场景"];
         
     [self.view addSubview:self.pageController.view];
         
