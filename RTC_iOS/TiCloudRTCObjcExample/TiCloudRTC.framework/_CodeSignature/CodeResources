@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		TBgOEVYza/4XhgTocIeJA69l+cs=
+		</data>
 		<key>Headers/AFNetworkReachabilityManager.h</key>
 		<data>
 		ucw7ZEs9qbD4ZHXh6GrEj2bffRw=
@@ -14,7 +18,7 @@
 		</data>
 		<key>Headers/TiCloudRTCDefines.h</key>
 		<data>
-		52V6ciSPFQvjJ4MF93qt2oeq3Cw=
+		2N0wlCJ/7dZz+ZSvbTIscnFILO8=
 		</data>
 		<key>Headers/TiCloudRTCEngine+AgoraRTM.h</key>
 		<data>
@@ -34,7 +38,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		LJENEzHk0fanr4fgB5BizVcQFCY=
+		j+JV2q5CHqqbED2COFxSnLCuddA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -69,11 +73,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			52V6ciSPFQvjJ4MF93qt2oeq3Cw=
+			2N0wlCJ/7dZz+ZSvbTIscnFILO8=
 			</data>
 			<key>hash2</key>
 			<data>
-			7Uy4KqyPCmlrlA/8FPcWfxSzyzzF429UkpWatF+i1X8=
+			r2vmnixLa49Oqvf4kcW17LBhMXnH72ryMgQBrVkVTkQ=
 			</data>
 		</dict>
 		<key>Headers/TiCloudRTCEngine+AgoraRTM.h</key>

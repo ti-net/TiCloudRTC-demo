@@ -37,6 +37,9 @@
     }
     
     config.accessToken = [LoginModel loginModel].accessToken;
+    
+    config.isDebug = YES;
+    
     self.tiCloudEngine = [TiCloudRTCEngine createClient:config success:^(NSDictionary * _Nonnull data) {
         NSLog(@"createClient success..");
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
