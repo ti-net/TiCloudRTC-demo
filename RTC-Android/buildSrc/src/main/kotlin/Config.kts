@@ -6,8 +6,8 @@ object ProjectConfig{
 
 object AppConfig{
     const val applicationId = "com.example.rtc_android"
-    const val versionCode = 17
-    const val versionName = "2.9.0"
+    const val versionCode = 18
+    const val versionName = "2.9.1"
 }
 
 object AppComposeConfig{
