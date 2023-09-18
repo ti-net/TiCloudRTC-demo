@@ -69,12 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *_Nonnull)getVersion;
 
 /**
- * 接受邀请
+ * 接受回呼邀请
  */
 - (void)acceptCall;
 
 /**
- * 拒绝邀请
+ * 拒绝回呼邀请
  */
 - (void)refuseCall;
 

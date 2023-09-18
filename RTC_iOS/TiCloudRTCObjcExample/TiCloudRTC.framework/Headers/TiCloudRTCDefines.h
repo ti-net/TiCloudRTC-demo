@@ -28,10 +28,10 @@ typedef NS_ENUM(NSInteger, TiCloudRtcErrCode)
     ERR_TOKEN_EXPIRED                     = 10007,   // "token 已过期"
     ERR_TOKEN_INVALID                     = 10008,   // "token 无效"
     ERR_TOKEN_PERIOD_TOO_SHORT            = 10009,   // "token 有效期过短，有效期最小为 10 分钟"
-    ERR_AUTH_FAILED                       = 10010, // 鉴权失败,userId 与 accessToken 不匹配
-    ERR_REQUEST_TOO_FREQUENT              = 10011, // 请求过于频繁
-    ERR_REGISTRATION_CONCURRENCY_EXCEEDED = 10012, // 注册并发数超限制
-    ERR_ENTERPRISE_NOT_EXIST              = 10013, // 企业不存在
+    ERR_AUTH_FAILED                       = 10010,   // 鉴权失败,userId 与 accessToken 不匹配
+    ERR_REQUEST_TOO_FREQUENT              = 10011,   // 请求过于频繁
+    ERR_REGISTRATION_CONCURRENCY_EXCEEDED = 10012,   // 注册并发数超限制
+    ERR_ENTERPRISE_NOT_EXIST              = 10013,   // 企业不存在
     
     // 外呼相关错误码
     ERR_CALL_FAILED_PARAMS_INCORRECT      = 11001,   // "外呼失败：参数不正确"
