@@ -14,6 +14,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.http.HttpServiceManager
 import com.tencent.bugly.crashreport.CrashReport
 import com.tinet.ticloudrtc.DestroyResultCallback
+import com.tinet.ticloudrtc.ErrorCode
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
@@ -322,7 +323,18 @@ class AppViewModel : ViewModel() {
 
         override fun onError(errorCode: Int, errorMessage: String) {
             _appUiState.value = AppUiState.OnInnerSdkError(errorCode, errorMessage)
+            when (errorCode) {
+                // 如果是呼叫相关错误码则重置呼叫中界面
+                ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT,
+                ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
+                ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
+                ErrorCode.ERR_CALL_FAILED_NET_ERROR,
+                ErrorCode.ERR_CALL_FAILED_RTM_ERROR,
+                ErrorCode.ERR_CALL_HOTLINE_NOT_EXIST -> resetCallingState()
+            }
         }
+
+
     }
 
     companion object {
