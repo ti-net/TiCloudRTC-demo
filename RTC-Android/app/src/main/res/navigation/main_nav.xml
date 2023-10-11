@@ -44,8 +44,9 @@
     <action
         android:id="@+id/global_action_to_loginFragment2"
         app:destination="@id/loginFragment"
+        app:launchSingleTop="true"
         app:popUpTo="@id/mainFragment"
-        app:launchSingleTop="true" />
+        app:popUpToInclusive="false" />
     <fragment
         android:id="@+id/demoMainFragment"
         android:name="com.example.rtc_android.ui.DemoMainFragment"

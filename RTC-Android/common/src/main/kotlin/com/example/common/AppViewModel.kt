@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -14,9 +15,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.http.HttpServiceManager
 import com.tencent.bugly.crashreport.CrashReport
 import com.tinet.ticloudrtc.DestroyResultCallback
+import com.tinet.ticloudrtc.ErrorCode
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -223,17 +226,20 @@ class AppViewModel : ViewModel() {
 
     internal fun saveLoginState(loginIntent: AppIntent.Login) {
         viewModelScope.launch {
-            loginIntent.context.loginDataStore.edit {
-                it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
-                it[KEY_USERNAME] = this@AppViewModel.username
-                if (isSaveLoginMessage.value) {
-                    it[KEY_PASSWORD] = this@AppViewModel.password
-                } else {
-                    it[KEY_PASSWORD] = ""
+            launch {
+                loginIntent.context.loginDataStore.edit {
+                    it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
+                    it[KEY_USERNAME] = this@AppViewModel.username
+                    if (isSaveLoginMessage.value) {
+                        it[KEY_PASSWORD] = this@AppViewModel.password
+                    } else {
+                        it[KEY_PASSWORD] = ""
+                    }
+                    it[KEY_CALLER_NUMBER] = this@AppViewModel.callerNumber
+                    it[KEY_IS_SAVE_LOGIN_MESSAGE] =
+                        this@AppViewModel.isSaveLoginMessage.value
                 }
-                it[KEY_CALLER_NUMBER] = this@AppViewModel.callerNumber
-                it[KEY_IS_SAVE_LOGIN_MESSAGE] =
-                    this@AppViewModel.isSaveLoginMessage.value
+
             }
         }
     }
@@ -322,6 +328,19 @@ class AppViewModel : ViewModel() {
 
         override fun onError(errorCode: Int, errorMessage: String) {
             _appUiState.value = AppUiState.OnInnerSdkError(errorCode, errorMessage)
+            when (errorCode) {
+                // 如果是呼叫相关错误码则重置呼叫中界面
+                ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT,
+                ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
+                ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
+                ErrorCode.ERR_CALL_FAILED_NET_ERROR,
+                ErrorCode.ERR_CALL_FAILED_RTM_ERROR,
+                ErrorCode.ERR_CALL_HOTLINE_NOT_EXIST -> resetCallingState()
+            }
+        }
+
+        override fun onRemoteLogin() {
+            _appUiState.value = AppUiState.OnKickOut
         }
     }
 
@@ -403,6 +422,8 @@ sealed interface AppUiState {
     class OnRefreshTokenFailed(val errorMsg: String) : AppUiState
 
     object OnAccessTokenHasExpired : AppUiState
+
+    object OnKickOut: AppUiState
 }
 
 data class LoginMessage(

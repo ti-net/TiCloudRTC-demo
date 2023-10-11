@@ -7,7 +7,7 @@ object ProjectConfig{
 object AppConfig{
     const val applicationId = "com.example.rtc_android"
     const val versionCode = 18
-    const val versionName = "2.9.1"
+    const val versionName = "2.9.3"
 }
 
 object AppComposeConfig{
@@ -41,12 +41,12 @@ object CommonConfig{
             "]"
         """.trimIndent()),
         GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发环境\",\"测试环境\"," +
-                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-8\",\"CTICloud-9\",\"CTICloud-jd\"}"),
+                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-8\",\"CTICloud-9\",\"CTICloud-jd\",\"clink2-test0\",\"clink2-bj\",\"clink2-sh\"}"),
         GradleField("String[]","LOGIN_ENVIRONMENT_VALUE",
             "{\"https://rtc-api-dev.cticloud.cn\",\"https://rtc-api-test.cticloud.cn\"," +
-                    "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-8.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\",\"https://rtc-api-jd.cticloud.cn\"}"),
+                    "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-8.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\",\"https://rtc-api-jd.cticloud.cn\",\"https://rtc-api-test0.clink.cn\",\"https://rtc-api-bj.clink.cn\",\"https://rtc-api-sh.clink.cn\"}"),
         GradleField("String[]","LOGIN_ENTERPRISE_ID_VALUE",
-            "{\"6000001\",\"7002485\",\"7100368\",\"7000820\",\"7500005\",\"7600655\",\"\",\"7900074\",\"7900074\"}"),
+            "{\"6000001\",\"7002485\",\"7100368\",\"7000820\",\"7500005\",\"7600655\",\"\",\"7900074\",\"7900074\",\"\",\"\",\"\"}"),
         // bugly 配置 ------------------------------
         // appId
         GradleField("String","BUGLY_APPID","\"16c04631f3\""),
@@ -90,12 +90,12 @@ object CommonConfig{
             "]"
         """.trimIndent()),
         GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发环境\",\"测试环境\"," +
-                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-8\",\"CTICloud-9\",\"CTICloud-jd\"}"),
+                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-8\",\"CTICloud-9\",\"CTICloud-jd\",\"clink2-test0\",\"clink2-bj\",\"clink2-sh\"}"),
         GradleField("String[]","LOGIN_ENVIRONMENT_VALUE",
             "{\"https://rtc-api-dev.cticloud.cn\",\"https://rtc-api-test.cticloud.cn\"," +
-                    "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-8.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\",\"https://rtc-api-jd.cticloud.cn\"}"),
+                    "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-8.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\",\"https://rtc-api-jd.cticloud.cn\",\"https://rtc-api-test0.clink.cn\",\"https://rtc-api-bj.clink.cn\",\"https://rtc-api-sh.clink.cn\"}"),
         GradleField("String[]","LOGIN_ENTERPRISE_ID_VALUE",
-            "{\"6000001\",\"7002485\",\"7100368\",\"7000820\",\"7500005\",\"7600655\",\"\",\"7900074\",\"7900074\"}"),
+            "{\"6000001\",\"7002485\",\"7100368\",\"7000820\",\"7500005\",\"7600655\",\"\",\"7900074\",\"7900074\",\"\",\"\",\"\"}"),
         // bugly 配置 ------------------------------
         // appId
         GradleField("String","BUGLY_APPID","\"16c04631f3\""),
