@@ -85,7 +85,11 @@ class CallingFragment : Fragment() {
                         )
                     }
                 } else {
-                    Toast.makeText(requireContext(), "播放铃声或通话中才能使用扬声器", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "播放铃声或通话中才能使用扬声器",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@setOnClickListener
                 }
             }
@@ -122,14 +126,19 @@ class CallingFragment : Fragment() {
                                     ErrorCode.ERR_CALL_FAILED_RTM_ERROR -> backToMain()
                                 }
                             }
+
                             is AppUiState.OnCallCanceled -> {
-                                Toast.makeText(requireContext(), "呼叫已取消", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "呼叫已取消", Toast.LENGTH_SHORT)
+                                    .show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallRefused -> {
-                                Toast.makeText(requireContext(), "外呼被拒绝", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "外呼被拒绝", Toast.LENGTH_SHORT)
+                                    .show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallingEnd -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -138,6 +147,7 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallFailure -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -146,6 +156,7 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnRefreshTokenFailed -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -154,6 +165,7 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnAccessTokenHasExpired -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -187,7 +199,7 @@ class CallingFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.biggerText.collect{
+                    viewModel.biggerText.collect {
                         binding.tvShowCallTel.text = it
                     }
                 }
