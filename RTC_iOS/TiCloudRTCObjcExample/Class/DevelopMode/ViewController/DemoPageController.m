@@ -49,12 +49,21 @@
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index
 {
-    OutCallViewController *outCallVC = [[OutCallViewController alloc] init];        switch (index) {
+    OutCallViewController *outCallVC = [[OutCallViewController alloc] init];
+
+    __weak __typeof(self)weakSelf = self;
+    outCallVC.dismissPage = ^{
+        [weakSelf dismissToLoginPage];
+    };
+    switch (index) {
             case 0:
                 self.outCallVC = outCallVC;
                 break;
             case 1: {
                 AgentViewController * agentVC = [[AgentViewController alloc] init];
+                agentVC.dismissPage = ^{
+                    [weakSelf dismissToLoginPage];
+                };
                 self.agentVC = agentVC;
                 return agentVC;
                 break;
@@ -68,7 +77,7 @@
 
 - (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info
 {
-    
+
     if ([info[@"index"] intValue])
     {
         self.agentVC.isSelectPage = YES;
@@ -97,5 +106,12 @@
     }
     return _pageController;
 }
+
+
+- (void)dismissToLoginPage
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

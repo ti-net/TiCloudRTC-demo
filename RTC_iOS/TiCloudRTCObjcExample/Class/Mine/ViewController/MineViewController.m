@@ -64,18 +64,9 @@
 - (void)logoutButtonClick
 {
     [[SDKCloudEngine sharedInstancet].tiCloudEngine destroyClient:^{
-        if (@available(iOS 13.0, *))
-        {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else
-        {            
-            
-//            LoginViewController *loginVC = [[LoginViewController alloc]init];
-            
-            [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
-        }
-        
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+
     } error:^(TiCloudRtcErrCode errorCode, NSString * _Nonnull errorMessage) {
         [self showErrorView:[NSString stringWithFormat:@"退出失败:%@",errorMessage]];
     }];

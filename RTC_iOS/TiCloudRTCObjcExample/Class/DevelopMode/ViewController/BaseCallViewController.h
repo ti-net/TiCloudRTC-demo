@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isSelectPage;
 
+@property (nonatomic, copy) void(^dismissPage)(void);
+
 - (void)showTelephoneView:(NSString *)phoneNumber;
 
 @end

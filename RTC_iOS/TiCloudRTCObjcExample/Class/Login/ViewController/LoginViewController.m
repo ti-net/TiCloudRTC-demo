@@ -14,8 +14,10 @@
 #import "TextFieldView.h"
 #import "CommonConfig.h"
 #import "CHResolutionView.h"
-#import "CustomerDataViewController.h"
+//#import "CustomerDataViewController.h"
 
+
+// (没有用到的控制器)
 @interface LoginViewController ()
 <
     YBPopupMenuDelegate,
@@ -61,13 +63,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSDictionary *dictInfomation = [[NSUserDefaults standardUserDefaults] valueForKey:kLoginPath];
-
+       
     if (dictInfomation && [self.enterprisesArray containsObject:dictInfomation[@"enterprises"]])
     {
         NSInteger index = [self.enterprisesArray indexOfObject:dictInfomation[@"enterprises"]];
-        
         self.environmentField.string = self.environmentArray[index];
-        
         [self loginDataStored:dictInfomation];
     }
     else
@@ -114,14 +114,14 @@
                 NSLog(@"NetworkStateSuccess ");
                 MainTabBarController *tabBarC = [[MainTabBarController alloc] init];
                 tabBarC.selectedIndex = 0;
-                if (@available(iOS 13.0, *)) {
+//                if (@available(iOS 13.0, *)) {
                     tabBarC.modalPresentationStyle = UIModalPresentationFullScreen;
                     [self presentViewController:tabBarC animated:NO completion:^{
         
                     }];
-                }else{
-                   [AppDelegate shareAppDelegate].window.rootViewController = tabBarC;
-                }
+//                }else{
+//                   [AppDelegate shareAppDelegate].window.rootViewController = tabBarC;
+//                }
             }
 //            else
 //            {
@@ -196,12 +196,14 @@
     userNameField.textField.clearButtonMode = UITextFieldViewModeAlways;
     [bgView addSubview:userNameField];
     self.userNameField = userNameField;
+//    userNameField.textField.text = @"13109100";
 
     TextFieldView *passwordField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, userNameField.bottom + 20, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Password];
     passwordField.delegate = self;
     passwordField.textField.secureTextEntry = YES;
     [bgView addSubview:passwordField];
     self.passwordField = passwordField;
+//    passwordField.textField.text = @"0017501878IADog02A9VfHzgl3+yrf1ud3TQgMPm+WaRXB3dZiP2rSrxhh3IoQAF9SKvsgn+1kAQABALBb7GQ=";
     
     TextFieldView *callerNumberField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 20, self.view.width - 2 * margin, 35) withType:TextFieldViewType_EnterprisesId];
     callerNumberField.delegate = self;
@@ -285,6 +287,24 @@
 
     //请求登录
     [_loading startAnimating];    
+
+    // 使用AccessToken登录
+//    self.loginBtn.userInteractionEnabled = YES;
+//    self.viewModel.baseUrl = kBaseUrl_Formal_5;
+//    self.viewModel.enterpriseId = 7501878;
+//    self.viewModel.username = @"13109100";
+//    self.viewModel.password = @"0017501878IADog02A9VfHzgl3+yrf1ud3TQgMPm+WaRXB3dZiP2rSrxhh3IoQAF9SKvsgn+1kAQABALBb7GQ=";
+//
+//    MainTabBarController *tabBarC = [[MainTabBarController alloc] init];
+//    tabBarC.selectedIndex = 0;
+//    if (@available(iOS 13.0, *)) {
+//        tabBarC.modalPresentationStyle = UIModalPresentationFullScreen;
+//        [self presentViewController:tabBarC animated:NO completion:^{
+//
+//        }];
+//    }else{
+//       [AppDelegate shareAppDelegate].window.rootViewController = tabBarC;
+//    }
     
     [self.viewModel requestData];
     
@@ -299,6 +319,8 @@
     {
         [[NSUserDefaults standardUserDefaults] setValue:nil forKey:kLoginPassword];
     }
+    
+    
 }
 
 - (void)didClickToRememberPassword:(UIButton *)button

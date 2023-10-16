@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMPageController *pageController;
 
+//@property (nonatomic, copy) void(^dissmisPage)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END

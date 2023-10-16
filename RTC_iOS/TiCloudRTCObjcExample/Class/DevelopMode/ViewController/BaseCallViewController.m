@@ -51,6 +51,14 @@
 -(void)hangupButtonClick
 {
     [[SDKCloudEngine sharedInstancet].tiCloudEngine hangup];
+    
+    self.isRinging = NO;
+    
+    [self.telephoneView callingEnd];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.telephoneView.y = kScreenHeight;
+    }];
 }
 
 - (void)numberButtonsClick:(NSString *)number
@@ -74,6 +82,19 @@
 }
 
 #pragma mark -TiCloudRTCEventDelegate
+
+/**
+ * 当前 userId 在其他设备登录，此时引擎已销毁
+ */
+- (void)onRemoteLogin
+{
+    [self showErrorView:@"当前账号在其他设备登录"];
+    
+    if (_dismissPage)
+    {
+        _dismissPage();
+    }
+}
 
 /**
  * 引擎全局内错误信息事件回调
@@ -146,6 +167,7 @@
 - (void)onCallingEnd:(BOOL)isPeerHangup
 {
     NSLog(@"用户端回调：onCallingEnd");
+    [self showErrorView:[NSString stringWithFormat:@"通话结束:%d",isPeerHangup]];
     self.isRinging = NO;
     
     [self.telephoneView callingEnd];
@@ -206,17 +228,9 @@
         [UIView animateWithDuration:0.25 animations:^{
             weakSelf.telephoneView.y = kScreenHeight;
         }];
-        
-        if (@available(iOS 13.0, *))
-        {
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
-        }
-        else
-        {
-//            LoginViewController *loginVC = [[LoginViewController alloc]init];
-            
-            [AppDelegate shareAppDelegate].window.rootViewController = [AppDelegate shareAppDelegate].loginVC;
-        }
+
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+
     } error:^(TiCloudRtcErrCode errorCode, NSString * _Nonnull errorMessage) {
         [weakSelf showErrorView:@"退出失败"];
     }];
