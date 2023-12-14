@@ -193,6 +193,8 @@ class AppViewModel : ViewModel() {
                 type = callIntent.type
             ).apply {
                 callerNumber = callIntent.callerNumber
+                obClidAreaCode = callIntent.obClidAreaCode
+                obClidGroup = callIntent.obClidGroup
             }
         )
     }
@@ -368,6 +370,8 @@ sealed interface AppIntent {
         val type: Int
     ) : AppIntent {
         var callerNumber: String = ""
+        var obClidAreaCode: String = ""
+        var obClidGroup: String = ""
     }
 
     object Hangup : AppIntent
@@ -423,7 +427,7 @@ sealed interface AppUiState {
 
     object OnAccessTokenHasExpired : AppUiState
 
-    object OnKickOut: AppUiState
+    object OnKickOut : AppUiState
 }
 
 data class LoginMessage(

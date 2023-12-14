@@ -55,10 +55,15 @@ object CommonConfig{
     val releaseResValue = listOf(
         // default base url
         GradleResField("string","app_name","Ti-RTC"),
-        GradleResField("string","default_enterprise_id","\"\""),
-        GradleResField("string","default_username","\"\""),
-        GradleResField("string","default_password","\"\""),
-        GradleResField("string","default_caller_number","\"\""),
+        GradleResField("string","default_enterprise_id",""),
+        GradleResField("string","default_username",""),
+        GradleResField("string","default_password",""),
+        GradleResField("string","default_caller_number",""),
+        GradleResField("string","default_tel",""),
+        GradleResField("string","default_clid",""),
+        GradleResField("string","default_caller_number_when_call",""),
+        GradleResField("string","default_obClid_area_code",""),
+        GradleResField("string","default_obClid_group",""),
     )
 
     val debugFields = listOf(
@@ -103,10 +108,15 @@ object CommonConfig{
 
     val debugResValue = listOf(
         GradleResField("string","app_name","Ti-RTC-debug"),
-        GradleResField("string","default_enterprise_id","\"\""),
-        GradleResField("string","default_username","\"\""),
-        GradleResField("string","default_password","\"\""),
-        GradleResField("string","default_caller_number","\"\""),
+        GradleResField("string","default_enterprise_id",""),
+        GradleResField("string","default_username",""),
+        GradleResField("string","default_password",""),
+        GradleResField("string","default_caller_number",""),
+        GradleResField("string","default_tel",""),
+        GradleResField("string","default_clid",""),
+        GradleResField("string","default_caller_number_when_call",""),
+        GradleResField("string","default_obClid_area_code",""),
+        GradleResField("string","default_obClid_group",""),
     )
 
     val demoFields = listOf(

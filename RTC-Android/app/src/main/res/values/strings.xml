@@ -50,6 +50,8 @@
     <string name="hide">隐 藏</string>
     <string name="save_login_message">记住密码</string>
     <string name="please_enter_optional_caller_number">请输入回呼号（可选）</string>
+    <string name="please_enter_optional_obClid_area_code">请输入外显号码区号（可选）</string>
+    <string name="please_enter_optional_obClid_group">请输入外显号码组（可选）</string>
     <string name="userField">随路数据（可选）</string>
     <string name="agent_real_tel">真实被叫(可选)</string>
     <string name="rootNode">根节点</string>
