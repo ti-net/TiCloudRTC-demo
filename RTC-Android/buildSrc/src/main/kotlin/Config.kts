@@ -7,7 +7,7 @@ object ProjectConfig{
 object AppConfig{
     const val applicationId = "com.example.rtc_android"
     const val versionCode = 18
-    const val versionName = "2.9.3"
+    const val versionName = "2.9.4"
 }
 
 object AppComposeConfig{
@@ -40,8 +40,8 @@ object CommonConfig{
                     "%s\n"+
             "]"
         """.trimIndent()),
-        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发环境\",\"测试环境\"," +
-                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-8\",\"CTICloud-9\",\"CTICloud-jd\",\"clink2-test0\",\"clink2-bj\",\"clink2-sh\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发平台\",\"测试平台\"," +
+                "\"1 平台\",\"2 平台\",\"5 平台\",\"6 平台\",\"8 平台\",\"9 平台\",\"jd 平台\",\"test0 平台\",\"北京平台\",\"上海平台\"}"),
         GradleField("String[]","LOGIN_ENVIRONMENT_VALUE",
             "{\"https://rtc-api-dev.cticloud.cn\",\"https://rtc-api-test.cticloud.cn\"," +
                     "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-8.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\",\"https://rtc-api-jd.cticloud.cn\",\"https://rtc-api-test0.clink.cn\",\"https://rtc-api-bj.clink.cn\",\"https://rtc-api-sh.clink.cn\"}"),
@@ -55,10 +55,15 @@ object CommonConfig{
     val releaseResValue = listOf(
         // default base url
         GradleResField("string","app_name","Ti-RTC"),
-        GradleResField("string","default_enterprise_id","\"\""),
-        GradleResField("string","default_username","\"\""),
-        GradleResField("string","default_password","\"\""),
-        GradleResField("string","default_caller_number","\"\""),
+        GradleResField("string","default_enterprise_id",""),
+        GradleResField("string","default_username",""),
+        GradleResField("string","default_password",""),
+        GradleResField("string","default_caller_number",""),
+        GradleResField("string","default_tel",""),
+        GradleResField("string","default_clid",""),
+        GradleResField("string","default_caller_number_when_call",""),
+        GradleResField("string","default_obClid_area_code",""),
+        GradleResField("string","default_obClid_group",""),
     )
 
     val debugFields = listOf(
@@ -89,8 +94,8 @@ object CommonConfig{
                     "%s\n"+
             "]"
         """.trimIndent()),
-        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发环境\",\"测试环境\"," +
-                "\"CTICloud-1\",\"CTICloud-2\",\"CTICloud-5\",\"CTICloud-6\",\"CTICloud-8\",\"CTICloud-9\",\"CTICloud-jd\",\"clink2-test0\",\"clink2-bj\",\"clink2-sh\"}"),
+        GradleField("String[]","LOGIN_ENVIRONMENT_NAME","{\"开发平台\",\"测试平台\"," +
+                "\"1 平台\",\"2 平台\",\"5 平台\",\"6 平台\",\"8 平台\",\"9 平台\",\"jd 平台\",\"test0 平台\",\"北京平台\",\"上海平台\"}"),
         GradleField("String[]","LOGIN_ENVIRONMENT_VALUE",
             "{\"https://rtc-api-dev.cticloud.cn\",\"https://rtc-api-test.cticloud.cn\"," +
                     "\"https://rtc-api-1.cticloud.cn\",\"https://rtc-api-2.cticloud.cn\",\"https://rtc-api.cticloud.cn\",\"https://rtc-api-6.cticloud.cn\",\"https://rtc-api-8.cticloud.cn\",\"https://rtc-api-9.cticloud.cn\",\"https://rtc-api-jd.cticloud.cn\",\"https://rtc-api-test0.clink.cn\",\"https://rtc-api-bj.clink.cn\",\"https://rtc-api-sh.clink.cn\"}"),
@@ -103,10 +108,15 @@ object CommonConfig{
 
     val debugResValue = listOf(
         GradleResField("string","app_name","Ti-RTC-debug"),
-        GradleResField("string","default_enterprise_id","\"\""),
-        GradleResField("string","default_username","\"\""),
-        GradleResField("string","default_password","\"\""),
-        GradleResField("string","default_caller_number","\"\""),
+        GradleResField("string","default_enterprise_id",""),
+        GradleResField("string","default_username",""),
+        GradleResField("string","default_password",""),
+        GradleResField("string","default_caller_number",""),
+        GradleResField("string","default_tel",""),
+        GradleResField("string","default_clid",""),
+        GradleResField("string","default_caller_number_when_call",""),
+        GradleResField("string","default_obClid_area_code",""),
+        GradleResField("string","default_obClid_group",""),
     )
 
     val demoFields = listOf(

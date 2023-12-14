@@ -45,10 +45,11 @@ android {
     flavorDimensions += listOf(DimensionCase)
 
     productFlavors {
-        create("demo") {
+        create("developDemo") {
+            isDefault = true
             dimension = DimensionCase
         }
-        create("innerTest") {
+        create("businessDemo") {
             dimension = DimensionCase
         }
     }
@@ -104,5 +105,5 @@ dependencies {
     api("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:3.6.0@aar")
+    api("com.github.ti-net:TiCloud-RTC-Android:3.7.0@aar")
 }

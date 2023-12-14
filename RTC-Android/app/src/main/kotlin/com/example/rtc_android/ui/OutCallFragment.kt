@@ -46,6 +46,8 @@ class OutCallFragment : Fragment() {
                             type = 6 // 6 为外呼场景
                         ).apply {
                             callerNumber = binding.edtCallerNumber.text.toString()
+                            obClidAreaCode = binding.edtObClidAreaCode.text.toString()
+                            obClidGroup = binding.edtObClidGroup.text.toString()
                         }
                     )
                 }
