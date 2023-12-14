@@ -45,10 +45,11 @@ android {
     flavorDimensions += listOf(DimensionCase)
 
     productFlavors {
-        create("demo") {
+        create("developDemo") {
+            isDefault = true
             dimension = DimensionCase
         }
-        create("innerTest") {
+        create("businessDemo") {
             dimension = DimensionCase
         }
     }

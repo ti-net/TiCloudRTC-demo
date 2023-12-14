@@ -65,19 +65,23 @@ android {
     }
 
     val DimensionCase = "Case"
-
     flavorDimensions += listOf(DimensionCase)
 
     productFlavors {
-        create("demo") {
+        create("developDemo") {
+            isDefault = true
             dimension = DimensionCase
+
+            applicationIdSuffix = ".dev_demo"
 
             CommonConfig.demoFields.forEach {
                 buildConfigField(it.type, it.fieldName, it.fieldValue)
             }
         }
-        create("innerTest") {
+        create("businessDemo") {
             dimension = DimensionCase
+
+            applicationIdSuffix = ".business_demo"
 
             CommonConfig.innerTestFields.forEach {
                 buildConfigField(it.type, it.fieldName, it.fieldValue)
