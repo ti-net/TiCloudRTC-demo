@@ -13,6 +13,10 @@
     UITextField *outCallNumberTF;
     // 外显号码
     UITextField *obClidNumberTF;
+    // 指定外显区号（和指定外显号码池同时出现）
+    UITextField *obClidAreaCodeNumberTF;
+    /// 指定外显号码池，使用此参数时obClid参数无效
+    UITextField *obClidGroupNumberTF;
     // 随路数据
     UITextField *alongRoadTF;
     /// 主叫号码
@@ -56,8 +60,26 @@
     obClidNumberTF.layer.borderColor = UIColor.grayColor.CGColor;
     obClidNumberTF.layer.cornerRadius = 6;
     
+    obClidAreaCodeNumberTF = [[UITextField alloc] init];
+    obClidAreaCodeNumberTF.frame = CGRectMake(Margin, MargimY + 2*MarginH, self.view.width - 2 *Margin, 40.f);
+    obClidAreaCodeNumberTF.font = CHFont13;
+    obClidAreaCodeNumberTF.textAlignment = NSTextAlignmentCenter;
+    obClidAreaCodeNumberTF.placeholder = @"请输入外显区号(可选)";
+    obClidAreaCodeNumberTF.layer.borderWidth = 1.0;
+    obClidAreaCodeNumberTF.layer.borderColor = UIColor.grayColor.CGColor;
+    obClidAreaCodeNumberTF.layer.cornerRadius = 6;
+    
+    obClidGroupNumberTF = [[UITextField alloc] init];
+    obClidGroupNumberTF.frame = CGRectMake(Margin, MargimY + 3*MarginH, self.view.width - 2 *Margin, 40.f);
+    obClidGroupNumberTF.font = CHFont13;
+    obClidGroupNumberTF.textAlignment = NSTextAlignmentCenter;
+    obClidGroupNumberTF.placeholder = @"请输入外显号码组(可选)";
+    obClidGroupNumberTF.layer.borderWidth = 1.0;
+    obClidGroupNumberTF.layer.borderColor = UIColor.grayColor.CGColor;
+    obClidGroupNumberTF.layer.cornerRadius = 6;
+    
     alongRoadTF = [[UITextField alloc] init];
-    alongRoadTF.frame = CGRectMake(Margin, MargimY + 2*MarginH, self.view.width - 2 *Margin, 40.f);
+    alongRoadTF.frame = CGRectMake(Margin, MargimY + 4*MarginH, self.view.width - 2 *Margin, 40.f);
     alongRoadTF.font = CHFont13;
     alongRoadTF.placeholder = @"请输入随路数据(可选)";
     alongRoadTF.textAlignment = NSTextAlignmentCenter;
@@ -66,7 +88,7 @@
     alongRoadTF.layer.cornerRadius = 6;
     
     callerNumberTF = [[UITextField alloc] init];
-    callerNumberTF.frame = CGRectMake(Margin, MargimY + 3 *MarginH, self.view.width - 2 *Margin, 40.f);
+    callerNumberTF.frame = CGRectMake(Margin, MargimY + 5 *MarginH, self.view.width - 2 *Margin, 40.f);
     callerNumberTF.font = CHFont13;
     callerNumberTF.placeholder = @"请输入回呼号（可选）";
     callerNumberTF.textAlignment = NSTextAlignmentCenter;
@@ -84,6 +106,8 @@
     [self.view addSubview:outCallBtn];
     [self.view addSubview:outCallNumberTF];
     [self.view addSubview:obClidNumberTF];
+    [self.view addSubview:obClidAreaCodeNumberTF];
+    [self.view addSubview:obClidGroupNumberTF];
     [self.view addSubview:alongRoadTF];
     [self.view addSubview:callerNumberTF];
 }
@@ -168,6 +192,9 @@
     callConf.tel = outCallNumberTF.text;
     callConf.type = TiCloudRtcScence_OUTCALLSCENCE;
     callConf.clid = obClidNumberTF.text;
+    
+//    callConf.obClidAreaCode = obClidAreaCodeNumberTF.text;
+//    callConf.obClidGroup = obClidGroupNumberTF.text;
     
     if (callerNumberTF.text.length)
     {

@@ -88,7 +88,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.environmentArray = @[@"开发环境",@"测试环境",@"CTICloud-1",@"CTICloud-2",@"CTICloud-5",@"CTICloud-6",@"CTICloud-9"];
+    self.environmentArray = @[@"开发环境",@"测试环境",@"平台-1",@"平台-2",@"平台-5",@"平台-6",@"平台-9"];
     
     self.baseUrlArray = @[kBaseUrl_Develop,kBaseUrl_Test,kBaseUrl_Formal_1,kBaseUrl_Formal_2,kBaseUrl_Formal_5,kBaseUrl_Formal_6,kBaseUrl_Formal_9];
     
@@ -338,7 +338,7 @@
         popupMenu.cornerRadius = 3.;
         popupMenu.borderWidth = 1.;
         popupMenu.borderColor = kHexColor(0xECECEC);
-        popupMenu.isShowShadow = NO;
+        popupMenu.showShadow = NO;
         popupMenu.itemHeight = 46.f;
         popupMenu.tableView.separatorInset = UIEdgeInsetsMake(0, 14.f, 0, 0);
         popupMenu.tableView.separatorColor = kHexColor(0xF3F6F7);

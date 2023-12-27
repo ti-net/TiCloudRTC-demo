@@ -40,6 +40,11 @@
     
     config.isDebug = YES;
     
+//    config.accessToken = @"0018000560IABYE+rTIY9iTYx26YWf+tR5j+scRv5ebly71/DrD3Xk+kSjI/oQAPHcm+xBgS9lAQABANE9LmU=";
+//    config.rtcEndpoint = @"https://rtc-api-test0.clink.cn";
+//    config.enterpriseId = 8000560;
+//    config.userId = @"1022";
+    
     self.tiCloudEngine = [TiCloudRTCEngine createClient:config success:^(NSDictionary * _Nonnull data) {
         NSLog(@"createClient success..");
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {

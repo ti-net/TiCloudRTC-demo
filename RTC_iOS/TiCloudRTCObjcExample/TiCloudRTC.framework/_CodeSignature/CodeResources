@@ -4,10 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		TBgOEVYza/4XhgTocIeJA69l+cs=
-		</data>
 		<key>Headers/AFNetworkReachabilityManager.h</key>
 		<data>
 		ucw7ZEs9qbD4ZHXh6GrEj2bffRw=
@@ -18,7 +14,7 @@
 		</data>
 		<key>Headers/TiCloudRTCDefines.h</key>
 		<data>
-		2N0wlCJ/7dZz+ZSvbTIscnFILO8=
+		s8B2KPVhuthGnYqL+nxWxSKEIQI=
 		</data>
 		<key>Headers/TiCloudRTCEngine+AgoraRTM.h</key>
 		<data>
@@ -30,19 +26,19 @@
 		</data>
 		<key>Headers/TiCloudRTCEngine.h</key>
 		<data>
-		jJWnesOLicPKm+S2hYOBXTPeQZ4=
+		lsXRavMnP7ZJqM14+KV9NgjDoNQ=
 		</data>
 		<key>Headers/TiCloudRTCEventDelegate.h</key>
 		<data>
-		pO/Vx3dlAguRUJ3mwRZ615CamJ8=
+		QNyta0PbkBC1x2LhIp0SOgmlfPo=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		j+JV2q5CHqqbED2COFxSnLCuddA=
+		ktt1j9TjJK3aCgjO3b+HC7jowVk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		48CDhGg/4sCs5VHefihJeDz6zcg=
+		xXrxTAluABqpzyONVXU8JGz6bYQ=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -73,11 +69,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2N0wlCJ/7dZz+ZSvbTIscnFILO8=
+			s8B2KPVhuthGnYqL+nxWxSKEIQI=
 			</data>
 			<key>hash2</key>
 			<data>
-			r2vmnixLa49Oqvf4kcW17LBhMXnH72ryMgQBrVkVTkQ=
+			BBGzDF6C/AJ8CwGhilYIcpLILyEJjDL9ljsK5FMBa7M=
 			</data>
 		</dict>
 		<key>Headers/TiCloudRTCEngine+AgoraRTM.h</key>
@@ -106,33 +102,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jJWnesOLicPKm+S2hYOBXTPeQZ4=
+			lsXRavMnP7ZJqM14+KV9NgjDoNQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			elGc3rDaeg05yhCW8dFVw49Y6ffMNFLvl81YM8sSYXw=
+			NAiyQheoo9Wt7LnRA/GuXIk9x48hmGy8wKcMuvc/jXI=
 			</data>
 		</dict>
 		<key>Headers/TiCloudRTCEventDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pO/Vx3dlAguRUJ3mwRZ615CamJ8=
+			QNyta0PbkBC1x2LhIp0SOgmlfPo=
 			</data>
 			<key>hash2</key>
 			<data>
-			ASrsdDOA98hdf9BPd3alM8WSMKjQsKxCPzB6MZ8r6qc=
+			wfM57Kqoz03jv+tZ1WFUAJ3wQXPKexB5LxWoJikFf5s=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			48CDhGg/4sCs5VHefihJeDz6zcg=
+			xXrxTAluABqpzyONVXU8JGz6bYQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			Q9QoYyd8wfSTx5IKw+V1TFxotbGe0PS7TQaNfXu0QRg=
+			CxINpuQUw8y5nOhEk0LWvPj0nrMtaqhO/eMBx19vsbc=
 			</data>
 		</dict>
 	</dict>

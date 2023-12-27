@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182C807A2B2C60EE00EE66C5 /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */; };
+		182C807B2B2C60EE00EE66C5 /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1856D90128C5B947008A2C32 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90028C5B947008A2C32 /* AppConfig.m */; };
 		1856D90728C5DC04008A2C32 /* BaseCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90628C5DC04008A2C32 /* BaseCallViewController.m */; };
 		1856D91028C5FA77008A2C32 /* DrawShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90F28C5FA77008A2C32 /* DrawShapeView.m */; };
@@ -17,8 +19,6 @@
 		185D9A6028C1D66200D4CC1D /* TextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A5F28C1D66200D4CC1D /* TextFieldView.m */; };
 		185D9A6328C1EEF900D4CC1D /* CHResolutionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6128C1EEF900D4CC1D /* CHResolutionView.m */; };
 		185D9A6B28C33F7900D4CC1D /* TelephoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6A28C33F7900D4CC1D /* TelephoneView.m */; };
-		18797EFE29C95693000D140A /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18797EF029C95672000D140A /* TiCloudRTC.framework */; };
-		18797EFF29C95693000D140A /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18797EF029C95672000D140A /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2244EE2E28AF727B002FD992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE2D28AF727B002FD992 /* AppDelegate.m */; };
 		2244EE3128AF727B002FD992 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE3028AF727B002FD992 /* SceneDelegate.m */; };
 		2244EE3728AF727B002FD992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2244EE3528AF727B002FD992 /* Main.storyboard */; };
@@ -95,7 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				18797EFF29C95693000D140A /* TiCloudRTC.framework in Embed Frameworks */,
+				182C807B2B2C60EE00EE66C5 /* TiCloudRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,6 +103,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
 		1856D8FF28C5B947008A2C32 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		1856D90028C5B947008A2C32 /* AppConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		1856D90528C5DC04008A2C32 /* BaseCallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseCallViewController.h; sourceTree = "<group>"; };
@@ -124,7 +125,6 @@
 		185D9A6728C1F13F00D4CC1D /* CommonConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonConfig.h; sourceTree = "<group>"; };
 		185D9A6928C33F7900D4CC1D /* TelephoneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TelephoneView.h; sourceTree = "<group>"; };
 		185D9A6A28C33F7900D4CC1D /* TelephoneView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelephoneView.m; sourceTree = "<group>"; };
-		18797EF029C95672000D140A /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
 		1DCB02E45FC96759954A0F6B /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1DDF697C0E490A0DB22440FB /* Pods-TiCloudRTCObjcExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExampleTests/Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		2244EE2928AF727B002FD992 /* TiCloudRTCObjcExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCloudRTCObjcExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,8 +221,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18797EFE29C95693000D140A /* TiCloudRTC.framework in Frameworks */,
 				5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */,
+				182C807A2B2C60EE00EE66C5 /* TiCloudRTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +305,7 @@
 		2244EE2B28AF727B002FD992 /* TiCloudRTCObjcExample */ = {
 			isa = PBXGroup;
 			children = (
-				18797EF029C95672000D140A /* TiCloudRTC.framework */,
+				182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */,
 				22A534D928B4C98B002D7AC4 /* Tools */,
 				22A0CBD028B3A29400D429DB /* Category */,
 				22A0CB9F28B38F8B00D429DB /* Class */,
@@ -630,8 +630,8 @@
 				2244EE2628AF727B002FD992 /* Frameworks */,
 				2244EE2728AF727B002FD992 /* Resources */,
 				2244EE8028AF7320002FD992 /* Embed Frameworks */,
-				E48F7431EA2094A69D021C34 /* [CP] Embed Pods Frameworks */,
 				1820C37928C9D9890045188B /* CopyFiles */,
+				68989A9E0B094CA9D5DC4F14 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -669,7 +669,7 @@
 				2244EE4A28AF727C002FD992 /* Sources */,
 				2244EE4B28AF727C002FD992 /* Frameworks */,
 				2244EE4C28AF727C002FD992 /* Resources */,
-				367CBA4DD5021F5341B6221B /* [CP] Embed Pods Frameworks */,
+				62308C8173ADFF779C0E85AD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -751,23 +751,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		367CBA4DD5021F5341B6221B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5A6F297ED71C0796642AD5D6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -790,7 +773,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E48F7431EA2094A69D021C34 /* [CP] Embed Pods Frameworks */ = {
+		62308C8173ADFF779C0E85AD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68989A9E0B094CA9D5DC4F14 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1086,7 +1086,6 @@
 				INFOPLIST_FILE = TiCloudRTCObjcExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ti-RTC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "请点击“好”以允许，若不允许, 你将无法完整使用呼叫功能";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1127,7 +1126,6 @@
 				INFOPLIST_FILE = TiCloudRTCObjcExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ti-RTC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "请点击“好”以允许，若不允许, 你将无法完整使用呼叫功能";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -146,6 +146,11 @@
 */
 - (void)onRemoteInvitationFailure:(nonnull NSDictionary *)fields;
 
+/**
+ * 当前 userId 在其他设备登录，此时引擎已销毁
+ */
+- (void)onRemoteLogin;
+
 @end
 
 #endif /* TiCloudRTCEventHandler_h */
