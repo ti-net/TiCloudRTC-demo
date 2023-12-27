@@ -59,9 +59,9 @@ fun LoginPage(
                 .shadow(elevation = 20.dp, shape = RoundedCornerShape(20))
                 .combinedClickable(
                     onLongClick = {
-                        enterpriseId = context.getString(R.string.default_enterprise_id)
-                        username = context.getString(R.string.default_username)
-                        password = context.getString(R.string.default_password)
+                        enterpriseId = context.getString(R.string.specified_enterprise_id)
+                        username = context.getString(R.string.specified_username)
+                        password = context.getString(R.string.specified_password)
                     }
                 ) {}
         )
@@ -139,8 +139,8 @@ fun LoginPage(
                         context,
                         platformUrl = strPlatform,
                         enterpriseId = enterpriseId,
-                        username = username,
-                        password = password
+                        usernameOrUserId = username,
+                        passwordOrAccessToken = password
                     )
                 )
             }
@@ -156,8 +156,8 @@ fun LoginPage(
                 mainViewModel.getLoginMessageFromLocalStore(context)
                     .collectLatest { loginMessage ->
                         enterpriseId = loginMessage.enterpriseId
-                        username = loginMessage.username
-                        password = loginMessage.password
+                        username = loginMessage.usernameOrUserId
+                        password = loginMessage.passwordOrAccessToken
                     }
             }
 

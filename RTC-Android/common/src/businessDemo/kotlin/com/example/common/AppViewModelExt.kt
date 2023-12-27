@@ -53,7 +53,7 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
                     CreateClientOption(
                         rtcEndpoint = rtcEndpoint,
                         enterpriseId = enterpriseId.toString(),
-                        userId = loginIntent.username,
+                        userId = loginIntent.usernameOrUserId,
                         accessToken = accessToken,
                     ).apply {
                         isDebug = true

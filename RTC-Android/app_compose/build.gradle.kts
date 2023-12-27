@@ -73,7 +73,7 @@ android {
 
             applicationIdSuffix = ".dev_demo"
 
-            CommonConfig.demoFields.forEach {
+            CommonConfig.developDemoFields.forEach {
                 buildConfigField(it.type, it.fieldName, it.fieldValue)
             }
         }
@@ -82,7 +82,7 @@ android {
 
             applicationIdSuffix = ".business_demo"
 
-            CommonConfig.innerTestFields.forEach {
+            CommonConfig.businessDemoFields.forEach {
                 buildConfigField(it.type, it.fieldName, it.fieldValue)
             }
         }

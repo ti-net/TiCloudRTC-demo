@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
@@ -19,7 +19,6 @@ import com.tinet.ticloudrtc.ErrorCode
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -87,9 +86,10 @@ class AppViewModel : ViewModel() {
     internal var callerNumber = ""
 
     internal val Context.loginDataStore: DataStore<Preferences> by preferencesDataStore("login_message")
+    internal val KEY_SELECTED_ENV_INDEX = intPreferencesKey("key_selected_env_index")
     internal val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
-    internal val KEY_USERNAME = stringPreferencesKey("key_username")
-    internal val KEY_PASSWORD = stringPreferencesKey("key_password")
+    internal val KEY_USERNAME_OR_USER_ID = stringPreferencesKey("key_username_or_user_id")
+    internal val KEY_PASSWORD_OR_ACCESS_TOKEN = stringPreferencesKey("key_password_or_access_token")
     internal val KEY_CALLER_NUMBER = stringPreferencesKey("key_caller_number")
     internal val KEY_IS_SAVE_LOGIN_MESSAGE = booleanPreferencesKey("key_is_save_login_message")
 
@@ -97,9 +97,10 @@ class AppViewModel : ViewModel() {
         return context.loginDataStore.data.map {
             _isSaveLoginMessage.value = it[KEY_IS_SAVE_LOGIN_MESSAGE] == true
             LoginMessage(
+                selectedEnvIndex = it[KEY_SELECTED_ENV_INDEX] ?: 0,
                 enterpriseId = it[KEY_ENTERPRISE_ID] ?: "",
-                username = it[KEY_USERNAME] ?: "",
-                password = it[KEY_PASSWORD] ?: "",
+                usernameOrUserId = it[KEY_USERNAME_OR_USER_ID] ?: "",
+                passwordOrAccessToken = it[KEY_PASSWORD_OR_ACCESS_TOKEN] ?: "",
                 callerNumber = it[KEY_CALLER_NUMBER] ?: ""
             )
         }.stateIn(viewModelScope)
@@ -209,8 +210,8 @@ class AppViewModel : ViewModel() {
         if (
             loginIntent.platformUrl.isEmpty() ||
             loginIntent.enterpriseId.isEmpty() ||
-            loginIntent.username.isEmpty() ||
-            loginIntent.password.isEmpty()
+            loginIntent.usernameOrUserId.isEmpty() ||
+            loginIntent.passwordOrAccessToken.isEmpty()
         ) {
             _appUiState.value = AppUiState.LoginFailed("参数不正确")
             return
@@ -219,8 +220,8 @@ class AppViewModel : ViewModel() {
         HttpServiceManager.url = loginIntent.platformUrl
 
         enterpriseId = loginIntent.enterpriseId
-        username = loginIntent.username
-        password = loginIntent.password
+        username = loginIntent.usernameOrUserId
+        password = loginIntent.passwordOrAccessToken
         callerNumber = loginIntent.callerNumber
 
         loginExt(loginIntent)
@@ -230,12 +231,13 @@ class AppViewModel : ViewModel() {
         viewModelScope.launch {
             launch {
                 loginIntent.context.loginDataStore.edit {
+                    it[KEY_SELECTED_ENV_INDEX] = loginIntent.selectedEnvIndex
                     it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
-                    it[KEY_USERNAME] = this@AppViewModel.username
+                    it[KEY_USERNAME_OR_USER_ID] = this@AppViewModel.username
                     if (isSaveLoginMessage.value) {
-                        it[KEY_PASSWORD] = this@AppViewModel.password
+                        it[KEY_PASSWORD_OR_ACCESS_TOKEN] = this@AppViewModel.password
                     } else {
-                        it[KEY_PASSWORD] = ""
+                        it[KEY_PASSWORD_OR_ACCESS_TOKEN] = ""
                     }
                     it[KEY_CALLER_NUMBER] = this@AppViewModel.callerNumber
                     it[KEY_IS_SAVE_LOGIN_MESSAGE] =
@@ -354,10 +356,11 @@ class AppViewModel : ViewModel() {
 sealed interface AppIntent {
     data class Login(
         val context: Context,
+        val selectedEnvIndex: Int,
         val platformUrl: String,
         val enterpriseId: String,
-        val username: String,
-        val password: String,
+        val usernameOrUserId: String,
+        val passwordOrAccessToken: String,
         val callerNumber: String = ""
     ) : AppIntent
 
@@ -431,9 +434,10 @@ sealed interface AppUiState {
 }
 
 data class LoginMessage(
+    val selectedEnvIndex: Int = 0,
     val enterpriseId: String = "",
-    val username: String = "",
-    val password: String = "",
+    val usernameOrUserId: String = "",
+    val passwordOrAccessToken: String = "",
     val callerNumber: String = ""
 )
 

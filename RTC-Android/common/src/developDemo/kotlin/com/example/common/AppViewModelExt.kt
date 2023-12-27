@@ -14,8 +14,8 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
         CreateClientOption(
             rtcEndpoint = loginIntent.platformUrl,
             enterpriseId = loginIntent.enterpriseId,
-            userId = loginIntent.username,
-            accessToken = loginIntent.password,
+            userId = loginIntent.usernameOrUserId,
+            accessToken = loginIntent.passwordOrAccessToken,
         ).apply {
             isDebug = true
             callerNumber = loginIntent.callerNumber
