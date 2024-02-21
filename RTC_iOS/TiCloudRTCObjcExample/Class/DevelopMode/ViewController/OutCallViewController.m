@@ -193,6 +193,11 @@
     callConf.type = TiCloudRtcScence_OUTCALLSCENCE;
     callConf.clid = obClidNumberTF.text;
     
+    if (alongRoadTF.text.length) {
+        callConf.userField = alongRoadTF.text;
+    }
+    
+    
 //    callConf.obClidAreaCode = obClidAreaCodeNumberTF.text;
 //    callConf.obClidGroup = obClidGroupNumberTF.text;
     

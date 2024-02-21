@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		182C807A2B2C60EE00EE66C5 /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */; };
-		182C807B2B2C60EE00EE66C5 /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1807F3CB2B8598D900EF3876 /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1807F3C92B85986A00EF3876 /* TiCloudRTC.framework */; };
+		1807F3CC2B8598D900EF3876 /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1807F3C92B85986A00EF3876 /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1856D90128C5B947008A2C32 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90028C5B947008A2C32 /* AppConfig.m */; };
 		1856D90728C5DC04008A2C32 /* BaseCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90628C5DC04008A2C32 /* BaseCallViewController.m */; };
 		1856D91028C5FA77008A2C32 /* DrawShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D90F28C5FA77008A2C32 /* DrawShapeView.m */; };
@@ -95,7 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				182C807B2B2C60EE00EE66C5 /* TiCloudRTC.framework in Embed Frameworks */,
+				1807F3CC2B8598D900EF3876 /* TiCloudRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,7 +103,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
+		1807F3C92B85986A00EF3876 /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TiCloudRTC.framework; path = "../../../../../../Library/Developer/Xcode/DerivedData/TiCloudRTCObjcExample-dbldmkasyxqsniedesdavmolqumo/Build/Products/Debug-iphoneos/TiCloudRTC.framework"; sourceTree = "<group>"; };
 		1856D8FF28C5B947008A2C32 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		1856D90028C5B947008A2C32 /* AppConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		1856D90528C5DC04008A2C32 /* BaseCallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseCallViewController.h; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */,
-				182C807A2B2C60EE00EE66C5 /* TiCloudRTC.framework in Frameworks */,
+				1807F3CB2B8598D900EF3876 /* TiCloudRTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +305,7 @@
 		2244EE2B28AF727B002FD992 /* TiCloudRTCObjcExample */ = {
 			isa = PBXGroup;
 			children = (
-				182C80782B2C60C300EE66C5 /* TiCloudRTC.framework */,
+				1807F3C92B85986A00EF3876 /* TiCloudRTC.framework */,
 				22A534D928B4C98B002D7AC4 /* Tools */,
 				22A0CBD028B3A29400D429DB /* Category */,
 				22A0CB9F28B38F8B00D429DB /* Class */,
@@ -1086,6 +1086,7 @@
 				INFOPLIST_FILE = TiCloudRTCObjcExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ti-RTC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "是否允许App使用您的麦克风?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1096,7 +1097,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1126,6 +1127,7 @@
 				INFOPLIST_FILE = TiCloudRTCObjcExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ti-RTC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "是否允许App使用您的麦克风?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1136,7 +1138,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "ti-net.com.cn.TiCloudRTCObjc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

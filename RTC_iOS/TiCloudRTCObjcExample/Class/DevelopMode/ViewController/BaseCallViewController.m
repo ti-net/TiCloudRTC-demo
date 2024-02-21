@@ -234,7 +234,11 @@
     } error:^(TiCloudRtcErrCode errorCode, NSString * _Nonnull errorMessage) {
         [weakSelf showErrorView:@"退出失败"];
     }];
+}
 
+- (void)onUserFieldModifiedByConfig:(NSArray *)removedCharList srcUserField:(NSString *)srcUserField finalUserField:(NSString *)finalUserField
+{
+    NSLog(@"onUserFieldModifiedByConfig:%@ srcUserField:%@ finalUserField:%@",removedCharList,srcUserField,finalUserField);
 }
 
 @end
