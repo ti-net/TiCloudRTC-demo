@@ -346,6 +346,18 @@ class AppViewModel : ViewModel() {
         override fun onRemoteLogin() {
             _appUiState.value = AppUiState.OnKickOut
         }
+
+        override fun onLocalNoVoiceStreamSent() {
+            _appUiState.value = AppUiState.OnLocalNoVoiceStreamSent
+        }
+
+        override fun onUserFieldModifiedByConfig(
+            removedCharList: List<String>,
+            srcUserField: String,
+            finalUserField: String
+        ) {
+            _appUiState.value = AppUiState.OnUserFieldModified(removedCharList)
+        }
     }
 
     companion object {
@@ -431,6 +443,10 @@ sealed interface AppUiState {
     object OnAccessTokenHasExpired : AppUiState
 
     object OnKickOut : AppUiState
+
+    object OnLocalNoVoiceStreamSent : AppUiState
+
+    class OnUserFieldModified(val removedCharList: List<String>) : AppUiState
 }
 
 data class LoginMessage(

@@ -137,6 +137,7 @@ fun LoginPage(
                 mainViewModel.intentChannel.send(
                     AppIntent.Login(
                         context,
+                        selectedEnvIndex = BuildConfig.DEFAULT_SPINNER_SELECTION,
                         platformUrl = strPlatform,
                         enterpriseId = enterpriseId,
                         usernameOrUserId = username,

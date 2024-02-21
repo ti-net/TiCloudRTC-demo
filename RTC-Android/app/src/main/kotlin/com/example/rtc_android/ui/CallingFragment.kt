@@ -174,6 +174,20 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+                            is AppUiState.OnLocalNoVoiceStreamSent -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "本地没有音频流",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            is AppUiState.OnUserFieldModified -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "userField 中的 ${it.removedCharList} 字符已被替换",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                             else -> {}
                         }
                     }
