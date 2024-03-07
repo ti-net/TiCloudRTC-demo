@@ -50,6 +50,7 @@
     outCallNumberTF.layer.borderWidth = 1.0;
     outCallNumberTF.layer.borderColor = UIColor.grayColor.CGColor;
     outCallNumberTF.layer.cornerRadius = 6;
+//    outCallNumberTF.text = @"18611823812";// 步春艳测试机
         
     obClidNumberTF = [[UITextField alloc] init];
     obClidNumberTF.frame = CGRectMake(Margin, MargimY + MarginH, self.view.width - 2 *Margin, 40.f);

@@ -53,7 +53,6 @@
     {
         self.baseUrl = kBaseUrl_Test;
     }
-    
     LoginModel *model = [LoginModel loginModel];
     
     model.enterpriseId = self.enterpriseId;

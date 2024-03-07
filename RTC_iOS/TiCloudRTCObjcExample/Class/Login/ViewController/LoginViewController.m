@@ -203,6 +203,7 @@
     passwordField.textField.secureTextEntry = YES;
     [bgView addSubview:passwordField];
     self.passwordField = passwordField;
+//    passwordField.textField.text = @"Iemq32tBRNBxhdSm";
 //    passwordField.textField.text = @"0017501878IADog02A9VfHzgl3+yrf1ud3TQgMPm+WaRXB3dZiP2rSrxhh3IoQAF9SKvsgn+1kAQABALBb7GQ=";
     
     TextFieldView *callerNumberField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, passwordField.bottom + 20, self.view.width - 2 * margin, 35) withType:TextFieldViewType_EnterprisesId];
@@ -249,6 +250,16 @@
 //登录按钮
 - (void)didClickLoginBtnAction
 {    
+    // 点击登录按钮跳过登录接口直接进入MainTabBarController，去调用createClient:
+//    MainTabBarController *tabBarC = [[MainTabBarController alloc] init];
+//    tabBarC.selectedIndex = 0;
+////                if (@available(iOS 13.0, *)) {
+//        tabBarC.modalPresentationStyle = UIModalPresentationFullScreen;
+//        [self presentViewController:tabBarC animated:NO completion:^{
+//
+//        }];
+//    return;
+    
     // 校验输入的数据存在性
     if(self.enterprisesField.textField.text.length <= 0)
     {
@@ -305,7 +316,7 @@
 //    }else{
 //       [AppDelegate shareAppDelegate].window.rootViewController = tabBarC;
 //    }
-    
+        
     [self.viewModel requestData];
     
     NSDictionary *dict = @{@"baseUrl":self.viewModel.baseUrl,@"enterprises":self.enterprisesField.textField.text,@"userName":self.userNameField.textField.text};

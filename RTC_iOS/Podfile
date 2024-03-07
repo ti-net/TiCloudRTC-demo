@@ -42,7 +42,7 @@ target 'TiCloudRTCObjcExample' do
   
   
   pod 'AgoraRtm_iOS', '1.5.1'
-  #    pod 'AgoraAudio_iOS/RtcBasic', '4.1.1'
+#      pod 'AgoraAudio_iOS/RtcBasic', '4.1.1'
   pod 'AgoraAudio_Special_iOS', '4.1.1.17.BASIC'
   
 #  post_install do |installer|

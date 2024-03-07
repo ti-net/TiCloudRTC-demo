@@ -45,6 +45,13 @@
 //    config.enterpriseId = 8000560;
 //    config.userId = @"1022";
     
+    // 优简云
+//    config.accessToken = @"0017502229IACfiD6ngBCtNPzzXk3Bc4jcBXlesC25YRcD/LkfP6XiiLazA1QQAO9z5KMZeN1lAQABAKk03GU=";
+//    config.rtcEndpoint = @"https://rtc-api.cticloud.cn";
+//    config.enterpriseId = 7502229;
+//    config.userId = @"112412512111";
+    
+    
     self.tiCloudEngine = [TiCloudRTCEngine createClient:config success:^(NSDictionary * _Nonnull data) {
         NSLog(@"createClient success..");
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
