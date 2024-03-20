@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../TiCloudRTC-iOS-SDK/TiCloudRTC/TiCloudRTC.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:TiCloudRTCObjcExample.xcodeproj">
    </FileRef>
    <FileRef

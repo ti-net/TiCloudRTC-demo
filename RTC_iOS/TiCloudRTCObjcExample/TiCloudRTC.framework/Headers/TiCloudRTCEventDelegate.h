@@ -12,6 +12,8 @@
 
 @protocol TiCloudRTCEventDelegate <NSObject>
 
+@optional  // 可选实现
+
 /**
  * 引擎全局内错误信息事件回调
  *
@@ -150,6 +152,20 @@
  * 当前 userId 在其他设备登录，此时引擎已销毁
  */
 - (void)onRemoteLogin;
+
+/**
+ * 本地监测无发送语音流时间间隔5秒时回调
+ */
+- (void)onLocalNoVoiceStreamSent;
+
+/**
+ * SDK 根据平台配置对 userField 外呼参数里的特殊字符进行了移除处理
+ *
+ * @param removedCharList 被移除的特殊字符列表
+ * @param srcUserField 原始的 userField
+ * @param finalUserField 处理后的 userField
+ * */
+- (void)onUserFieldModifiedByConfig:(nonnull NSArray *)removedCharList srcUserField:(nonnull NSString *)srcUserField finalUserField:(nonnull NSString *)finalUserField;
 
 @end
 

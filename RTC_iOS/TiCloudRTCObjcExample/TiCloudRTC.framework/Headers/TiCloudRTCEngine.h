@@ -45,16 +45,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * 打开/关闭本地音频 (静音/取消静音)
+ * @param isEnable  YES：（静音）关闭本地音频功能。 NO：（取消静音） 重新开启本地音频功能（默认）。
+ * 注：推荐使用-(void)setMicrophoneMute:(BOOL)muted替代本方法
  */
 - (void)setEnableLocalAudio:(BOOL)isEnable;
 
 /**
- *  更新accessToken接口
+ * 打开/关闭本地音频 (静音/取消静音)
+ * @param muted  YES：（静音）关闭本地音频功能。 NO：（取消静音） 重新开启本地音频功能（默认）。
+ * 注：推荐使用本方法替代- (void)setEnableLocalAudio:(BOOL)isEnable
+ */
+-(void)setMicrophoneMute:(BOOL)muted;
+
+/**
+ *  更新accessToken
+ *  accessToken：新的accessToken
  */
 - (void)renewAccessToken:(NSString *)accessToken;
 
 /**
- *  挂断接口
+ *  挂断方法
  */
 - (void)hangup;
 

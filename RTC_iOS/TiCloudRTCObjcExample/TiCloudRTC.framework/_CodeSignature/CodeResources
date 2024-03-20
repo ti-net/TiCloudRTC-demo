@@ -26,15 +26,15 @@
 		</data>
 		<key>Headers/TiCloudRTCEngine.h</key>
 		<data>
-		lsXRavMnP7ZJqM14+KV9NgjDoNQ=
+		qajWXAj0LYBIWj/U4+XBcOTCUcY=
 		</data>
 		<key>Headers/TiCloudRTCEventDelegate.h</key>
 		<data>
-		QNyta0PbkBC1x2LhIp0SOgmlfPo=
+		CXyTP2fJzE4UFMmm9IuRgCnVRbs=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ktt1j9TjJK3aCgjO3b+HC7jowVk=
+		qDpvYml9fR6eezZC6ah0hzpMf7w=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -102,22 +102,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			lsXRavMnP7ZJqM14+KV9NgjDoNQ=
+			qajWXAj0LYBIWj/U4+XBcOTCUcY=
 			</data>
 			<key>hash2</key>
 			<data>
-			NAiyQheoo9Wt7LnRA/GuXIk9x48hmGy8wKcMuvc/jXI=
+			o73++AKzMeWwMl9ctxXUCKzSfhNtOMtbyoj1fLpdwkQ=
 			</data>
 		</dict>
 		<key>Headers/TiCloudRTCEventDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			QNyta0PbkBC1x2LhIp0SOgmlfPo=
+			CXyTP2fJzE4UFMmm9IuRgCnVRbs=
 			</data>
 			<key>hash2</key>
 			<data>
-			wfM57Kqoz03jv+tZ1WFUAJ3wQXPKexB5LxWoJikFf5s=
+			mJ8P20/VtI+vnQFjWF6dlPyuDHnLZpspAZXaSFtsNDo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
