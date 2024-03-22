@@ -29,8 +29,8 @@
 - (id)requestArgument
 {
     return @{
-        @"username": self.username,
-        @"password": self.password,
+        @"username": self.username?self.username:@"",
+        @"password": self.password?self.password:@"",
         @"enterpriseId": @(self.enterpriseId),
     };
 }
@@ -47,14 +47,18 @@
 
 - (void)requestData
 {
+    LoginModel *model = [LoginModel loginModel];
+    
+    if (model.isNetWorkToken==NO) {
+        
+        return;
+    }
     [super requestData];
     
     if (!self.baseUrl)
     {
         self.baseUrl = kBaseUrl_Test;
     }
-    LoginModel *model = [LoginModel loginModel];
-    
     model.enterpriseId = self.enterpriseId;
     model.userName = self.username;
     model.baseUrl = self.baseUrl;
@@ -70,6 +74,7 @@
             NSLog(@"request.responseObject =  %@",request.responseObject);
             LoginModel *model = [LoginModel loginModel];
             model.accessToken = request.responseObject[@"result"][@"accessToken"];
+            model.isNetWorkToken = YES;
             [[LoginModel loginModel] saveLoginModel:model];
             self.networkState = NetworkStateSuccess;
         } else {

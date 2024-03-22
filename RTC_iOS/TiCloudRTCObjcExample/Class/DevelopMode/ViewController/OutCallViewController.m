@@ -223,6 +223,7 @@
         [weakSelf showTelephoneView:callConf.tel];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
         NSLog(@"call ... error = %@",errorDes);
+        [weakSelf showTelephoneView:[NSString stringWithFormat:@"call ... error = %@",errorDes]];
     }];
 }
 

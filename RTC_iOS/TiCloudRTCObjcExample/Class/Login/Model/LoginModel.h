@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * userName;
 
 @property (nonatomic, copy) NSString * baseUrl;
+//accessToken 是否是网络获取的 默认不是
+@property (nonatomic, assign) BOOL  isNetWorkToken;
 
 
 @end

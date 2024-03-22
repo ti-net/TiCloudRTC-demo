@@ -71,7 +71,9 @@
     
     NSAttributedString *attString2 = [[NSAttributedString alloc]initWithString:@"请输入用户名" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
-    NSAttributedString *attString3 = [[NSAttributedString alloc]initWithString:@"请输入密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    NSAttributedString *attString3 = [[NSAttributedString alloc]initWithString:@"请输入密码（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    NSAttributedString *attString4 = [[NSAttributedString alloc]initWithString:@"请输入accessToken（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
     
     UIImage *orImage = nil;
@@ -113,6 +115,13 @@
             [self.rightBtn setImage:[UIImage imageNamed:@"browse-off"] forState:UIControlStateNormal];
             [self.rightBtn setImage:[UIImage imageNamed:@"browse"] forState:UIControlStateSelected];
             
+            break;
+        case TextFieldViewType_Token:
+            
+            textField.attributedPlaceholder = attString4;
+            orImage = [UIImage imageNamed:@"user"];
+            logoImageView.image = [orImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [logoImageView setTintColor:kRGBColor(73, 129, 96)];
             break;
             
         default:

@@ -133,4 +133,7 @@ static NSString * const kLoginPassword = @"LoginPassword";
 /// 主叫号码
 static NSString * const kCallerNumber = @"callerNumber";
 
+///  accessToken
+static NSString * const kaccessToken = @"accessToken";
+
 #endif /* TiGlobalDefines_h */

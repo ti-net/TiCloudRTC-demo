@@ -17,8 +17,6 @@
 		185D9A6028C1D66200D4CC1D /* TextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A5F28C1D66200D4CC1D /* TextFieldView.m */; };
 		185D9A6328C1EEF900D4CC1D /* CHResolutionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6128C1EEF900D4CC1D /* CHResolutionView.m */; };
 		185D9A6B28C33F7900D4CC1D /* TelephoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D9A6A28C33F7900D4CC1D /* TelephoneView.m */; };
-		18ADA1062BA2F4CE00A480A6 /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18ADA1042BA2F4C600A480A6 /* TiCloudRTC.framework */; };
-		18ADA1072BA2F4CE00A480A6 /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18ADA1042BA2F4C600A480A6 /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2244EE2E28AF727B002FD992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE2D28AF727B002FD992 /* AppDelegate.m */; };
 		2244EE3128AF727B002FD992 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2244EE3028AF727B002FD992 /* SceneDelegate.m */; };
 		2244EE3728AF727B002FD992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2244EE3528AF727B002FD992 /* Main.storyboard */; };
@@ -60,6 +58,8 @@
 		2D6342875CCF2FD6DC2D851F /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668D8C015A42923DC56D1BF4 /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework */; };
 		5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D051593A43F3F3032FE2D124 /* Pods_TiCloudRTCObjcExample.framework */; };
 		8CE498E03F5C21E26E406243 /* Pods_TiCloudRTCObjcExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4904D98AEFFFE29BB9CBBD4 /* Pods_TiCloudRTCObjcExampleTests.framework */; };
+		D26CA8EB2BAD2F7800295579 /* TiCloudRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D26CA8EA2BAD2F7800295579 /* TiCloudRTC.framework */; };
+		D26CA8EC2BAD2F7800295579 /* TiCloudRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D26CA8EA2BAD2F7800295579 /* TiCloudRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,7 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				18ADA1072BA2F4CE00A480A6 /* TiCloudRTC.framework in Embed Frameworks */,
+				D26CA8EC2BAD2F7800295579 /* TiCloudRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,7 +124,6 @@
 		185D9A6728C1F13F00D4CC1D /* CommonConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonConfig.h; sourceTree = "<group>"; };
 		185D9A6928C33F7900D4CC1D /* TelephoneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TelephoneView.h; sourceTree = "<group>"; };
 		185D9A6A28C33F7900D4CC1D /* TelephoneView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelephoneView.m; sourceTree = "<group>"; };
-		18ADA1042BA2F4C600A480A6 /* TiCloudRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = "<group>"; };
 		1DCB02E45FC96759954A0F6B /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1DDF697C0E490A0DB22440FB /* Pods-TiCloudRTCObjcExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExampleTests/Pods-TiCloudRTCObjcExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		2244EE2928AF727B002FD992 /* TiCloudRTCObjcExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCloudRTCObjcExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,15 +202,12 @@
 		22A5352D28B4DB70002D7AC4 /* AgentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentViewController.m; sourceTree = "<group>"; };
 		22A5353028B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMPageController+TRSetupStyle.h"; sourceTree = "<group>"; };
 		22A5353128B4DD4A002D7AC4 /* WMPageController+TRSetupStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMPageController+TRSetupStyle.m"; sourceTree = "<group>"; };
-		22B3A75528B633A0006C91AC /* Agorafdkaac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agorafdkaac.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/Agorafdkaac.framework; sourceTree = "<group>"; };
-		22B3A75628B633A0006C91AC /* AgoraRtmKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtmKit.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/AgoraRtmKit.framework; sourceTree = "<group>"; };
-		22B3A75728B633A0006C91AC /* AgoraSoundTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraSoundTouch.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/AgoraSoundTouch.framework; sourceTree = "<group>"; };
-		22B3A75828B633A0006C91AC /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = ../TiCloudRTC/TiCloudRTC/AgoraSDK/AgoraRtcKit.framework; sourceTree = "<group>"; };
 		32472FC7DF18C902939593EA /* Pods-TiCloudRTCObjcExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample.debug.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample/Pods-TiCloudRTCObjcExample.debug.xcconfig"; sourceTree = "<group>"; };
 		540A9EEA843CBC05708B16CC /* Pods-TiCloudRTCObjcExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExampleTests/Pods-TiCloudRTCObjcExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		668D8C015A42923DC56D1BF4 /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F6CE858EA262B76A6234674 /* Pods-TiCloudRTCObjcExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample.release.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample/Pods-TiCloudRTCObjcExample.release.xcconfig"; sourceTree = "<group>"; };
 		D051593A43F3F3032FE2D124 /* Pods_TiCloudRTCObjcExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TiCloudRTCObjcExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D26CA8EA2BAD2F7800295579 /* TiCloudRTC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TiCloudRTC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4904D98AEFFFE29BB9CBBD4 /* Pods_TiCloudRTCObjcExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TiCloudRTCObjcExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB19123D8DE5354CB97DA1A4 /* Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig"; path = "Target Support Files/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests/Pods-TiCloudRTCObjcExample-TiCloudRTCObjcExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,7 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5359AF57416698426CA1A115 /* Pods_TiCloudRTCObjcExample.framework in Frameworks */,
-				18ADA1062BA2F4CE00A480A6 /* TiCloudRTC.framework in Frameworks */,
+				D26CA8EB2BAD2F7800295579 /* TiCloudRTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +301,6 @@
 		2244EE2B28AF727B002FD992 /* TiCloudRTCObjcExample */ = {
 			isa = PBXGroup;
 			children = (
-				18ADA1042BA2F4C600A480A6 /* TiCloudRTC.framework */,
 				22A534D928B4C98B002D7AC4 /* Tools */,
 				22A0CBD028B3A29400D429DB /* Category */,
 				22A0CB9F28B38F8B00D429DB /* Class */,
@@ -344,10 +339,7 @@
 		22A0CB9328B3746D00D429DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				22B3A75528B633A0006C91AC /* Agorafdkaac.framework */,
-				22B3A75828B633A0006C91AC /* AgoraRtcKit.framework */,
-				22B3A75628B633A0006C91AC /* AgoraRtmKit.framework */,
-				22B3A75728B633A0006C91AC /* AgoraSoundTouch.framework */,
+				D26CA8EA2BAD2F7800295579 /* TiCloudRTC.framework */,
 				D051593A43F3F3032FE2D124 /* Pods_TiCloudRTCObjcExample.framework */,
 				668D8C015A42923DC56D1BF4 /* Pods_TiCloudRTCObjcExample_TiCloudRTCObjcExampleUITests.framework */,
 				D4904D98AEFFFE29BB9CBBD4 /* Pods_TiCloudRTCObjcExampleTests.framework */,

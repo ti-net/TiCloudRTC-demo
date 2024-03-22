@@ -38,6 +38,7 @@
 @property (nonatomic, weak) TextFieldView *userNameField;
 
 @property (nonatomic, weak) TextFieldView *passwordField;
+@property (nonatomic, weak) TextFieldView *accessTokenField;
 
 /// 主叫号码
 @property (nonatomic, weak) TextFieldView *callerNumberField;
@@ -212,7 +213,15 @@
     self.callerNumberField = callerNumberField;
     callerNumberField.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入回呼号（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
-    UIButton *rememberBtn = [[UIButton alloc]initWithFrame:CGRectMake(callerNumberField.right - 80, callerNumberField.bottom + 10, 80, 20)];
+    
+    TextFieldView *accessTokenField = [[TextFieldView alloc]initWithFrame:CGRectMake(margin, callerNumberField.bottom + 20, self.view.width - 2 * margin, 35) withType:TextFieldViewType_Token];
+    accessTokenField.delegate = self;
+    [bgView addSubview:accessTokenField];
+    self.accessTokenField = accessTokenField;
+//    accessTokenField.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入回呼号（可选）" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    
+    UIButton *rememberBtn = [[UIButton alloc]initWithFrame:CGRectMake(accessTokenField.right - 80, accessTokenField.bottom + 10, 80, 20)];
     [rememberBtn setTitle:@"记住密码" forState:UIControlStateNormal];
     rememberBtn.titleLabel.font = CHFont14;
     [rememberBtn setTitleColor:kRGBColor(73, 129, 96) forState:UIControlStateNormal];
@@ -271,12 +280,11 @@
         [self showErrorView:@"请输入用户名"];
         return;
     }
-    else if (self.passwordField.textField.text.length <= 0)
-    {
-        [self showErrorView:@"请输入密码"];
-        return;
-    }
-    
+//    else if (self.passwordField.textField.text.length <= 0)
+//    {
+//        [self showErrorView:@"请输入密码"];
+//        return;
+//    }
     if (self.callerNumberField.textField.text.length)
     {
 //        BOOL isPhone = [AppConfig isValidatePhoneNumber:self.callerNumberField.textField.text];
@@ -296,8 +304,7 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:kCallerNumber];
     }
 
-    //请求登录
-    [_loading startAnimating];    
+      
 
     // 使用AccessToken登录
 //    self.loginBtn.userInteractionEnabled = YES;
@@ -316,9 +323,31 @@
 //    }else{
 //       [AppDelegate shareAppDelegate].window.rootViewController = tabBarC;
 //    }
+       
+    if (self.accessTokenField.textField.text.length <= 0)
+    {
+        if (self.passwordField.textField.text.length <= 0)
+        {
+            [self showErrorView:@"accessToken和密码至少要填写一个"];
+            return;
+        }
+        [self.viewModel requestData];
+    }else{
         
-    [self.viewModel requestData];
-    
+        LoginModel *model = [LoginModel loginModel];
+        
+        model.enterpriseId = [self.enterprisesField.textField.text integerValue];
+        model.userName = self.userNameField.textField.text;
+        model.baseUrl = self.viewModel.baseUrl;
+        model.accessToken =self.accessTokenField.textField.text;
+        model.isNetWorkToken = NO;
+        [[LoginModel loginModel] saveLoginModel:model];
+        
+        
+    }
+    //请求登录
+    [_loading startAnimating];
+   
     NSDictionary *dict = @{@"baseUrl":self.viewModel.baseUrl,@"enterprises":self.enterprisesField.textField.text,@"userName":self.userNameField.textField.text};
     [[NSUserDefaults standardUserDefaults] setValue:dict forKey:kLoginPath];
     
@@ -331,7 +360,8 @@
         [[NSUserDefaults standardUserDefaults] setValue:nil forKey:kLoginPassword];
     }
     
-    
+    self.viewModel.networkState = NetworkStateSuccess;
+
 }
 
 - (void)didClickToRememberPassword:(UIButton *)button
@@ -386,7 +416,7 @@
 
 - (void)textFieldEditing:(TextFieldView *)textFieldView
 {
-    if (!self.environmentField.textField.text.length || !self.enterprisesField.textField.text.length || !self.userNameField.textField.text.length || !self.passwordField.textField.text.length)
+    if (!self.environmentField.textField.text.length || !self.enterprisesField.textField.text.length || !self.userNameField.textField.text.length)
     {
         [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
         self.loginBtn.userInteractionEnabled = NO;
@@ -447,8 +477,8 @@
     else
     {
         self.rememberBtn.selected = NO;
-        self.loginBtn.userInteractionEnabled = NO;
-        [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
+//        self.loginBtn.userInteractionEnabled = NO;
+//        [self.loginBtn setBackgroundColor:kHexAColor(0x00865C, 0.5)];
     }
 }
 

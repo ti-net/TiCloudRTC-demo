@@ -15,6 +15,7 @@ typedef enum : NSUInteger
     TextFieldViewType_EnterprisesId,
     TextFieldViewType_UserName,
     TextFieldViewType_Password,
+    TextFieldViewType_Token,
 } TextFieldViewType;
 
 typedef enum : NSUInteger

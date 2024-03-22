@@ -35,9 +35,7 @@
     {
         config.callerNumber = callerNumber;
     }
-    
     config.accessToken = [LoginModel loginModel].accessToken;
-    
     config.isDebug = YES;
     
 //    config.accessToken = @"0018000560IABYE+rTIY9iTYx26YWf+tR5j+scRv5ebly71/DrD3Xk+kSjI/oQAPHcm+xBgS9lAQABANE9LmU=";
@@ -54,10 +52,11 @@
     
     self.tiCloudEngine = [TiCloudRTCEngine createClient:config success:^(NSDictionary * _Nonnull data) {
         NSLog(@"createClient success..");
+        [self showErrorView:@"createClient success.."];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
         NSLog(@"createClient error %@ ",errorDes);
+        [self showErrorView:[NSString stringWithFormat:@"error %@ ",errorDes]];
     }];
-
     
     NSString *SDKVersion = [TiCloudRTCEngine getVersion];
     [[NSUserDefaults standardUserDefaults] setValue:SDKVersion forKey:kSDKVersonPath];
