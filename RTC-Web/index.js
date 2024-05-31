@@ -23,7 +23,7 @@ const register = function () {
         addEventLog("请输入AccessToken");
         return;
     }
-    TiCloudRTChandle();
+    TiCloudRTCHandle();
 }
 /**  TiCloudRTC创建成功 */
 const onSuccess = function (c) {
@@ -37,22 +37,25 @@ const onFailed = function (err) {
 };
 
 /** TiCloudRTC初始化 */
-function TiCloudRTChandle() {
+function TiCloudRTCHandle() {
     TiCloudRTC.setup({
         debug: true, // 是否打开debug
+    }, function () {
+        //确保createClient在setup的回调函数中执行
+        TiCloudRTC.createClient(
+            {
+                userId: options.username,
+                enterpriseId: options.enterpriseId,
+                accessToken: options.accessToken,
+                rtcEndpoint: "https://rtc-api-test.cticloud.cn",
+                callerNumber: options.callerNumber,
+            },
+            onSuccess,
+            onFailed
+        );
     });
 
-    TiCloudRTC.createClient(
-        {
-            userId: options.username,
-            enterpriseId: options.enterpriseId,
-            accessToken: options.accessToken,
-            rtcEndpoint: "https://rtc-api-test.cticloud.cn",
-            callerNumber: options.callerNumber,
-        },
-        onSuccess,
-        onFailed
-    );
+
     TiCloudRTC.on("Invite", (param) => {
         if (!options.hanguped) {
             addEventLog("对方收到呼叫");
