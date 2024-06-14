@@ -274,7 +274,10 @@ class AppViewModel : ViewModel() {
         }
 
         override fun onCalling() {
-            _appUiState.value = AppUiState.OnCalling()
+            _appUiState.value = AppUiState.OnCalling(
+                biggerText = currentTel,
+                smallerText = "00:00"
+            )
             callingTimer = Timer().apply {
                 schedule(object : TimerTask() {
                     val startTime = Date().time
