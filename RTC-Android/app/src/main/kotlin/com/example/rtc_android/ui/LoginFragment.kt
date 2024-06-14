@@ -79,6 +79,8 @@ class LoginFragment : Fragment() {
             imgLogo.setOnLongClickListener {
                 isIgnoreFillLoginMsg = true
                 spinnerEnv.setSelection(resources.getInteger(R.integer.specified_spinner_env_selected_index))
+                edtPlatformUrl.text = Editable.Factory.getInstance()
+                    .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[resources.getInteger(R.integer.specified_spinner_env_selected_index)])
                 edtEnterpriseId.text = Editable.Factory.getInstance()
                     .newEditable(resources.getString(R.string.specified_enterprise_id))
                 edtUsernameOrUserId.text = Editable.Factory.getInstance()
