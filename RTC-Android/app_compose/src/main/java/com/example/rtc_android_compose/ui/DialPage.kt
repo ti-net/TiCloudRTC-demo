@@ -19,7 +19,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DialPage(
-    mainViewModel: AppViewModel
+    mainViewModel: AppViewModel,
+    handleIntent: (intent:AppIntent) -> Unit
 ) {
 
     var phoneNum by remember { mutableStateOf("") }
@@ -51,14 +52,14 @@ fun DialPage(
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             Button(onClick = {
-                mainViewModel.viewModelScope.launch {
-                    mainViewModel.intentChannel.send(AppIntent.Call(
+                handleIntent(
+                    AppIntent.Call(
                         tel = phoneNum,
                         clid = "",
                         userField = "",
                         type = 6
-                    ))
-                }
+                    )
+                )
             }) { Text("外呼") }
             Button(modifier = Modifier.combinedClickable(onLongClick = {
                 phoneNum = ""
@@ -74,6 +75,6 @@ fun DialPage(
 @Composable
 fun PreviewDialPage(){
     App_composeTheme {
-        DialPage(viewModel())
+        DialPage(viewModel(),{})
     }
 }

@@ -1,12 +1,21 @@
 package com.example.common
 
+import com.example.common.bean.LoginParams
 import com.tinet.ticloudrtc.CreateResultCallback
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.bean.CreateClientOption
+import kotlinx.coroutines.flow.MutableStateFlow
 
-internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
+internal fun loginExt(
+    loginIntent: AppIntent.Login,
+    loginParams: LoginParams,
+    callerNumber: String,
+    onUiStateUpdate: (uiState: AppUiState) -> Unit,
+    onSaveLoginMessage: (loginIntent: AppIntent.Login) -> Unit,
+    onRtcClientCreated: (rtcClient: TiCloudRTC) -> Unit
+) {
     // 保存登录信息
-    saveLoginState(loginIntent)
+    onSaveLoginMessage(loginIntent)
 
     // 创建 RTC 客户端
     TiCloudRTC.createClient(
@@ -16,19 +25,18 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
             enterpriseId = loginIntent.enterpriseId,
             userId = loginIntent.usernameOrUserId,
             accessToken = loginIntent.passwordOrAccessToken,
-        ).apply {
-            isDebug = true
-            callerNumber = loginIntent.callerNumber
+        ).also {
+            it.isDebug = true
+            it.callerNumber = loginIntent.callerNumber
         },
         resultCallback = object : CreateResultCallback {
             override fun onFailed(errorCode: Int, errorMessage: String) {
-                _appUiState.value = AppUiState.LoginFailed(errorMessage)
+                onUiStateUpdate(AppUiState.LoginFailed(errorMessage))
             }
 
             override fun onSuccess(rtcClient: TiCloudRTC, fields: HashMap<String, String>) {
-                this@loginExt.rtcClient = rtcClient
-                rtcClient.setEventListener(CustomEventListener())
-                _appUiState.value = AppUiState.LoginSuccess
+                onRtcClientCreated(rtcClient)
+                onUiStateUpdate(AppUiState.LoginSuccess)
             }
 
 
@@ -37,6 +45,11 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
 }
 
 
-internal fun AppViewModel.onAccessTokenWillExpireExt(accessToken: String) {
-    _appUiState.value = AppUiState.OnAccessTokenWillExpire
+internal fun onAccessTokenWillExpireExt(
+    rtcClient: TiCloudRTC,
+    accessToken: String,
+    loginParams: LoginParams,
+    onUiStateUpdate: (uiState: AppUiState) -> Unit
+) {
+    onUiStateUpdate(AppUiState.OnAccessTokenWillExpire)
 }

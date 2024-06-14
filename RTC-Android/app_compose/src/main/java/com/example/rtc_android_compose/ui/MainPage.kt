@@ -26,7 +26,6 @@ import com.example.common.AppUiState
 import com.example.common.AppViewModel
 import com.example.rtc_android_compose.R
 import com.example.rtc_android_compose.ui.theme.App_composeTheme
-import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 @Composable
@@ -121,12 +120,14 @@ fun MainPageContent(
         ) {
             composable(NavRoute.DIAL) {
                 DialPage(
-                    mainViewModel = mainViewModel
+                    mainViewModel = mainViewModel,
+                    handleIntent = { mainViewModel.handleIntent(it) }
                 )
             }
             composable(NavRoute.MINE) {
                 MinePage(
-                    mainViewModel = mainViewModel
+                    mainViewModel = mainViewModel,
+                    handleIntent = {mainViewModel.handleIntent(it)}
                 )
             }
         }
@@ -140,17 +141,15 @@ fun MainPageContent(
                 mainViewModel.appUiState.collect {
                     when (it) {
                         is AppUiState.OnInnerSdkError -> {
-                            if (it.errorCode == ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT) {
-                                Toast.makeText(
-                                    context,
+                            Toast.makeText(
+                                context,
                                     """
                                         sdk 内部错误
                                         errorCode: ${it.errorCode}
                                         errorMessage: ${it.errorMessage}
                                     """.trimIndent(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         is AppUiState.LogoutFailed -> Toast.makeText(
                             context,

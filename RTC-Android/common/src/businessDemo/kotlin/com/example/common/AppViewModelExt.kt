@@ -16,15 +16,17 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.log
 
-internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
-    HttpServiceManager.tiCloudHttpService.login(
-        LoginParams(
-            enterpriseId = enterpriseId.toInt(),
-            username = username,
-            password = password
-        )
-    ).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
+internal fun loginExt(
+    loginIntent: AppIntent.Login,
+    loginParams: LoginParams,
+    callerNumber: String,
+    onUiStateUpdate: (uiState: AppUiState) -> Unit,
+    onSaveLoginMessage: (loginIntent: AppIntent.Login) -> Unit,
+    onRtcClientCreated: (rtcClient: TiCloudRTC) -> Unit
+) {
+    HttpServiceManager.tiCloudHttpService.login(loginParams).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
         override fun onResponse(
             call: Call<BaseResult<LoginResult>>,
             response: Response<BaseResult<LoginResult>>
@@ -39,7 +41,7 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
                 var enterpriseId = 0
                 var accessToken = ""
 
-                saveLoginState(loginIntent)
+                onSaveLoginMessage(loginIntent)
 
                 loginResult.result?.also {
                     rtcEndpoint = it.rtcEndpoint
@@ -55,41 +57,45 @@ internal fun AppViewModel.loginExt(loginIntent: AppIntent.Login) {
                         enterpriseId = enterpriseId.toString(),
                         userId = loginIntent.usernameOrUserId,
                         accessToken = accessToken,
-                    ).apply {
-                        isDebug = true
-                        callerNumber = this@loginExt.callerNumber
+                    ).also {
+                        it.isDebug = true
+                        it.callerNumber = callerNumber
                     },
                     resultCallback = object : CreateResultCallback {
                         override fun onFailed(errorCode: Int, errorMessage: String) {
-                            _appUiState.value = AppUiState.LoginFailed(errorMessage)
+                            onUiStateUpdate(AppUiState.LoginFailed(errorMessage))
                         }
 
                         override fun onSuccess(
                             rtcClient: TiCloudRTC,
                             fields: HashMap<String, String>
                         ) {
-                            this@loginExt.rtcClient = rtcClient
-                            rtcClient.setEventListener(CustomEventListener())
-                            _appUiState.value = AppUiState.LoginSuccess
+                            onRtcClientCreated(rtcClient)
+                            onUiStateUpdate(AppUiState.LoginSuccess)
                         }
                     }
                 )
             } else {
                 Log.i(AppViewModel.LOG_TAG, "返回结果无效")
-                _appUiState.value = AppUiState.LoginFailed(loginResult.message)
+                onUiStateUpdate(AppUiState.LoginFailed(loginResult.message))
             }
         }
 
         override fun onFailure(call: Call<BaseResult<LoginResult>>, t: Throwable) {
             Log.i(AppViewModel.LOG_TAG, "登录接口请求失败")
-            _appUiState.value = AppUiState.LoginFailed(t.message ?: "接口访问错误")
+            onUiStateUpdate(AppUiState.LoginFailed(t.message ?: "接口访问错误"))
         }
 
     })
 }
 
 
-internal fun AppViewModel.onAccessTokenWillExpireExt(accessToken: String) {
+internal fun onAccessTokenWillExpireExt(
+    rtcClient: TiCloudRTC,
+    accessToken: String,
+    loginParams: LoginParams,
+    onUiStateUpdate: (uiState: AppUiState) -> Unit
+) {
     Log.i(
         "AccessToken",
         "onAccessTokenWillExpire ---- ${
@@ -99,13 +105,7 @@ internal fun AppViewModel.onAccessTokenWillExpireExt(accessToken: String) {
             ).format(Date())
         }"
     )
-    HttpServiceManager.tiCloudHttpService.login(
-        LoginParams(
-            enterpriseId = enterpriseId.toInt(),
-            username = username,
-            password = password
-        )
-    ).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
+    HttpServiceManager.tiCloudHttpService.login(loginParams).enqueueWithLog(object : Callback<BaseResult<LoginResult>> {
         override fun onResponse(
             call: Call<BaseResult<LoginResult>>,
             response: Response<BaseResult<LoginResult>>
@@ -113,16 +113,14 @@ internal fun AppViewModel.onAccessTokenWillExpireExt(accessToken: String) {
             val loginResult = response.parseHttpResult()
             if (loginResult.isSuccessful) {
                 // 更新 access token
-                rtcClient?.renewAccessToken(loginResult.result!!.accessToken)
+                rtcClient.renewAccessToken(loginResult.result!!.accessToken)
             } else {
-                _appUiState.value =
-                    AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${loginResult.message}")
+                onUiStateUpdate(AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${loginResult.message}"))
             }
         }
 
         override fun onFailure(call: Call<BaseResult<LoginResult>>, t: Throwable) {
-            _appUiState.value =
-                AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${t.message}")
+            onUiStateUpdate(AppUiState.OnRefreshTokenFailed("获取新的 access token 失败:${t.message}"))
         }
 
     })

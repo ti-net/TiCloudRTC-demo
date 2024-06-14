@@ -62,23 +62,21 @@ class HotlineFragment : Fragment() {
             btnNode3.setOnClickListener { selectNode(it) }
             btnNode4.setOnClickListener { selectNode(it) }
             btnHotlineCall.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(
-                        AppIntent.Call(
-                            tel = edtAgentTel2.text.toString(),
-                            clid = "",
-                            userField = String.format(
-                                nodeIvrUserFieldMap[currentSelectedNode()!!]!!,
-                                binding.edtNodeUserField.text.toString()
-                            ),
-                            type = 1 // 1 为客服场景
-                        )
+                viewModel.handleIntent(
+                    AppIntent.Call(
+                        tel = edtAgentTel2.text.toString(),
+                        clid = "",
+                        userField = String.format(
+                            nodeIvrUserFieldMap[currentSelectedNode()!!]!!,
+                            binding.edtNodeUserField.text.toString()
+                        ),
+                        type = 1 // 1 为客服场景
                     )
-                }
+                )
             }
             btnCallAgent.setOnClickListener {
                 viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(
+                    viewModel.handleIntent(
                         AppIntent.Call(
                             tel = edtAgentTel1.text.toString(),
                             clid = "",

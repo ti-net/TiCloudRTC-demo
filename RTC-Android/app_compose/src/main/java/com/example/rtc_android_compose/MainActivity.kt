@@ -62,13 +62,15 @@ class MainActivity : ComponentActivity() {
                         composable(NavRoute.LOGIN) {
                             LoginPage(
                                 mainViewModel = mainViewModel,
-                                onLoginSuccess = { navControl.navigateUp() }
+                                onLoginSuccess = { navControl.navigateUp() },
+                                handleIntent = { mainViewModel.handleIntent(it) }
                             )
                         }
                         composable(NavRoute.CALLING) {
                             CallingPage(
                                 mainViewModel = mainViewModel,
-                                onBackToMain = { navControl.navigateUp() }
+                                onBackToMain = { navControl.navigateUp() },
+                                handleIntent = { mainViewModel.handleIntent(it) }
                             )
                         }
                     }

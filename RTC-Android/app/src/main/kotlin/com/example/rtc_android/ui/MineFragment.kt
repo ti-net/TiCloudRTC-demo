@@ -37,9 +37,7 @@ class MineFragment : Fragment() {
             tvSdkVersion.text = resources.getString(R.string.sdk_version) + TiCloudRTC.getVersion()
 
             btnLogout.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(AppIntent.Logout)
-                }
+                viewModel.handleIntent(AppIntent.Logout)
             }
         }
 

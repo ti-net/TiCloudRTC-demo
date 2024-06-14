@@ -55,14 +55,14 @@ class DialFragment:Fragment() {
     }
 
     private fun call(){
-        viewModel.viewModelScope.launch {
-            viewModel.intentChannel.send(AppIntent.Call(
+        viewModel.handleIntent(
+            AppIntent.Call(
                 tel = binding.tvShowTel.text.toString(),
                 clid = "",
                 userField = BuildConfig.OUT_CALL_USER_FIELD,
                 type = 1
-            ))
-        }
+            )
+        )
     }
 
     private fun appendTelNum(num:String){

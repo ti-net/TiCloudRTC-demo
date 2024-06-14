@@ -26,7 +26,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MinePage(
-    mainViewModel: AppViewModel
+    mainViewModel: AppViewModel,
+    handleIntent: (intent:AppIntent)->Unit
 ) {
     val titleHeight = remember { 40.dp }
     val titleBackground = remember { Color.White }
@@ -73,10 +74,8 @@ fun MinePage(
                 .padding(bottom = 30.dp, start = 20.dp, end = 20.dp)
         ) {
             Button(
-                {
-                    mainViewModel.viewModelScope.launch {
-                        mainViewModel.intentChannel.send(AppIntent.Logout)
-                    }
+                onClick = {
+                    handleIntent(AppIntent.Logout)
                 },
                 Modifier
                     .align(BottomCenter)
@@ -96,6 +95,6 @@ fun MinePage(
 @Composable
 fun PreviewMinePage() {
     App_composeTheme {
-        MinePage(viewModel())
+        MinePage(viewModel(),{})
     }
 }

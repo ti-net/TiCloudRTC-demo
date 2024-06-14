@@ -90,19 +90,17 @@ class LoginFragment : Fragment() {
                 true
             }
             btnLogin.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(
-                        AppIntent.Login(
-                            context = requireContext(),
-                            selectedEnvIndex = spinnerEnv.selectedItemPosition,
-                            platformUrl = edtPlatformUrl.text.toString(),
-                            enterpriseId = edtEnterpriseId.text.toString(),
-                            usernameOrUserId = edtUsernameOrUserId.text.toString(),
-                            passwordOrAccessToken = edtPasswordOrAccessToken.text.toString(),
-                            callerNumber = edtCallerNumber.text.toString()
-                        )
+                viewModel.handleIntent(
+                    AppIntent.Login(
+                        context = requireContext(),
+                        selectedEnvIndex = spinnerEnv.selectedItemPosition,
+                        platformUrl = edtPlatformUrl.text.toString(),
+                        enterpriseId = edtEnterpriseId.text.toString(),
+                        usernameOrUserId = edtUsernameOrUserId.text.toString(),
+                        passwordOrAccessToken = edtPasswordOrAccessToken.text.toString(),
+                        callerNumber = edtCallerNumber.text.toString()
                     )
-                }
+                )
             }
             icDevCheck.setOnClickListener { viewModel.switchDevMode() }
             tvDevModeCheck.setOnClickListener { viewModel.switchDevMode() }
