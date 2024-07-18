@@ -12,14 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.common.AppIntent
 import com.example.common.AppUiState
 import com.example.common.AppViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentDemoCallingBinding
-import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 class DemoCallingFragment : Fragment() {
@@ -40,30 +38,32 @@ class DemoCallingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            btnDemoCallingKeyboardSwitch.setOnClickListener { viewModel.switchDtmfShowState() }
+            btnDemoCallingKeyboardSwitch.setOnClickListener {
+                viewModel.handleIntent(AppIntent.ClickDtmfButton)
+            }
 
             btnDemoCallingMuteSwitch.setOnClickListener {
-                sendIntent(
-                    AppIntent.Mute(
-                        viewModel.isMute().not()
-                    )
-                )
+                viewModel.handleIntent(AppIntent.ClickMuteButton)
             }
 
             btnDemoCallingSpeakerSwitch.setOnClickListener {
                 if (viewModel.appUiState.value is AppUiState.OnRinging ||
                     viewModel.appUiState.value is AppUiState.OnCalling
                 ) {
-                    sendIntent(AppIntent.UseSpeakerphone(viewModel.isUseSpeakerphone().not()))
+                    viewModel.handleIntent(AppIntent.ClickSpeakerPhoneButton)
                 } else {
-                    Toast.makeText(requireContext(), "播放铃声或通话中才能使用扬声器", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "播放铃声或通话中才能使用扬声器",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@setOnClickListener
                 }
             }
 
-            btnDemoCallingHide.setOnClickListener { viewModel.switchDtmfShowState() }
+            btnDemoCallingHide.setOnClickListener { viewModel.handleIntent(AppIntent.ClickSpeakerPhoneButton) }
 
-            btnDemoCallingHangup.setOnClickListener { sendIntent(AppIntent.Hangup) }
+            btnDemoCallingHangup.setOnClickListener { viewModel.handleIntent(AppIntent.Hangup) }
 
             includeDemoCallingDtmfPanel.apply {
                 btnDtmf0.setOnClickListener { sendDtmf("0") }
@@ -81,7 +81,7 @@ class DemoCallingFragment : Fragment() {
             }
 
         }.apply {
-            tvDemoCallingBiggerText.text = viewModel.biggerText.value
+            tvDemoCallingBiggerText.text = ""
         }
 
         startStatusBarControl()
@@ -89,15 +89,9 @@ class DemoCallingFragment : Fragment() {
         obsState()
     }
 
-    private fun sendDtmf(digits: String) = sendIntent(AppIntent.SendDtmf(digits))
+    private fun sendDtmf(digits: String) = viewModel.handleIntent(AppIntent.SendDtmf(digits))
 
-    private fun sendIntent(appIntent: AppIntent) {
-        viewModel.viewModelScope.launch {
-            viewModel.intentChannel.send(appIntent)
-        }
-    }
-
-    private fun backToMain(){
+    private fun backToMain() {
         findNavController().navigateUp()
     }
 
@@ -130,22 +124,64 @@ class DemoCallingFragment : Fragment() {
                                 """.trimIndent(),
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                when (it.errorCode) {
-                                    ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT,
-                                    ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
-                                    ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
-                                    ErrorCode.ERR_CALL_FAILED_NET_ERROR,
-                                    ErrorCode.ERR_CALL_FAILED_RTM_ERROR -> backToMain()
+                                backToMain()
+                            }
+                            is AppUiState.OnCallStart -> {
+                                binding.tvDemoCallingBiggerText.text = it.biggerText
+                            }
+
+                            is AppUiState.OnRinging -> {
+                                binding.tvDemoCallingSmallerText.text = it.smallerText
+                            }
+
+                            is AppUiState.OnCalling -> {
+                                binding.btnDemoCallingMuteSwitch.setImageResource(
+                                    if (it.isMuted) R.drawable.icon_demo_calling_mic_disable else R.drawable.icon_demo_calling_mic_enable
+                                )
+
+                                binding.btnDemoCallingSpeakerSwitch.setImageResource(
+                                    if(it.isUseSpeakerPhone) R.drawable.icon_demo_calling_speaker_enable else R.drawable.icon_demo_calling_speaker_disable
+                                )
+
+                                binding.tvDemoCallingBiggerText.text = it.biggerText
+
+                                binding.tvDemoCallingSmallerText.text = it.smallerText
+
+                                if (it.isShowDtmfPanel) {
+                                    binding.includeDemoCallingDtmfPanel.refDtmfPanel.visibility = View.VISIBLE
+                                    binding.btnDemoCallingHide.visibility = View.VISIBLE
+                                    binding.tvDemoCallingSmallerText.visibility = View.GONE
+                                    binding.btnDemoCallingKeyboardSwitch.visibility = View.GONE
+                                    binding.tvDemoCallingKeyboard.visibility = View.GONE
+                                    binding.btnDemoCallingMuteSwitch.visibility = View.GONE
+                                    binding.tvDemoCallingMute.visibility = View.GONE
+                                    binding.btnDemoCallingSpeakerSwitch.visibility = View.GONE
+                                    binding.tvDemoCallingSpeaker.visibility = View.GONE
+                                } else {
+                                    binding.includeDemoCallingDtmfPanel.refDtmfPanel.visibility = View.GONE
+                                    binding.btnDemoCallingHide.visibility = View.GONE
+                                    binding.tvDemoCallingSmallerText.visibility = View.VISIBLE
+                                    binding.btnDemoCallingKeyboardSwitch.visibility = View.VISIBLE
+                                    binding.tvDemoCallingKeyboard.visibility = View.VISIBLE
+                                    binding.btnDemoCallingMuteSwitch.visibility = View.VISIBLE
+                                    binding.tvDemoCallingMute.visibility = View.VISIBLE
+                                    binding.btnDemoCallingSpeakerSwitch.visibility = View.VISIBLE
+                                    binding.tvDemoCallingSpeaker.visibility = View.VISIBLE
                                 }
                             }
+
                             is AppUiState.OnCallCanceled -> {
-                                Toast.makeText(requireContext(), "呼叫已取消", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "呼叫已取消", Toast.LENGTH_SHORT)
+                                    .show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallRefused -> {
-                                Toast.makeText(requireContext(), "外呼被拒绝", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "外呼被拒绝", Toast.LENGTH_SHORT)
+                                    .show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallingEnd -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -154,6 +190,7 @@ class DemoCallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallFailure -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -162,6 +199,7 @@ class DemoCallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnRefreshTokenFailed -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -170,6 +208,7 @@ class DemoCallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnAccessTokenHasExpired -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -178,64 +217,8 @@ class DemoCallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             else -> {}
-                        }
-                    }
-                }
-                launch {
-                    viewModel.biggerText.collect{
-                        binding.tvDemoCallingBiggerText.text = it
-                    }
-                }
-                launch {
-                    viewModel.muteState.collect {
-                        binding.btnDemoCallingMuteSwitch.setImageResource(
-                            when (it) {
-                                true -> R.drawable.icon_demo_calling_mic_disable
-                                false -> R.drawable.icon_demo_calling_mic_enable
-                            }
-                        )
-                    }
-                }
-                launch {
-                    viewModel.speakerphoneOpenState.collect {
-                        binding.btnDemoCallingSpeakerSwitch.setImageResource(
-                            when (it) {
-                                true -> R.drawable.icon_demo_calling_speaker_enable
-                                false -> R.drawable.icon_demo_calling_speaker_disable
-                            }
-                        )
-                    }
-                }
-                launch {
-                    viewModel.smallText.collect {
-                        binding.tvDemoCallingSmallerText.text = it
-                    }
-                }
-                launch {
-                    viewModel.isShowDtmfPanel.collect { isShow ->
-                        binding.apply {
-                            if (isShow) {
-                                includeDemoCallingDtmfPanel.refDtmfPanel.visibility = View.VISIBLE
-                                btnDemoCallingHide.visibility = View.VISIBLE
-                                tvDemoCallingSmallerText.visibility = View.GONE
-                                btnDemoCallingKeyboardSwitch.visibility = View.GONE
-                                tvDemoCallingKeyboard.visibility = View.GONE
-                                btnDemoCallingMuteSwitch.visibility = View.GONE
-                                tvDemoCallingMute.visibility = View.GONE
-                                btnDemoCallingSpeakerSwitch.visibility = View.GONE
-                                tvDemoCallingSpeaker.visibility = View.GONE
-                            } else {
-                                includeDemoCallingDtmfPanel.refDtmfPanel.visibility = View.GONE
-                                btnDemoCallingHide.visibility = View.GONE
-                                tvDemoCallingSmallerText.visibility = View.VISIBLE
-                                btnDemoCallingKeyboardSwitch.visibility = View.VISIBLE
-                                tvDemoCallingKeyboard.visibility = View.VISIBLE
-                                btnDemoCallingMuteSwitch.visibility = View.VISIBLE
-                                tvDemoCallingMute.visibility = View.VISIBLE
-                                btnDemoCallingSpeakerSwitch.visibility = View.VISIBLE
-                                tvDemoCallingSpeaker.visibility = View.VISIBLE
-                            }
                         }
                     }
                 }

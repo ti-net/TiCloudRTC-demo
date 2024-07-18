@@ -17,7 +17,6 @@ import com.example.common.AppUiState
 import com.example.common.AppViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentDemoDialBinding
-import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 class DemoDialFragment : Fragment() {
@@ -51,16 +50,14 @@ class DemoDialFragment : Fragment() {
             btnNum0.setOnClickListener { addNum(0) }
             btnDemoCall.setOnClickListener {
                 if (tvShowPhoneNum.text.matches(Regex("^1(3\\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\\d|9[0-35-9])\\d{8}\$"))) {
-                    viewModel.viewModelScope.launch {
-                        viewModel.intentChannel.send(
-                            AppIntent.Call(
-                                tel = tvShowPhoneNum.text.toString(),
-                                clid = "",
-                                userField = "",
-                                type = 6 // 6 为外呼场景
-                            )
+                    viewModel.handleIntent(
+                        AppIntent.Call(
+                            tel = tvShowPhoneNum.text.toString(),
+                            clid = "",
+                            userField = "",
+                            type = 6 // 6 为外呼场景
                         )
-                    }
+                    )
                 } else {
                     Toast.makeText(requireContext(), "无效号码", Toast.LENGTH_SHORT).show()
                 }
@@ -92,17 +89,15 @@ class DemoDialFragment : Fragment() {
                 viewModel.appUiState.collect {
                     when (it) {
                         is AppUiState.OnInnerSdkError -> {
-                            if (it.errorCode == ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    """
+                            Toast.makeText(
+                                requireContext(),
+                                """
                                         sdk 内部错误
                                         errorCode: ${it.errorCode}
                                         errorMessage: ${it.errorMessage}
                                     """.trimIndent(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         is AppUiState.CallFailed -> Toast.makeText(
                             requireContext(),

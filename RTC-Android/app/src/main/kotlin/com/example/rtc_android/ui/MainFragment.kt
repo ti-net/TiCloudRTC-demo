@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -18,7 +17,6 @@ import com.example.common.AppUiState
 import com.example.common.AppViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentMainBinding
-import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -59,17 +57,15 @@ class MainFragment : Fragment() {
                 viewModel.appUiState.collect {
                     when (it) {
                         is AppUiState.OnInnerSdkError -> {
-                            if (it.errorCode == ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT) {
-                                Toast.makeText(
-                                    requireContext(),
+                            Toast.makeText(
+                                requireContext(),
                                     """
                                         sdk 内部错误
                                         errorCode: ${it.errorCode}
                                         errorMessage: ${it.errorMessage}
                                     """.trimIndent(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                         is AppUiState.LogoutFailed -> Toast.makeText(

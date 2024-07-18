@@ -2,3 +2,6 @@
 /shelf/
 /workspace.xml
 /migrations.xml
+/appInsightsSettings.xml
+deploymentTargetSelector.xml
+other.xml

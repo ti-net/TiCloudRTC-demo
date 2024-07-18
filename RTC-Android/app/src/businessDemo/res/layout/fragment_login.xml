@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edt_platform_url" />
 
     <com.example.rtc_android.weight.EditTextWithDelete
-        android:id="@+id/edt_username"
+        android:id="@+id/edt_username_or_user_id"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:drawablePadding="10dp"
@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edt_enterprise_id" />
 
     <com.example.rtc_android.weight.EditTextWithDelete
-        android:id="@+id/edt_password"
+        android:id="@+id/edt_password_or_access_token"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:drawablePadding="10dp"
@@ -86,10 +86,10 @@
         app:drawableUnFocus="@drawable/icon_lock"
         app:isHideLine="true"
         app:isPassword="true"
-        app:layout_constraintEnd_toEndOf="@+id/edt_username"
+        app:layout_constraintEnd_toEndOf="@+id/edt_username_or_user_id"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_username"
-        app:layout_constraintTop_toBottomOf="@+id/edt_username" />
+        app:layout_constraintStart_toStartOf="@+id/edt_username_or_user_id"
+        app:layout_constraintTop_toBottomOf="@+id/edt_username_or_user_id" />
 
     <com.example.rtc_android.weight.EditTextWithDelete
         android:id="@+id/edt_caller_number"
@@ -107,10 +107,9 @@
         app:drawableUnFocus="@drawable/icon_building"
         app:isHideLine="true"
         app:isPassword="false"
-        app:layout_constraintEnd_toEndOf="@+id/edt_password"
-        app:layout_constraintStart_toStartOf="@+id/edt_password"
-        app:layout_constraintTop_toBottomOf="@+id/edt_password"
-        tools:text="dfsfds" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_password_or_access_token"
+        app:layout_constraintStart_toStartOf="@+id/edt_password_or_access_token"
+        app:layout_constraintTop_toBottomOf="@+id/edt_password_or_access_token" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
@@ -122,9 +121,9 @@
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/edt_password"
+        app:layout_constraintEnd_toEndOf="@+id/edt_password_or_access_token"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_password"
+        app:layout_constraintStart_toStartOf="@+id/edt_password_or_access_token"
         app:layout_constraintTop_toBottomOf="@+id/tv_dev_mode_check" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -245,7 +244,7 @@
         android:textSize="12sp"
         android:text="@string/save_login_message"
         app:layout_constraintBottom_toBottomOf="@+id/ic_save_login_msg_check"
-        app:layout_constraintEnd_toEndOf="@+id/edt_password"
+        app:layout_constraintEnd_toEndOf="@+id/edt_password_or_access_token"
         app:layout_constraintTop_toTopOf="@+id/ic_save_login_msg_check" />
 
 

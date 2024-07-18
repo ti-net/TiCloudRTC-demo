@@ -4,23 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.common.bean.LoginParams
 import com.example.common.http.HttpServiceManager
 import com.tencent.bugly.crashreport.CrashReport
 import com.tinet.ticloudrtc.DestroyResultCallback
-import com.tinet.ticloudrtc.ErrorCode
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.Channel
+import com.tinet.ticloudrtc.contants.CallScene
+import io.agora.rtc.IRtcEngineEventHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -28,46 +28,16 @@ import java.util.*
 
 class AppViewModel : ViewModel() {
 
-    /** 事件接收 */
-    val intentChannel: Channel<AppIntent> = Channel(Channel.UNLIMITED)
-
     /** UI 状态 */
-    internal val _appUiState = MutableStateFlow<AppUiState>(AppUiState.WaitToLogin)
+    private val _appUiState = MutableStateFlow<AppUiState>(AppUiState.WaitToLogin)
     val appUiState = _appUiState.asStateFlow()
 
-    /** 静音状态，true：静音，false：非静音 */
-    internal val _muteState = MutableStateFlow(false)
-    val muteState = _muteState.asStateFlow()
-
-    /** 扬声器状态，true：扬声器打开，false：扬声器关闭 */
-    internal val _speakerphoneOpenSate = MutableStateFlow(false)
-    val speakerphoneOpenState = _speakerphoneOpenSate.asStateFlow()
-
-    internal val DEFAULT_BIGGER_TEXT = ""
-
-    /** 呼叫中界面大文本内容 */
-    internal val _biggerText = MutableStateFlow(DEFAULT_BIGGER_TEXT)
-    val biggerText = _biggerText.asStateFlow()
-
-    internal val CALLING_TIP = "外呼中..."
-
-    /** 呼叫中界面小文本内容 */
-    internal val _smallText = MutableStateFlow(CALLING_TIP)
-    val smallText = _smallText.asStateFlow()
-
-    internal val DEFAULT_DTMF_PANEL_STATE = false
-
-    /** dtmf 键盘打开标识，true：打开 dtmf 键盘，false：关闭 dtmf 键盘 */
-    internal val _isShowDtmfPanel =
-        MutableStateFlow(DEFAULT_DTMF_PANEL_STATE)
-    val isShowDtmfPanel = _isShowDtmfPanel.asStateFlow()
-
     /** 开发者模式标识，true：开发者模式，false：非开发者模式 */
-    internal val _isDevMode = MutableStateFlow(true)
+    private val _isDevMode = MutableStateFlow(true)
     val isDevMode = _isDevMode.asStateFlow()
 
     /** 保存登录信息标识，true：登录时保存登录信息，false：登录时不保存登录信息 */
-    internal val _isSaveLoginMessage = MutableStateFlow(true)
+    private val _isSaveLoginMessage = MutableStateFlow(true)
     val isSaveLoginMessage = _isSaveLoginMessage.asStateFlow()
 
     /** 通话事件计时器 */
@@ -76,50 +46,47 @@ class AppViewModel : ViewModel() {
     internal var rtcClient: TiCloudRTC? = null
 
     /** 当前通话中号码 */
-    internal var currentTel = ""
+    private var currentTel = ""
 
     /** 当前 dtmf 输入记录 */
-    internal var currentDtmfHistory = ""
+    private var currentDtmfHistory = ""
 
-    internal var enterpriseId = ""
-    internal var username = ""
-    internal var password = ""
-    internal var callerNumber = ""
+    private var enterpriseId = ""
+    private var username = ""
+    private var password = ""
+    private var callerNumber = ""
 
-    internal val Context.loginDataStore: DataStore<Preferences> by preferencesDataStore("login_message")
-    internal val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
-    internal val KEY_USERNAME = stringPreferencesKey("key_username")
-    internal val KEY_PASSWORD = stringPreferencesKey("key_password")
-    internal val KEY_CALLER_NUMBER = stringPreferencesKey("key_caller_number")
-    internal val KEY_IS_SAVE_LOGIN_MESSAGE = booleanPreferencesKey("key_is_save_login_message")
+    private val Context.loginDataStore: DataStore<Preferences> by preferencesDataStore("login_message")
+    private val KEY_SELECTED_ENV_INDEX = intPreferencesKey("key_selected_env_index")
+    private val KEY_ENTERPRISE_ID = stringPreferencesKey("key_enterprise_id")
+    private val KEY_USERNAME_OR_USER_ID = stringPreferencesKey("key_username_or_user_id")
+    private val KEY_PASSWORD_OR_ACCESS_TOKEN = stringPreferencesKey("key_password_or_access_token")
+    private val KEY_CALLER_NUMBER = stringPreferencesKey("key_caller_number")
+    private val KEY_IS_SAVE_LOGIN_MESSAGE = booleanPreferencesKey("key_is_save_login_message")
 
     suspend fun getLoginMessageFromLocalStore(context: Context): StateFlow<LoginMessage> {
         return context.loginDataStore.data.map {
             _isSaveLoginMessage.value = it[KEY_IS_SAVE_LOGIN_MESSAGE] == true
             LoginMessage(
+                selectedEnvIndex = it[KEY_SELECTED_ENV_INDEX] ?: 0,
                 enterpriseId = it[KEY_ENTERPRISE_ID] ?: "",
-                username = it[KEY_USERNAME] ?: "",
-                password = it[KEY_PASSWORD] ?: "",
+                usernameOrUserId = it[KEY_USERNAME_OR_USER_ID] ?: "",
+                passwordOrAccessToken = it[KEY_PASSWORD_OR_ACCESS_TOKEN] ?: "",
                 callerNumber = it[KEY_CALLER_NUMBER] ?: ""
             )
         }.stateIn(viewModelScope)
     }
 
-    init {
-        viewModelScope.launch {
-            intentChannel.consumeAsFlow().catch {
-                Log.e(LOG_TAG, it.message ?: "")
-            }.collect {
-                when (it) {
-                    is AppIntent.Login -> login(it)
-                    is AppIntent.Logout -> logout()
-                    is AppIntent.Call -> call(it)
-                    is AppIntent.Hangup -> hangup()
-                    is AppIntent.Mute -> mute(it)
-                    is AppIntent.UseSpeakerphone -> useSpeakerphone(it)
-                    is AppIntent.SendDtmf -> sendDtmf(it)
-                }
-            }
+    fun handleIntent(intent: AppIntent) {
+        when (intent) {
+            is AppIntent.Login -> login(intent)
+            is AppIntent.Logout -> logout()
+            is AppIntent.Call -> call(intent)
+            is AppIntent.Hangup -> hangup()
+            is AppIntent.ClickDtmfButton -> clickDtmfButton(intent)
+            is AppIntent.ClickMuteButton -> clickMuteButton(intent)
+            is AppIntent.ClickSpeakerPhoneButton -> clickSpeakerPhoneButton(intent)
+            is AppIntent.SendDtmf -> sendDtmf(intent)
         }
     }
 
@@ -133,57 +100,68 @@ class AppViewModel : ViewModel() {
 
     fun isRtcClientInit() = rtcClient != null
 
-    fun isMute() = muteState.value
-
     internal fun resetCallingState() {
-        _muteState.value = false
-        _speakerphoneOpenSate.value = false
         callingTimer?.cancel()
         currentTel = ""
         currentDtmfHistory = ""
-        _biggerText.value = DEFAULT_BIGGER_TEXT
-        _smallText.value = CALLING_TIP
-        _isShowDtmfPanel.value = DEFAULT_DTMF_PANEL_STATE
     }
 
-    fun switchDtmfShowState() {
-        _isShowDtmfPanel.value = _isShowDtmfPanel.value.not()
-        if (_isShowDtmfPanel.value) {
-            _biggerText.value = currentDtmfHistory
-        } else {
-            _biggerText.value = currentTel
+    private fun clickDtmfButton(intent: AppIntent.ClickDtmfButton){
+        _appUiState.update {
+            if (it is AppUiState.OnCalling) {
+                val isShowDtmfPanel = !it.isShowDtmfPanel
+                val biggerText = if(isShowDtmfPanel) currentDtmfHistory else currentTel
+                it.copy(isShowDtmfPanel = isShowDtmfPanel, biggerText = biggerText)
+            }else {
+                it
+            }
         }
     }
 
-    fun isUseSpeakerphone(): Boolean = rtcClient?.isSpeakerphoneEnabled() ?: false
-
-    internal fun sendDtmf(intent: AppIntent.SendDtmf) {
+    private fun sendDtmf(intent: AppIntent.SendDtmf) {
         currentDtmfHistory += intent.digits
-        _biggerText.value = currentDtmfHistory
         rtcClient?.dtmf(intent.digits)
+        _appUiState.update { state->
+            if(state is AppUiState.OnCalling){
+                state.copy(biggerText = currentDtmfHistory)
+            }else {
+                state
+            }
+        }
     }
 
-    internal fun useSpeakerphone(intent: AppIntent.UseSpeakerphone) {
-        rtcClient?.setEnableSpeakerphone(intent.isUse)
-        _speakerphoneOpenSate.value = intent.isUse
+    private fun clickSpeakerPhoneButton(intent: AppIntent.ClickSpeakerPhoneButton) {
+        _appUiState.update { state ->
+            if(state is AppUiState.OnCalling){
+                rtcClient?.setEnableSpeakerphone(!state.isUseSpeakerPhone)
+                state.copy(isUseSpeakerPhone = !state.isUseSpeakerPhone)
+            } else {
+                state
+            }
+        }
     }
 
-    internal fun mute(muteIntent: AppIntent.Mute) {
-        rtcClient?.setEnableLocalAudio(muteIntent.isMute.not())
-        _muteState.value = muteIntent.isMute
+    private fun clickMuteButton(muteIntent: AppIntent.ClickMuteButton) {
+        _appUiState.update {state ->
+            if(state is AppUiState.OnCalling){
+                rtcClient?.setEnableLocalAudio(state.isMuted)
+                state.copy(isMuted = !state.isMuted)
+            }else{
+                state
+            }
+        }
     }
 
-    internal fun hangup() {
+    private fun hangup() {
         rtcClient?.hangup()
     }
 
-    internal fun call(callIntent: AppIntent.Call) {
-        if (callIntent.tel.isEmpty() && callIntent.type == 6) {
+    private fun call(callIntent: AppIntent.Call) {
+        if (callIntent.tel.isEmpty() && callIntent.type == CallScene.CallerScene.value) {
             _appUiState.value = AppUiState.CallFailed("号码不正确")
             return
         }
         currentTel = callIntent.tel
-        _biggerText.value = currentTel
         rtcClient?.call(
             CallOption(
                 tel = callIntent.tel,
@@ -200,7 +178,7 @@ class AppViewModel : ViewModel() {
     }
 
 
-    internal fun login(loginIntent: AppIntent.Login) {
+    private fun login(loginIntent: AppIntent.Login) {
 
         CrashReport.initCrashReport(loginIntent.context, BuildConfig.BUGLY_APPID, BuildConfig.DEBUG)
 
@@ -209,8 +187,8 @@ class AppViewModel : ViewModel() {
         if (
             loginIntent.platformUrl.isEmpty() ||
             loginIntent.enterpriseId.isEmpty() ||
-            loginIntent.username.isEmpty() ||
-            loginIntent.password.isEmpty()
+            loginIntent.usernameOrUserId.isEmpty() ||
+            loginIntent.passwordOrAccessToken.isEmpty()
         ) {
             _appUiState.value = AppUiState.LoginFailed("参数不正确")
             return
@@ -219,23 +197,38 @@ class AppViewModel : ViewModel() {
         HttpServiceManager.url = loginIntent.platformUrl
 
         enterpriseId = loginIntent.enterpriseId
-        username = loginIntent.username
-        password = loginIntent.password
+        username = loginIntent.usernameOrUserId
+        password = loginIntent.passwordOrAccessToken
         callerNumber = loginIntent.callerNumber
 
-        loginExt(loginIntent)
+        loginExt(
+            loginIntent = loginIntent,
+            loginParams = LoginParams(
+                enterpriseId = enterpriseId.toInt(),
+                username = username,
+                password = password
+            ),
+            callerNumber = callerNumber,
+            onSaveLoginMessage = ::saveLoginState,
+            onRtcClientCreated = {
+                rtcClient = it
+                rtcClient!!.setEventListener(CustomEventListener())
+            },
+            onUiStateUpdate = { _appUiState.value = it }
+        )
     }
 
-    internal fun saveLoginState(loginIntent: AppIntent.Login) {
+    private fun saveLoginState(loginIntent: AppIntent.Login) {
         viewModelScope.launch {
             launch {
                 loginIntent.context.loginDataStore.edit {
+                    it[KEY_SELECTED_ENV_INDEX] = loginIntent.selectedEnvIndex
                     it[KEY_ENTERPRISE_ID] = this@AppViewModel.enterpriseId
-                    it[KEY_USERNAME] = this@AppViewModel.username
+                    it[KEY_USERNAME_OR_USER_ID] = this@AppViewModel.username
                     if (isSaveLoginMessage.value) {
-                        it[KEY_PASSWORD] = this@AppViewModel.password
+                        it[KEY_PASSWORD_OR_ACCESS_TOKEN] = this@AppViewModel.password
                     } else {
-                        it[KEY_PASSWORD] = ""
+                        it[KEY_PASSWORD_OR_ACCESS_TOKEN] = ""
                     }
                     it[KEY_CALLER_NUMBER] = this@AppViewModel.callerNumber
                     it[KEY_IS_SAVE_LOGIN_MESSAGE] =
@@ -246,7 +239,7 @@ class AppViewModel : ViewModel() {
         }
     }
 
-    internal fun logout() {
+    private fun logout() {
         rtcClient?.destroyClient(object : DestroyResultCallback {
             override fun onFailed(errorCode: Int, errorMessage: String) {
                 _appUiState.value = AppUiState.LogoutFailed(errorMessage)
@@ -263,12 +256,11 @@ class AppViewModel : ViewModel() {
     internal inner class CustomEventListener : TiCloudRTCEventListener() {
 
         override fun onCallingStart(requestUniqueId: String) {
-            _appUiState.value = AppUiState.OnCallStart
+            _appUiState.value = AppUiState.OnCallStart(currentTel)
         }
 
         override fun onRinging() {
-            _appUiState.value = AppUiState.OnRinging
-            _smallText.value = "播放铃声中..."
+            _appUiState.value = AppUiState.OnRinging()
         }
 
         override fun onCallCancelled() {
@@ -282,7 +274,10 @@ class AppViewModel : ViewModel() {
         }
 
         override fun onCalling() {
-            _appUiState.value = AppUiState.OnCalling
+            _appUiState.value = AppUiState.OnCalling(
+                biggerText = currentTel,
+                smallerText = "00:00"
+            )
             callingTimer = Timer().apply {
                 schedule(object : TimerTask() {
                     val startTime = Date().time
@@ -291,15 +286,21 @@ class AppViewModel : ViewModel() {
                     val sdp = SimpleDateFormat("mm:ss", Locale.getDefault())
 
                     override fun run() {
-                        _smallText.value = sdp.format(Date(Date().time - startTime))
+                        _appUiState.update { state ->
+                            if (state is AppUiState.OnCalling) {
+                                state.copy(smallerText = sdp.format(Date(Date().time - startTime)))
+                            } else {
+                                state
+                            }
+                        }
                     }
 
                 }, 0, 1000)
             }
         }
 
-        override fun onCallingEnd(isPeerHangup: Boolean) {
-            _appUiState.value = AppUiState.OnCallingEnd(isPeerHangup)
+        override fun onCallingEnd(errorCode: Int, errorMessage: String, sipCode: Int) {
+            _appUiState.value = AppUiState.OnCallFailure("$errorCode $errorMessage $sipCode")
             resetCallingState()
         }
 
@@ -309,8 +310,27 @@ class AppViewModel : ViewModel() {
             resetCallingState()
         }
 
+        override fun onLocalHangup() {
+            _appUiState.value = AppUiState.OnCallingEnd(false)
+            resetCallingState()
+        }
+
+        override fun onRemoteHangup() {
+            _appUiState.value = AppUiState.OnCallingEnd(true)
+            resetCallingState()
+        }
+
         override fun onAccessTokenWillExpire(accessToken: String) {
-            onAccessTokenWillExpireExt(accessToken)
+            onAccessTokenWillExpireExt(
+                rtcClient=rtcClient!!,
+                accessToken = accessToken,
+                loginParams = LoginParams(
+                    enterpriseId = enterpriseId.toInt(),
+                    username = username,
+                    password = password
+                ),
+                onUiStateUpdate = { _appUiState.value = it }
+            )
         }
 
         override fun onAccessTokenHasExpired() {
@@ -328,36 +348,67 @@ class AppViewModel : ViewModel() {
             _appUiState.value = AppUiState.OnAccessTokenHasExpired
         }
 
+        override fun onNetworkQuality(uid: Int, txQuality: Int, rxQuality: Int) {
+            Log.i("onNetworkQuality", "uid: $uid, txQuality: $txQuality, rxQuality: $rxQuality")
+        }
+
         override fun onError(errorCode: Int, errorMessage: String) {
             _appUiState.value = AppUiState.OnInnerSdkError(errorCode, errorMessage)
-            when (errorCode) {
-                // 如果是呼叫相关错误码则重置呼叫中界面
-                ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT,
-                ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
-                ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
-                ErrorCode.ERR_CALL_FAILED_NET_ERROR,
-                ErrorCode.ERR_CALL_FAILED_RTM_ERROR,
-                ErrorCode.ERR_CALL_HOTLINE_NOT_EXIST -> resetCallingState()
-            }
+            resetCallingState()
         }
 
         override fun onRemoteLogin() {
             _appUiState.value = AppUiState.OnKickOut
         }
+
+        override fun onLocalNoVoiceStreamSent() {
+            _appUiState.value = AppUiState.OnLocalNoVoiceStreamSent
+        }
+
+        override fun onUserFieldModifiedByConfig(
+            removedCharList: List<String>,
+            srcUserField: String,
+            finalUserField: String
+        ) {
+            _appUiState.value = AppUiState.OnUserFieldModified(removedCharList)
+        }
+
+        override fun onLocalAudioStats(stats: IRtcEngineEventHandler.LocalAudioStats?) {
+            Log.i(LOG_TAG, "onLocalAudioStats: $stats")
+        }
+
+        override fun onRemoteAudioStats(stats: IRtcEngineEventHandler.RemoteAudioStats?) {
+            Log.i(LOG_TAG, "onRemoteAudioStats: $stats")
+        }
+
+        override fun onLocalAudioStateChanged(state: Int, error: Int) {
+            Log.i(LOG_TAG, "onLocalAudioStateChanged: $state, $error")
+        }
+
+        override fun onRemoteAudioStateChanged(uid: Int, state: Int, reason: Int, elapsed: Int) {
+            Log.i(LOG_TAG, "onRemoteAudioStateChanged: $uid, $state, $reason, $elapsed")
+        }
     }
 
     companion object {
         internal var LOG_TAG = AppViewModel::class.java.simpleName
+
+        const val DEFAULT_BIGGER_TEXT = ""
+        const val CALLING_TIP = "外呼中..."
+        const val DEFAULT_DTMF_PANEL_STATE = false
+
+        const val DEFAULT_RINGING_SMALLER_TEXT = "播放铃声中..."
     }
 }
 
 sealed interface AppIntent {
     data class Login(
         val context: Context,
+        val selectedEnvIndex: Int,
         val platformUrl: String,
         val enterpriseId: String,
-        val username: String,
-        val password: String,
+        val usernameOrUserId: String,
+        val passwordOrAccessToken: String,
         val callerNumber: String = ""
     ) : AppIntent
 
@@ -376,9 +427,11 @@ sealed interface AppIntent {
 
     object Hangup : AppIntent
 
-    data class Mute(val isMute: Boolean) : AppIntent
+    object ClickDtmfButton : AppIntent
 
-    data class UseSpeakerphone(val isUse: Boolean) : AppIntent
+    object ClickMuteButton : AppIntent
+
+    object ClickSpeakerPhoneButton : AppIntent
 
     data class SendDtmf(val digits: String) : AppIntent
 
@@ -400,15 +453,32 @@ sealed interface AppUiState {
 
     class CallFailed(val errorMsg: String) : AppUiState
 
-    object OnCallStart : AppUiState
+    data class OnCallStart(val biggerText: String) : AppUiState
 
-    object OnRinging : AppUiState
+    data class OnRinging(
+        val smallerText: String = AppViewModel.DEFAULT_RINGING_SMALLER_TEXT
+    ) : AppUiState
 
     object OnCallCanceled : AppUiState
 
     object OnCallRefused : AppUiState
 
-    object OnCalling : AppUiState
+    data class OnCalling(
+        /** 静音状态，true：静音，false：非静音 */
+        val isMuted: Boolean = false,
+
+        /** 扬声器状态，true：扬声器打开，false：扬声器关闭 */
+        val isUseSpeakerPhone: Boolean = false,
+
+        /** dtmf 键盘打开标识，true：打开 dtmf 键盘，false：关闭 dtmf 键盘 */
+        val isShowDtmfPanel:Boolean = AppViewModel.DEFAULT_DTMF_PANEL_STATE,
+
+        /** 呼叫中界面大文本内容 */
+        val biggerText:String = AppViewModel.DEFAULT_BIGGER_TEXT,
+
+        /** 呼叫中界面小文本内容 */
+        val smallerText:String = AppViewModel.CALLING_TIP
+    ) : AppUiState
 
     class OnCallFailure(
         val errorMsg: String
@@ -428,12 +498,17 @@ sealed interface AppUiState {
     object OnAccessTokenHasExpired : AppUiState
 
     object OnKickOut : AppUiState
+
+    object OnLocalNoVoiceStreamSent : AppUiState
+
+    class OnUserFieldModified(val removedCharList: List<String>) : AppUiState
 }
 
 data class LoginMessage(
+    val selectedEnvIndex: Int = 0,
     val enterpriseId: String = "",
-    val username: String = "",
-    val password: String = "",
+    val usernameOrUserId: String = "",
+    val passwordOrAccessToken: String = "",
     val callerNumber: String = ""
 )
 

@@ -37,14 +37,15 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginPage(
     mainViewModel: AppViewModel,
-    onLoginSuccess: () -> Unit = {}
+    onLoginSuccess: () -> Unit,
+    handleIntent: (intent: AppIntent) -> Unit
 ) {
     val context = LocalContext.current
     var strPlatform by remember { mutableStateOf(BuildConfig.LOGIN_ENVIRONMENT_VALUE[0]) }
     var enterpriseId by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var textFieldHeight = remember{30.dp}
+    var textFieldHeight = remember { 30.dp }
 
     Column(
         modifier = Modifier
@@ -59,13 +60,13 @@ fun LoginPage(
                 .shadow(elevation = 20.dp, shape = RoundedCornerShape(20))
                 .combinedClickable(
                     onLongClick = {
-                        enterpriseId = context.getString(R.string.default_enterprise_id)
-                        username = context.getString(R.string.default_username)
-                        password = context.getString(R.string.default_password)
+                        enterpriseId = context.getString(R.string.specified_enterprise_id)
+                        username = context.getString(R.string.specified_username)
+                        password = context.getString(R.string.specified_password)
                     }
                 ) {}
         )
-        Text(context.getString(R.string.app_name),Modifier.padding(top = 30.dp), fontSize = 24.sp)
+        Text(context.getString(R.string.app_name), Modifier.padding(top = 30.dp), fontSize = 24.sp)
         Text("让客户联络效率更高，体验更好", fontSize = 12.sp)
         SpecimenSpinners(
             title = "选择环境",
@@ -84,8 +85,7 @@ fun LoginPage(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp)
-                .background(Color.White)
-            ,
+                .background(Color.White),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.Transparent
             )
@@ -132,19 +132,19 @@ fun LoginPage(
         Button(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 10.dp)
-            .height(50.dp), onClick = {
-            mainViewModel.viewModelScope.launch {
-                mainViewModel.intentChannel.send(
+            .height(50.dp),
+            onClick = {
+                handleIntent(
                     AppIntent.Login(
                         context,
+                        selectedEnvIndex = BuildConfig.DEFAULT_SPINNER_SELECTION,
                         platformUrl = strPlatform,
                         enterpriseId = enterpriseId,
-                        username = username,
-                        password = password
+                        usernameOrUserId = username,
+                        passwordOrAccessToken = password
                     )
                 )
-            }
-        }) {
+            }) {
             Text("登录")
         }
     }
@@ -156,8 +156,8 @@ fun LoginPage(
                 mainViewModel.getLoginMessageFromLocalStore(context)
                     .collectLatest { loginMessage ->
                         enterpriseId = loginMessage.enterpriseId
-                        username = loginMessage.username
-                        password = loginMessage.password
+                        username = loginMessage.usernameOrUserId
+                        password = loginMessage.passwordOrAccessToken
                     }
             }
 
@@ -176,16 +176,20 @@ fun LoginPage(
                             """.trimIndent(),
                             Toast.LENGTH_SHORT
                         ).show()
+
                         is AppUiState.WaitToLogin -> {}
                         is AppUiState.LoginSuccess -> {
-                            Toast.makeText(context, "登录成功,引擎已创建", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "登录成功,引擎已创建", Toast.LENGTH_SHORT)
+                                .show()
                             onLoginSuccess()
                         }
+
                         is AppUiState.LogoutSuccess -> Toast.makeText(
                             context,
                             "退出登录，引擎成功销毁",
                             Toast.LENGTH_SHORT
                         ).show()
+
                         is AppUiState.LoginFailed -> {
                             Toast.makeText(
                                 context,
@@ -193,6 +197,7 @@ fun LoginPage(
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
+
                         else -> {}
                     }
                 }
@@ -293,6 +298,10 @@ fun SpecimenSpinners(
 @Composable
 fun PreviewLoginPage() {
     App_composeTheme {
-        LoginPage(viewModel())
+        LoginPage(
+            viewModel(),
+            {},
+            {}
+        )
     }
 }
