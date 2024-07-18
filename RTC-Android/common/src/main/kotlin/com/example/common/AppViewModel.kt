@@ -19,7 +19,7 @@ import com.tinet.ticloudrtc.DestroyResultCallback
 import com.tinet.ticloudrtc.TiCloudRTC
 import com.tinet.ticloudrtc.TiCloudRTCEventListener
 import com.tinet.ticloudrtc.bean.CallOption
-import com.tinet.ticloudrtc.contants.CallScene
+import com.tinet.ticloudrtc.constants.CallScene
 import io.agora.rtc.IRtcEngineEventHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
