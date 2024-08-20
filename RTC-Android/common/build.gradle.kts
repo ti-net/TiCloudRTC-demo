@@ -105,7 +105,7 @@ dependencies {
     api("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:4.2.7")
+    api("com.github.ti-net:TiCloud-RTC-Android:4.2.9")
 
     // 观测云(可选日志上传)
 //    api("com.cloudcare.ft.mobile.sdk.tracker.agent:ft-sdk:1.5.0")
