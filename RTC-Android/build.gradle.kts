@@ -2,16 +2,12 @@
 plugins {
     id("com.android.application") version ("7.2.1") apply (false)
     id("com.android.library") version ("7.2.1") apply (false)
-    id("org.jetbrains.kotlin.android") version ("1.7.0") apply (false)
+    id("org.jetbrains.kotlin.android") version ("2.0.20") apply (false)
+    id("org.jetbrains.kotlin.plugin.compose") version ("2.0.20") apply (false)
 }
 
 buildscript {
     dependencies{
-        classpath("com.android.tools.build:gradle:7.4.1")
+        classpath("com.android.tools.build:gradle:8.5.0")
     }
-}
-
-task<Delete>(name = "clean") {
-    group = "build"
-    delete(rootProject.buildDir)
 }

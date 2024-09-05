@@ -14,13 +14,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppUiState
 import com.example.common.AppViewModel
-import com.example.rtc_android.BuildConfig
+import com.example.common.DEFAULT_SPINNER_SELECTION
 import com.example.rtc_android.R
+import com.example.common.R as CommonR
 import com.example.rtc_android.databinding.FragmentLoginBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -78,17 +79,17 @@ class LoginFragment : Fragment() {
             }
             imgLogo.setOnLongClickListener {
                 isIgnoreFillLoginMsg = true
-                spinnerEnv.setSelection(resources.getInteger(R.integer.specified_spinner_env_selected_index))
+                spinnerEnv.setSelection(resources.getInteger(CommonR.integer.specified_spinner_env_selected_index))
                 edtPlatformUrl.text = Editable.Factory.getInstance()
-                    .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[resources.getInteger(R.integer.specified_spinner_env_selected_index)])
+                    .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[resources.getInteger(CommonR.integer.specified_spinner_env_selected_index)])
                 edtEnterpriseId.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.specified_enterprise_id))
+                    .newEditable(resources.getString(CommonR.string.specified_enterprise_id))
                 edtUsernameOrUserId.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.specified_username))
+                    .newEditable(resources.getString(CommonR.string.specified_username))
                 edtPasswordOrAccessToken.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.specified_password))
+                    .newEditable(resources.getString(CommonR.string.specified_password))
                 edtCallerNumber.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.specified_caller_number))
+                    .newEditable(resources.getString(CommonR.string.specified_caller_number))
                 true
             }
             btnLogin.setOnClickListener {

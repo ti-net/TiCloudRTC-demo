@@ -12,6 +12,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.commom.BuildConfig
 import com.example.common.bean.LoginParams
 import com.example.common.http.HttpServiceManager
 import com.tencent.bugly.crashreport.CrashReport
