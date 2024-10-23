@@ -497,6 +497,7 @@
  */
 - (void)onRemoteLogin{
     NSLog(@"用户端回调：onRemoteLogin 当前 userId 在其他设备登录，此时引擎已销毁");
+    [self showErrorView:@"当前账号在其他设备登录"];
     [self hangupProcess];
 }
 

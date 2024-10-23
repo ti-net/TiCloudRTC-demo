@@ -52,10 +52,10 @@
     
     self.tiCloudEngine = [TiCloudRTCEngine createClient:config success:^(NSDictionary * _Nonnull data) {
         NSLog(@"createClient success..");
-        [self showErrorView:@"createClient success.."];
+        [self showErrorView:@"初始化SDK成功!"];
     } error:^(TiCloudRtcErrCode nErrorCode, NSString * _Nonnull errorDes) {
         NSLog(@"createClient error %@ ",errorDes);
-        [self showErrorView:[NSString stringWithFormat:@"error %@ ",errorDes]];
+        [self showErrorView:[NSString stringWithFormat:@"初始化SDK失败:%@",errorDes]];
     }];
     
     NSString *SDKVersion = [TiCloudRTCEngine getVersion];
