@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppViewModel
-import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentHotlineBinding
 import kotlinx.coroutines.launch
 

@@ -4,10 +4,8 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -85,30 +83,30 @@ fun MainPageContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            BottomNavigation(backgroundColor = Color.White) {
-                item.forEachIndexed { index, bottomNavItem ->
-                    BottomNavigationItem(
-                        icon = {
-                            Image(
-                                painterResource(
-                                    id = if (selectedItem == index) bottomNavItem.selectedIconRes
-                                    else bottomNavItem.noSelectIconRes
-                                ),
-                                null
-                            )
-                        },
-                        label = { Text(bottomNavItem.label) },
-                        selected = selectedItem == index,
-                        onClick = {
-                            selectedItem = index
-                            mainNavController.navigate(bottomNavItem.pageRote) {
-                                launchSingleTop = true
-                                restoreState = true
-
-                            }
-                        })
-                }
-            }
+//            BottomNavigation(backgroundColor = Color.White) {
+//                item.forEachIndexed { index, bottomNavItem ->
+//                    BottomNavigationItem(
+//                        icon = {
+//                            Image(
+//                                painterResource(
+//                                    id = if (selectedItem == index) bottomNavItem.selectedIconRes
+//                                    else bottomNavItem.noSelectIconRes
+//                                ),
+//                                null
+//                            )
+//                        },
+//                        label = { Text(bottomNavItem.label) },
+//                        selected = selectedItem == index,
+//                        onClick = {
+//                            selectedItem = index
+//                            mainNavController.navigate(bottomNavItem.pageRote) {
+//                                launchSingleTop = true
+//                                restoreState = true
+//
+//                            }
+//                        })
+//                }
+//            }
         },
     ) { innerPaddingModifier ->
         NavHost(

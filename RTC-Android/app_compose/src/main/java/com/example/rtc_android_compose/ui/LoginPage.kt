@@ -5,9 +5,16 @@ import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -22,18 +29,19 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppUiState
 import com.example.common.AppViewModel
-import com.example.rtc_android_compose.BuildConfig
+import com.example.common.DEFAULT_SPINNER_SELECTION
 import com.example.rtc_android_compose.R
+import com.example.common.R as CommonR
 import com.example.rtc_android_compose.ui.theme.App_composeTheme
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LoginPage(
     mainViewModel: AppViewModel,
@@ -60,13 +68,13 @@ fun LoginPage(
                 .shadow(elevation = 20.dp, shape = RoundedCornerShape(20))
                 .combinedClickable(
                     onLongClick = {
-                        enterpriseId = context.getString(R.string.specified_enterprise_id)
-                        username = context.getString(R.string.specified_username)
-                        password = context.getString(R.string.specified_password)
+                        enterpriseId = context.getString(CommonR.string.specified_enterprise_id)
+                        username = context.getString(CommonR.string.specified_username)
+                        password = context.getString(CommonR.string.specified_password)
                     }
                 ) {}
         )
-        Text(context.getString(R.string.app_name), Modifier.padding(top = 30.dp), fontSize = 24.sp)
+        Text(context.getString(CommonR.string.app_name), Modifier.padding(top = 30.dp), fontSize = 24.sp)
         Text("让客户联络效率更高，体验更好", fontSize = 12.sp)
         SpecimenSpinners(
             title = "选择环境",
@@ -86,9 +94,7 @@ fun LoginPage(
                 .fillMaxWidth()
                 .padding(top = 10.dp)
                 .background(Color.White),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent
-            )
+
         )
         TextField(
             value = enterpriseId,
@@ -98,9 +104,6 @@ fun LoginPage(
                 .fillMaxWidth()
                 .padding(top = 10.dp)
                 .background(Color.White),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent
-            )
         )
 
         TextField(
@@ -111,9 +114,6 @@ fun LoginPage(
                 .fillMaxWidth()
                 .padding(top = 10.dp)
                 .background(Color.White),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent
-            )
         )
 
         TextField(
@@ -124,9 +124,6 @@ fun LoginPage(
                 .fillMaxWidth()
                 .padding(top = 10.dp)
                 .background(Color.White),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent
-            )
 
         )
         Button(modifier = Modifier
@@ -270,6 +267,7 @@ fun SpecimenSpinners(
         ) {
             specimens.forEachIndexed { index, specimen ->
                 DropdownMenuItem(
+                    text = {Text(text = specimen.toString())},
                     modifier = Modifier
                         .padding(start = 20.dp, end = 20.dp)
                         .fillMaxWidth(),
@@ -277,9 +275,7 @@ fun SpecimenSpinners(
                         expanded = false
                         specimenText = specimen.toString()
                         onItemSelected(index, specimenText)
-                    }) {
-                    Text(text = specimen.toString())
-                }
+                    })
             }
         }
         Spacer(

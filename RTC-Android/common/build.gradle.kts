@@ -1,4 +1,3 @@
-import Config.*
 
 plugins {
 
@@ -6,12 +5,51 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+object ProjectConfig {
+    const val compileSdk = 34
+    const val minSdk = 21
+    const val targetSdk = 34
+}
+
+object CommonConfig {
+
+    val releaseResValue = listOf(
+        // default base url
+        GradleResField("string", "app_name", "Ti-RTC"),
+        GradleResField("integer", "specified_spinner_env_selected_index", "1"),
+        GradleResField("string", "specified_enterprise_id", ""),
+        GradleResField("string", "specified_username", ""),
+        GradleResField("string", "specified_password", ""),
+        GradleResField("string", "specified_caller_number", ""),
+        GradleResField("string", "specified_tel", ""),
+        GradleResField("string", "specified_clid", ""),
+        GradleResField("string", "specified_caller_number_when_call", ""),
+        GradleResField("string", "specified_obClid_area_code", ""),
+        GradleResField("string", "specified_obClid_group", ""),
+    )
+
+    val debugResValue = listOf(
+        GradleResField("string", "app_name", "Ti-RTC-debug"),
+        GradleResField("integer", "specified_spinner_env_selected_index", "1"),
+        GradleResField("string", "specified_enterprise_id", ""),
+        GradleResField("string", "specified_username", ""),
+        GradleResField("string", "specified_password", ""),
+        GradleResField("string", "specified_caller_number", ""),
+        GradleResField("string", "specified_tel", ""),
+        GradleResField("string", "specified_clid", ""),
+        GradleResField("string", "specified_caller_number_when_call", ""),
+        GradleResField("string", "specified_obClid_area_code", ""),
+        GradleResField("string", "specified_obClid_group", ""),
+    )
+}
+
 android {
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
         minSdk = ProjectConfig.minSdk
-        targetSdk = ProjectConfig.targetSdk
+        lint.targetSdk = ProjectConfig.targetSdk
+        testOptions.targetSdk = ProjectConfig.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -25,16 +63,16 @@ android {
                 "proguard-rules.pro"
             )
 
-            CommonConfig.releaseFields.forEach {
-                buildConfigField(it.type, it.fieldName, it.fieldValue)
+            CommonConfig.releaseResValue.forEach {
+                resValue(it.type, it.fieldName, it.fieldValue)
             }
         }
 
         debug {
             signingConfig = signingConfigs.getByName("debug")
 
-            CommonConfig.debugFields.forEach {
-                buildConfigField(it.type, it.fieldName, it.fieldValue)
+            CommonConfig.debugResValue.forEach {
+                resValue(it.type, it.fieldName, it.fieldValue)
             }
         }
 
@@ -105,9 +143,23 @@ dependencies {
     api("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:4.2.7")
+    api("com.github.ti-net:TiCloud-RTC-Android:4.3.0.2")
 
     // 观测云(可选日志上传)
 //    api("com.cloudcare.ft.mobile.sdk.tracker.agent:ft-sdk:1.5.0")
 //    api("com.cloudcare.ft.mobile.sdk.tracker.agent:ft-native:1.1.0")
 }
+
+
+/**
+ * 模拟 gradle 的 resources 自定义字段定义。
+ *
+ * [type]           字段类型，例如：integer、string、bool
+ * [fieldName]      字段名称
+ * [fieldValue]     字段值
+ */
+data class GradleResField(
+    val type: String,
+    val fieldName: String,
+    val fieldValue: String
+)

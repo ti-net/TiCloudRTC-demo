@@ -1,9 +1,20 @@
-import Config.*
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+}
+
+object AppConfig {
+    const val applicationId = "com.example.rtc_android"
+    const val versionCode = 28
+    const val versionName = "2.9.14"
+}
+
+object ProjectConfig {
+    const val compileSdk = 34
+    const val minSdk = 21
+    const val targetSdk = 34
 }
 
 android {
@@ -37,13 +48,7 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
 
-            CommonConfig.releaseFields.forEach {
-                buildConfigField(it.type, it.fieldName, it.fieldValue)
-            }
-
-            CommonConfig.releaseResValue.forEach {
-                resValue(it.type, it.fieldName, it.fieldValue)
-            }
+            resValue("string", "version_name", AppConfig.versionName)
         }
         debug {
             isMinifyEnabled = false
@@ -53,13 +58,8 @@ android {
             )
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
-            CommonConfig.debugFields.forEach {
-                buildConfigField(it.type, it.fieldName, it.fieldValue)
-            }
 
-            CommonConfig.debugResValue.forEach {
-                resValue(it.type, it.fieldName, it.fieldValue)
-            }
+            resValue("string", "version_name", AppConfig.versionName)
         }
 
     }
@@ -73,19 +73,11 @@ android {
             dimension = DimensionCase
 
             applicationIdSuffix = ".dev_demo"
-
-            CommonConfig.developDemoFields.forEach {
-                buildConfigField(it.type, it.fieldName, it.fieldValue)
-            }
         }
         create("businessDemo") {
             dimension = DimensionCase
 
             applicationIdSuffix = ".business_demo"
-
-            CommonConfig.businessDemoFields.forEach {
-                buildConfigField(it.type, it.fieldName, it.fieldValue)
-            }
         }
     }
 

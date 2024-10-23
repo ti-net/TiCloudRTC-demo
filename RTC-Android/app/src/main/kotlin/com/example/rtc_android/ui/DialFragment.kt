@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppViewModel
-import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentDialBinding
-import kotlinx.coroutines.launch
 
 class DialFragment:Fragment() {
 
