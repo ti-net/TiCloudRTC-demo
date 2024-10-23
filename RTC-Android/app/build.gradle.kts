@@ -7,8 +7,8 @@ plugins {
 
 object AppConfig {
     const val applicationId = "com.example.rtc_android"
-    const val versionCode = 26
-    const val versionName = "2.9.12"
+    const val versionCode = 27
+    const val versionName = "2.9.13"
 }
 
 object ProjectConfig {
