@@ -14,6 +14,7 @@
         android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="@string/tip_tel"
+        android:text="@string/specified_tel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +29,7 @@
         android:ems="10"
         android:hint="@string/tip_clid"
         android:inputType="phone"
+        android:text="@string/specified_clid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_out_call_tel"
@@ -49,7 +51,7 @@
         android:id="@+id/edt_out_call_user_field"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="30dp"
         android:ems="10"
         android:gravity="start|top"
@@ -58,7 +60,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_out_call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_caller_number" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_obClid_group" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_caller_number"
@@ -67,9 +69,38 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/please_enter_optional_caller_number"
+        android:text="@string/specified_caller_number_when_call"
         app:layout_constraintEnd_toEndOf="@+id/edt_out_call_clid"
         app:layout_constraintStart_toStartOf="@+id/edt_out_call_clid"
         app:layout_constraintTop_toBottomOf="@+id/edt_out_call_clid"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_obClid_area_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="@string/please_enter_optional_obClid_area_code"
+        android:text="@string/specified_obClid_area_code"
+        app:layout_constraintEnd_toEndOf="@+id/edt_out_call_clid"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edt_caller_number"
+        app:layout_constraintTop_toBottomOf="@+id/edt_caller_number"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_obClid_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="@string/please_enter_optional_obClid_group"
+        android:text="@string/specified_obClid_group"
+        app:layout_constraintEnd_toEndOf="@+id/edt_out_call_clid"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edt_caller_number"
+        app:layout_constraintTop_toBottomOf="@+id/edt_obClid_area_code"
         tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

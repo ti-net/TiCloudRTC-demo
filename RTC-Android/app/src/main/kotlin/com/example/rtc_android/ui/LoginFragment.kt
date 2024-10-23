@@ -14,13 +14,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppUiState
 import com.example.common.AppViewModel
-import com.example.rtc_android.BuildConfig
+import com.example.common.DEFAULT_SPINNER_SELECTION
 import com.example.rtc_android.R
+import com.example.common.R as CommonR
 import com.example.rtc_android.databinding.FragmentLoginBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,6 +31,8 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 
     private val viewModel by activityViewModels<AppViewModel>()
+
+    private var isIgnoreFillLoginMsg = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,37 +58,52 @@ class LoginFragment : Fragment() {
                 ) {
                     edtPlatformUrl.text = Editable.Factory.getInstance()
                         .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[position])
+
+                    if (isIgnoreFillLoginMsg) {
+                        isIgnoreFillLoginMsg = false
+                        return
+                    }
+
                     edtEnterpriseId.text = Editable.Factory.getInstance()
                         .newEditable(BuildConfig.LOGIN_ENTERPRISE_ID_VALUE[position])
+                    edtUsernameOrUserId.text = Editable.Factory.getInstance()
+                        .newEditable(BuildConfig.LOGIN_USER_NAME_OR_USER_ID_VALUE[position])
+                    edtPasswordOrAccessToken.text = Editable.Factory.getInstance()
+                        .newEditable(BuildConfig.LOGIN_PASSWORD_OR_ACCESS_TOKEN_VALUE[position])
+                    edtCallerNumber.text = Editable.Factory.getInstance()
+                        .newEditable(BuildConfig.LOGIN_CALLER_NUMBER_VALUE[position])
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             }
             imgLogo.setOnLongClickListener {
+                isIgnoreFillLoginMsg = true
+                spinnerEnv.setSelection(resources.getInteger(CommonR.integer.specified_spinner_env_selected_index))
+                edtPlatformUrl.text = Editable.Factory.getInstance()
+                    .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[resources.getInteger(CommonR.integer.specified_spinner_env_selected_index)])
                 edtEnterpriseId.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.default_enterprise_id))
-                edtUsername.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.default_username))
-                edtPassword.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.default_password))
+                    .newEditable(resources.getString(CommonR.string.specified_enterprise_id))
+                edtUsernameOrUserId.text = Editable.Factory.getInstance()
+                    .newEditable(resources.getString(CommonR.string.specified_username))
+                edtPasswordOrAccessToken.text = Editable.Factory.getInstance()
+                    .newEditable(resources.getString(CommonR.string.specified_password))
                 edtCallerNumber.text = Editable.Factory.getInstance()
-                    .newEditable(resources.getString(R.string.default_caller_number))
+                    .newEditable(resources.getString(CommonR.string.specified_caller_number))
                 true
             }
             btnLogin.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(
-                        AppIntent.Login(
-                            context = requireContext(),
-                            platformUrl = edtPlatformUrl.text.toString(),
-                            enterpriseId = edtEnterpriseId.text.toString(),
-                            username = edtUsername.text.toString(),
-                            password = edtPassword.text.toString(),
-                            callerNumber = edtCallerNumber.text.toString()
-                        )
+                viewModel.handleIntent(
+                    AppIntent.Login(
+                        context = requireContext(),
+                        selectedEnvIndex = spinnerEnv.selectedItemPosition,
+                        platformUrl = edtPlatformUrl.text.toString(),
+                        enterpriseId = edtEnterpriseId.text.toString(),
+                        usernameOrUserId = edtUsernameOrUserId.text.toString(),
+                        passwordOrAccessToken = edtPasswordOrAccessToken.text.toString(),
+                        callerNumber = edtCallerNumber.text.toString()
                     )
-                }
+                )
             }
             icDevCheck.setOnClickListener { viewModel.switchDevMode() }
             tvDevModeCheck.setOnClickListener { viewModel.switchDevMode() }
@@ -94,22 +112,21 @@ class LoginFragment : Fragment() {
             edtEnterpriseId.addTextChangedListener {
                 updateLoginButtonState()
             }
-            edtUsername.addTextChangedListener {
+            edtUsernameOrUserId.addTextChangedListener {
                 updateLoginButtonState()
             }
-            edtPassword.addTextChangedListener {
+            edtPasswordOrAccessToken.addTextChangedListener {
                 updateLoginButtonState()
             }
         }.apply {
-            edtPlatformUrl.text =
-                Editable.Factory.getInstance()
-                    .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[BuildConfig.DEFAULT_SPINNER_SELECTION])
+//            edtPlatformUrl.text =
+//                Editable.Factory.getInstance()
+//                    .newEditable(BuildConfig.LOGIN_ENVIRONMENT_VALUE[BuildConfig.DEFAULT_SPINNER_SELECTION])
             edtPlatformUrl.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
-            edtEnterpriseId.text =
-                Editable.Factory.getInstance()
-                    .newEditable(BuildConfig.LOGIN_ENTERPRISE_ID_VALUE[BuildConfig.DEFAULT_SPINNER_SELECTION])
-//            spinnerEnv.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
-//            spinnerIcon.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
+//            edtEnterpriseId.text =
+//                Editable.Factory.getInstance()
+//                    .newEditable(BuildConfig.LOGIN_ENTERPRISE_ID_VALUE[BuildConfig.DEFAULT_SPINNER_SELECTION])
+
         }
 
         ArrayAdapter(
@@ -130,13 +147,15 @@ class LoginFragment : Fragment() {
         lifecycleScope.launchWhenResumed {
             viewModel.getLoginMessageFromLocalStore(requireContext())
                 .collectLatest { loginMessage ->
+                    isIgnoreFillLoginMsg = true
                     binding.apply {
+                        spinnerEnv.setSelection(loginMessage.selectedEnvIndex)
                         edtEnterpriseId.text = Editable.Factory.getInstance()
                             .newEditable(loginMessage.enterpriseId)
-                        edtUsername.text = Editable.Factory.getInstance()
-                            .newEditable(loginMessage.username)
-                        edtPassword.text = Editable.Factory.getInstance()
-                            .newEditable(loginMessage.password)
+                        edtUsernameOrUserId.text = Editable.Factory.getInstance()
+                            .newEditable(loginMessage.usernameOrUserId)
+                        edtUsernameOrUserId.text = Editable.Factory.getInstance()
+                            .newEditable(loginMessage.passwordOrAccessToken)
                         edtCallerNumber.text = Editable.Factory.getInstance()
                             .newEditable(loginMessage.callerNumber)
                     }
@@ -147,8 +166,8 @@ class LoginFragment : Fragment() {
     private fun updateLoginButtonState() {
         binding.apply {
             btnLogin.isEnabled = edtEnterpriseId.text.toString().isNotEmpty() &&
-                    edtUsername.text.toString().isNotEmpty() &&
-                    edtPassword.text.toString().isNotEmpty()
+                    edtUsernameOrUserId.text.toString().isNotEmpty() &&
+                    edtPasswordOrAccessToken.text.toString().isNotEmpty()
         }
     }
 
@@ -167,9 +186,14 @@ class LoginFragment : Fragment() {
                             """.trimIndent(),
                                 Toast.LENGTH_SHORT
                             ).show()
+
                             is AppUiState.WaitToLogin -> {}
                             is AppUiState.LoginSuccess -> {
-                                Toast.makeText(requireContext(), "登录成功,引擎已创建", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    requireContext(),
+                                    "登录成功,引擎已创建",
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
                                 if (viewModel.isDevMode.value) {
                                     findNavController().navigateUp()
@@ -177,11 +201,13 @@ class LoginFragment : Fragment() {
                                     findNavController().navigate(R.id.action_loginFragment_to_demoMainFragment)
                                 }
                             }
+
                             is AppUiState.LogoutSuccess -> Toast.makeText(
                                 requireContext(),
                                 "退出登录，引擎成功销毁",
                                 Toast.LENGTH_SHORT
                             ).show()
+
                             is AppUiState.LoginFailed -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -189,6 +215,7 @@ class LoginFragment : Fragment() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
+
                             else -> {}
                         }
                     }

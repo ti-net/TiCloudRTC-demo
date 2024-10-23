@@ -13,6 +13,9 @@ dependencyResolutionManagement {
         maven{url=uri("https://jitpack.io")}
         google()
         mavenCentral()
+        maven {
+            url = uri("https://mvnrepo.jiagouyun.com/repository/maven-releases")
+        }
     }
 }
 rootProject.name = "RTC-Android"

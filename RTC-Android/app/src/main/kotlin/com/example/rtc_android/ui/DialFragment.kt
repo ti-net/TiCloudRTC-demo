@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppViewModel
-import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentDialBinding
-import kotlinx.coroutines.launch
 
 class DialFragment:Fragment() {
 
@@ -55,14 +53,14 @@ class DialFragment:Fragment() {
     }
 
     private fun call(){
-        viewModel.viewModelScope.launch {
-            viewModel.intentChannel.send(AppIntent.Call(
+        viewModel.handleIntent(
+            AppIntent.Call(
                 tel = binding.tvShowTel.text.toString(),
                 clid = "",
                 userField = BuildConfig.OUT_CALL_USER_FIELD,
                 type = 1
-            ))
-        }
+            )
+        )
     }
 
     private fun appendTelNum(num:String){

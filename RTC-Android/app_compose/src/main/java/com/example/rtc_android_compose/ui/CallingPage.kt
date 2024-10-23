@@ -3,8 +3,8 @@ package com.example.rtc_android_compose.ui
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,32 +14,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.common.AppIntent
 import com.example.common.AppUiState
 import com.example.common.AppViewModel
 import com.example.rtc_android_compose.ui.theme.App_composeTheme
-import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 @Composable
 fun CallingPage(
     mainViewModel: AppViewModel,
-    onBackToMain:()->Unit={}
+    onBackToMain: () -> Unit = {},
+    handleIntent: (intent: AppIntent) -> Unit
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    val currentPhoneNum by mainViewModel.biggerText.collectAsState()
+    var currentPhoneNum by remember { mutableStateOf("") }
 
-    val isShowDialPanel by mainViewModel.isShowDtmfPanel.collectAsState()
+    var isShowDialPanel by remember { mutableStateOf(false) }
 
-    val smallText by mainViewModel.smallText.collectAsState()
+    var smallText by remember { mutableStateOf("") }
 
-    val muteState by mainViewModel.muteState.collectAsState()
+    var muteState by remember { mutableStateOf(false) }
 
-    val speakerphoneOpenState by mainViewModel.speakerphoneOpenState.collectAsState()
+    var speakerphoneOpenState by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -50,39 +49,33 @@ fun CallingPage(
         Text(smallText)
         if (isShowDialPanel) {
             Row(modifier = Modifier.fillMaxWidth()) {
-                Button(onClick = { sendDtmf(mainViewModel, "1") }) { Text("1") }
-                Button(onClick = { sendDtmf(mainViewModel, "2") }) { Text("2") }
-                Button(onClick = { sendDtmf(mainViewModel, "3") }) { Text("3") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("1")) }) { Text("1") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("2")) }) { Text("2") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("3")) }) { Text("3") }
             }
             Row(modifier = Modifier.fillMaxWidth()) {
-                Button(onClick = { sendDtmf(mainViewModel, "4") }) { Text("4") }
-                Button(onClick = { sendDtmf(mainViewModel, "5") }) { Text("5") }
-                Button(onClick = { sendDtmf(mainViewModel, "6") }) { Text("6") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("4")) }) { Text("4") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("5")) }) { Text("5") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("6")) }) { Text("6") }
             }
             Row(modifier = Modifier.fillMaxWidth()) {
-                Button(onClick = { sendDtmf(mainViewModel, "7") }) { Text("7") }
-                Button(onClick = { sendDtmf(mainViewModel, "8") }) { Text("8") }
-                Button(onClick = { sendDtmf(mainViewModel, "9") }) { Text("9") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("7")) }) { Text("7") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("8")) }) { Text("8") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("9")) }) { Text("9") }
             }
             Row(modifier = Modifier.fillMaxWidth()) {
-                Button(onClick = { sendDtmf(mainViewModel, "*") }) { Text("*") }
-                Button(onClick = { sendDtmf(mainViewModel, "0") }) { Text("0") }
-                Button(onClick = { sendDtmf(mainViewModel, "#") }) { Text("#") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("*")) }) { Text("*") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("0")) }) { Text("0") }
+                Button(onClick = { handleIntent(AppIntent.SendDtmf("#")) }) { Text("#") }
             }
         } else {
             Row {
-                Button(onClick = { mainViewModel.switchDtmfShowState() }) {
+                Button(onClick = { handleIntent(AppIntent.ClickDtmfButton) }) {
                     Text("dtmf")
                 }
                 Button(onClick = {
-                    mainViewModel.viewModelScope.launch {
-                        Log.i("CallingPage", "mute btn click")
-                        mainViewModel.intentChannel.send(
-                            AppIntent.Mute(
-                                mainViewModel.isMute().not()
-                            )
-                        )
-                    }
+                    Log.i("CallingPage", "mute btn click")
+                    handleIntent(AppIntent.ClickMuteButton)
                 }) {
                     Text("mute")
                 }
@@ -90,16 +83,14 @@ fun CallingPage(
                     if (mainViewModel.appUiState.value is AppUiState.OnRinging ||
                         mainViewModel.appUiState.value is AppUiState.OnCalling
                     ) {
-                        mainViewModel.viewModelScope.launch {
-                            Log.i("CallingPage", "speakerphone btn click")
-                            mainViewModel.intentChannel.send(
-                                AppIntent.UseSpeakerphone(
-                                    mainViewModel.isUseSpeakerphone().not()
-                                )
-                            )
-                        }
+                        Log.i("CallingPage", "speakerphone btn click")
+                        handleIntent(AppIntent.ClickSpeakerPhoneButton)
                     } else {
-                        Toast.makeText(context, "播放铃声或通话中才能使用扬声器", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "播放铃声或通话中才能使用扬声器",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }) {
                     Text("speakerphone")
@@ -110,17 +101,13 @@ fun CallingPage(
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(onClick = {
-                mainViewModel.viewModelScope.launch {
-                    Log.i("CallingPage", "hangup btn click")
-                    mainViewModel.intentChannel.send(AppIntent.Hangup)
-                }
+                Log.i("CallingPage", "hangup btn click")
+                handleIntent(AppIntent.Hangup)
             }) {
                 Text("挂断")
             }
             if (isShowDialPanel) {
-                Button(onClick = {
-                    mainViewModel.switchDtmfShowState()
-                }) {
+                Button(onClick = { handleIntent(AppIntent.ClickDtmfButton) }) {
                     Text("隐藏")
                 }
             }
@@ -143,22 +130,27 @@ fun CallingPage(
                                 """.trimIndent(),
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                when (it.errorCode) {
-                                    ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT,
-                                    ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
-                                    ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
-                                    ErrorCode.ERR_CALL_FAILED_NET_ERROR,
-                                    ErrorCode.ERR_CALL_FAILED_RTM_ERROR -> onBackToMain()
-                                }
+                                onBackToMain()
                             }
+
+                            is AppUiState.OnCalling -> {
+                                currentPhoneNum = it.biggerText
+                                smallText = it.smallerText
+                                isShowDialPanel = it.isShowDtmfPanel
+                                muteState = it.isMuted
+                                speakerphoneOpenState = it.isUseSpeakerPhone
+                            }
+
                             is AppUiState.OnCallCanceled -> {
                                 Toast.makeText(context, "呼叫已取消", Toast.LENGTH_SHORT).show()
                                 onBackToMain()
                             }
+
                             is AppUiState.OnCallRefused -> {
                                 Toast.makeText(context, "外呼被拒绝", Toast.LENGTH_SHORT).show()
                                 onBackToMain()
                             }
+
                             is AppUiState.OnCallingEnd -> {
                                 Toast.makeText(
                                     context,
@@ -167,6 +159,7 @@ fun CallingPage(
                                 ).show()
                                 onBackToMain()
                             }
+
                             is AppUiState.OnCallFailure -> {
                                 Toast.makeText(
                                     context,
@@ -175,6 +168,7 @@ fun CallingPage(
                                 ).show()
                                 onBackToMain()
                             }
+
                             is AppUiState.OnRefreshTokenFailed -> {
                                 Toast.makeText(
                                     context,
@@ -183,6 +177,7 @@ fun CallingPage(
                                 ).show()
                                 onBackToMain()
                             }
+
                             is AppUiState.OnAccessTokenHasExpired -> {
                                 Toast.makeText(
                                     context,
@@ -191,6 +186,7 @@ fun CallingPage(
                                 ).show()
                                 onBackToMain()
                             }
+
                             else -> {}
                         }
                     }
@@ -200,16 +196,10 @@ fun CallingPage(
     }
 }
 
-fun sendDtmf(mainViewModel: AppViewModel, digits: String) {
-    mainViewModel.viewModelScope.launch {
-        mainViewModel.intentChannel.send(AppIntent.SendDtmf(digits))
-    }
-}
-
 @Preview
 @Composable
-fun PreviewCallingPage(){
+fun PreviewCallingPage() {
     App_composeTheme {
-        CallingPage(viewModel())
+        CallingPage(viewModel(), {}, {})
     }
 }

@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppViewModel
-import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentOutCallBinding
-import kotlinx.coroutines.launch
 
 class OutCallFragment : Fragment() {
 
@@ -34,21 +32,21 @@ class OutCallFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             btnOutCall.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(
-                        AppIntent.Call(
-                            tel = edtOutCallTel.text.toString(),
-                            clid = edtOutCallClid.text.toString(),
-                            userField = if (BuildConfig.DEBUG) edtOutCallUserField.text.toString() else String.format(
-                                BuildConfig.OUT_CALL_USER_FIELD,
-                                edtOutCallUserField.text.toString()
-                            ),
-                            type = 6 // 6 为外呼场景
-                        ).apply {
-                            callerNumber = binding.edtCallerNumber.text.toString()
-                        }
-                    )
-                }
+                viewModel.handleIntent(
+                    AppIntent.Call(
+                        tel = edtOutCallTel.text.toString(),
+                        clid = edtOutCallClid.text.toString(),
+                        userField = if (BuildConfig.DEBUG) edtOutCallUserField.text.toString() else String.format(
+                            BuildConfig.OUT_CALL_USER_FIELD,
+                            edtOutCallUserField.text.toString()
+                        ),
+                        type = 6 // 6 为外呼场景
+                    ).apply {
+                        callerNumber = binding.edtCallerNumber.text.toString()
+                        obClidAreaCode = binding.edtObClidAreaCode.text.toString()
+                        obClidGroup = binding.edtObClidGroup.text.toString()
+                    }
+                )
             }
             edtOutCallUserField.setOnLongClickListener {
                 if (BuildConfig.DEBUG) resetUserField()

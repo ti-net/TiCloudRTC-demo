@@ -4,10 +4,8 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,7 +24,6 @@ import com.example.common.AppUiState
 import com.example.common.AppViewModel
 import com.example.rtc_android_compose.R
 import com.example.rtc_android_compose.ui.theme.App_composeTheme
-import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 @Composable
@@ -86,30 +83,30 @@ fun MainPageContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            BottomNavigation(backgroundColor = Color.White) {
-                item.forEachIndexed { index, bottomNavItem ->
-                    BottomNavigationItem(
-                        icon = {
-                            Image(
-                                painterResource(
-                                    id = if (selectedItem == index) bottomNavItem.selectedIconRes
-                                    else bottomNavItem.noSelectIconRes
-                                ),
-                                null
-                            )
-                        },
-                        label = { Text(bottomNavItem.label) },
-                        selected = selectedItem == index,
-                        onClick = {
-                            selectedItem = index
-                            mainNavController.navigate(bottomNavItem.pageRote) {
-                                launchSingleTop = true
-                                restoreState = true
-
-                            }
-                        })
-                }
-            }
+//            BottomNavigation(backgroundColor = Color.White) {
+//                item.forEachIndexed { index, bottomNavItem ->
+//                    BottomNavigationItem(
+//                        icon = {
+//                            Image(
+//                                painterResource(
+//                                    id = if (selectedItem == index) bottomNavItem.selectedIconRes
+//                                    else bottomNavItem.noSelectIconRes
+//                                ),
+//                                null
+//                            )
+//                        },
+//                        label = { Text(bottomNavItem.label) },
+//                        selected = selectedItem == index,
+//                        onClick = {
+//                            selectedItem = index
+//                            mainNavController.navigate(bottomNavItem.pageRote) {
+//                                launchSingleTop = true
+//                                restoreState = true
+//
+//                            }
+//                        })
+//                }
+//            }
         },
     ) { innerPaddingModifier ->
         NavHost(
@@ -121,12 +118,14 @@ fun MainPageContent(
         ) {
             composable(NavRoute.DIAL) {
                 DialPage(
-                    mainViewModel = mainViewModel
+                    mainViewModel = mainViewModel,
+                    handleIntent = { mainViewModel.handleIntent(it) }
                 )
             }
             composable(NavRoute.MINE) {
                 MinePage(
-                    mainViewModel = mainViewModel
+                    mainViewModel = mainViewModel,
+                    handleIntent = {mainViewModel.handleIntent(it)}
                 )
             }
         }
@@ -140,17 +139,15 @@ fun MainPageContent(
                 mainViewModel.appUiState.collect {
                     when (it) {
                         is AppUiState.OnInnerSdkError -> {
-                            if (it.errorCode == ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT) {
-                                Toast.makeText(
-                                    context,
+                            Toast.makeText(
+                                context,
                                     """
                                         sdk 内部错误
                                         errorCode: ${it.errorCode}
                                         errorMessage: ${it.errorMessage}
                                     """.trimIndent(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         is AppUiState.LogoutFailed -> Toast.makeText(
                             context,

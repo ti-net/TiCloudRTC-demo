@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppViewModel
-import com.example.rtc_android.BuildConfig
 import com.example.rtc_android.databinding.FragmentHotlineBinding
 import kotlinx.coroutines.launch
 
@@ -62,25 +62,23 @@ class HotlineFragment : Fragment() {
             btnNode3.setOnClickListener { selectNode(it) }
             btnNode4.setOnClickListener { selectNode(it) }
             btnHotlineCall.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(
-                        AppIntent.Call(
-                            tel = "",
-                            clid = "",
-                            userField = String.format(
-                                nodeIvrUserFieldMap[currentSelectedNode()!!]!!,
-                                binding.edtNodeUserField.text.toString()
-                            ),
-                            type = 1 // 1 为客服场景
-                        )
+                viewModel.handleIntent(
+                    AppIntent.Call(
+                        tel = edtAgentTel2.text.toString(),
+                        clid = "",
+                        userField = String.format(
+                            nodeIvrUserFieldMap[currentSelectedNode()!!]!!,
+                            binding.edtNodeUserField.text.toString()
+                        ),
+                        type = 1 // 1 为客服场景
                     )
-                }
+                )
             }
             btnCallAgent.setOnClickListener {
                 viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(
+                    viewModel.handleIntent(
                         AppIntent.Call(
-                            tel = "",
+                            tel = edtAgentTel1.text.toString(),
                             clid = "",
                             userField = String.format(
                                 BuildConfig.CALL_AGENT_USER_FIELD,

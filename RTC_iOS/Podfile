@@ -7,7 +7,7 @@ target 'TiCloudRTCObjcExample' do
  
   # Pods for TiCloudRTCObjcExample
 
-#  pod 'TiCloudRTC', '3.2.7'
+  pod 'TiCloudRTC', '4.2.7'
   
   # YTKNetworking
   pod 'YTKNetwork'
@@ -40,10 +40,8 @@ target 'TiCloudRTCObjcExample' do
   #UISegmentedControl
   pod 'WMPageController'
   
-  
-  pod 'AgoraRtm_iOS', '1.5.1'
-#      pod 'AgoraAudio_iOS/RtcBasic', '4.1.1'
-  pod 'AgoraAudio_Special_iOS', '4.1.1.17.BASIC'
+  #观测云
+  pod 'FTMobileSDK', '~> 1.5.3'
   
 #  post_install do |installer|
 #    installer.pods_project.targets.each do |target|

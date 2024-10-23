@@ -11,14 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.common.AppIntent
 import com.example.common.AppUiState
 import com.example.common.AppViewModel
 import com.example.rtc_android.R
 import com.example.rtc_android.databinding.FragmentCallingBinding
-import com.tinet.ticloudrtc.ErrorCode
 import kotlinx.coroutines.launch
 
 class CallingFragment : Fragment() {
@@ -40,14 +38,14 @@ class CallingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            tvShowCallTel.text = viewModel.biggerText.value
+            tvShowCallTel.text = AppViewModel.DEFAULT_BIGGER_TEXT
 
             btnDialPanelSwitch.setOnClickListener {
-                viewModel.switchDtmfShowState()
+                viewModel.handleIntent(AppIntent.ClickDtmfButton)
             }
 
             btnHideDial.setOnClickListener {
-                viewModel.switchDtmfShowState()
+                viewModel.handleIntent(AppIntent.ClickDtmfButton)
             }
 
             includeDtmfPanel.apply {
@@ -66,26 +64,22 @@ class CallingFragment : Fragment() {
             }
 
             btnMuteSwitch.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    Log.i(LOG_TAG, "mute btn click")
-                    viewModel.intentChannel.send(AppIntent.Mute(viewModel.isMute().not()))
-                }
+                Log.i(LOG_TAG, "mute btn click")
+                viewModel.handleIntent(AppIntent.ClickMuteButton)
             }
 
             btnSpeakerphoneSwitch.setOnClickListener {
                 if (viewModel.appUiState.value is AppUiState.OnRinging ||
                     viewModel.appUiState.value is AppUiState.OnCalling
                 ) {
-                    viewModel.viewModelScope.launch {
-                        Log.i(LOG_TAG, "speakerphone btn click")
-                        viewModel.intentChannel.send(
-                            AppIntent.UseSpeakerphone(
-                                viewModel.isUseSpeakerphone().not()
-                            )
-                        )
-                    }
+                    Log.i(LOG_TAG, "speakerphone btn click")
+                    viewModel.handleIntent(AppIntent.ClickSpeakerPhoneButton)
                 } else {
-                    Toast.makeText(requireContext(), "播放铃声或通话中才能使用扬声器", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "播放铃声或通话中才能使用扬声器",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@setOnClickListener
                 }
             }
@@ -114,22 +108,57 @@ class CallingFragment : Fragment() {
                                 """.trimIndent(),
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                when (it.errorCode) {
-                                    ErrorCode.ERR_CALL_FAILED_PARAMS_INCORRECT,
-                                    ErrorCode.ERR_CALL_FAILED_CALL_REPEAT,
-                                    ErrorCode.ERR_CALL_FAILED_REMOTE_OFFLINE,
-                                    ErrorCode.ERR_CALL_FAILED_NET_ERROR,
-                                    ErrorCode.ERR_CALL_FAILED_RTM_ERROR -> backToMain()
+                                backToMain()
+                            }
+
+                            is AppUiState.OnCallStart -> {
+                                binding.tvShowCallTel.text = it.biggerText
+                            }
+
+                            is AppUiState.OnRinging -> {
+                                binding.tvCallingTip.text = it.smallerText
+                            }
+
+                            is AppUiState.OnCalling -> {
+                                binding.btnMuteSwitch.setImageResource(
+                                    if (it.isMuted) R.drawable.icon_mute else R.drawable.icon_no_mute
+                                )
+
+                                binding.btnSpeakerphoneSwitch.setImageResource(
+                                    if(it.isUseSpeakerPhone) R.drawable.icon_speaker_enable else R.drawable.icon_speaker_disable
+                                )
+
+                                binding.tvShowCallTel.text = it.biggerText
+
+                                binding.tvCallingTip.text = it.smallerText
+
+                                if (it.isShowDtmfPanel) {
+                                    binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.VISIBLE
+                                    binding.btnHideDial.visibility = View.VISIBLE
+                                    binding.btnDialPanelSwitch.visibility = View.GONE
+                                    binding.btnMuteSwitch.visibility = View.GONE
+                                    binding.btnSpeakerphoneSwitch.visibility = View.GONE
+                                } else {
+                                    binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.GONE
+                                    binding.btnHideDial.visibility = View.GONE
+                                    binding.btnDialPanelSwitch.visibility = View.VISIBLE
+                                    binding.btnMuteSwitch.visibility = View.VISIBLE
+                                    binding.btnSpeakerphoneSwitch.visibility = View.VISIBLE
                                 }
                             }
+
                             is AppUiState.OnCallCanceled -> {
-                                Toast.makeText(requireContext(), "呼叫已取消", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "呼叫已取消", Toast.LENGTH_SHORT)
+                                    .show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallRefused -> {
-                                Toast.makeText(requireContext(), "外呼被拒绝", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "外呼被拒绝", Toast.LENGTH_SHORT)
+                                    .show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallingEnd -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -138,6 +167,7 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnCallFailure -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -146,6 +176,7 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnRefreshTokenFailed -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -154,6 +185,7 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+
                             is AppUiState.OnAccessTokenHasExpired -> {
                                 Toast.makeText(
                                     requireContext(),
@@ -162,54 +194,21 @@ class CallingFragment : Fragment() {
                                 ).show()
                                 backToMain()
                             }
+                            is AppUiState.OnLocalNoVoiceStreamSent -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "本地没有音频流",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            is AppUiState.OnUserFieldModified -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "userField 中的 ${it.removedCharList} 字符已被替换",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                             else -> {}
-                        }
-                    }
-                }
-                launch {
-                    viewModel.muteState.collect {
-                        binding.btnMuteSwitch.setImageResource(
-                            when (it) {
-                                true -> R.drawable.icon_mute
-                                false -> R.drawable.icon_no_mute
-                            }
-                        )
-                    }
-                }
-                launch {
-                    viewModel.speakerphoneOpenState.collect {
-                        binding.btnSpeakerphoneSwitch.setImageResource(
-                            when (it) {
-                                true -> R.drawable.icon_speaker_enable
-                                false -> R.drawable.icon_speaker_disable
-                            }
-                        )
-                    }
-                }
-                launch {
-                    viewModel.biggerText.collect{
-                        binding.tvShowCallTel.text = it
-                    }
-                }
-                launch {
-                    viewModel.smallText.collect {
-                        binding.tvCallingTip.text = it
-                    }
-                }
-                launch {
-                    viewModel.isShowDtmfPanel.collect { isShow ->
-                        if (isShow) {
-                            binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.VISIBLE
-                            binding.btnHideDial.visibility = View.VISIBLE
-                            binding.btnDialPanelSwitch.visibility = View.GONE
-                            binding.btnMuteSwitch.visibility = View.GONE
-                            binding.btnSpeakerphoneSwitch.visibility = View.GONE
-                        } else {
-                            binding.includeDtmfPanel.rtcSdkNumberPanel.visibility = View.GONE
-                            binding.btnHideDial.visibility = View.GONE
-                            binding.btnDialPanelSwitch.visibility = View.VISIBLE
-                            binding.btnMuteSwitch.visibility = View.VISIBLE
-                            binding.btnSpeakerphoneSwitch.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -218,9 +217,7 @@ class CallingFragment : Fragment() {
     }
 
     private fun sendDtmf(digits: String) {
-        viewModel.viewModelScope.launch {
-            viewModel.intentChannel.send(AppIntent.SendDtmf(digits))
-        }
+        viewModel.handleIntent(AppIntent.SendDtmf(digits))
     }
 
     private fun backToMain() {
@@ -228,10 +225,8 @@ class CallingFragment : Fragment() {
     }
 
     private fun hangup() {
-        viewModel.viewModelScope.launch {
-            Log.i(LOG_TAG, "hangup btn click")
-            viewModel.intentChannel.send(AppIntent.Hangup)
-        }
+        Log.i(LOG_TAG, "hangup btn click")
+        viewModel.handleIntent(AppIntent.Hangup)
     }
 
 

@@ -33,6 +33,5 @@
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <MJRefresh/MJRefresh.h>
 #import <TiCloudRTC/TiCloudRTC.h>
-#import <AgoraRtmKit/AgoraRtmKit.h>
 
 #endif /* PrefixHeader_pch */

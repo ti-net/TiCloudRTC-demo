@@ -3,23 +3,22 @@ package com.example.rtc_android_compose.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.common.AppIntent
 import com.example.common.AppViewModel
 import com.example.rtc_android_compose.ui.theme.App_composeTheme
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DialPage(
-    mainViewModel: AppViewModel
+    mainViewModel: AppViewModel,
+    handleIntent: (intent:AppIntent) -> Unit
 ) {
 
     var phoneNum by remember { mutableStateOf("") }
@@ -51,14 +50,14 @@ fun DialPage(
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             Button(onClick = {
-                mainViewModel.viewModelScope.launch {
-                    mainViewModel.intentChannel.send(AppIntent.Call(
+                handleIntent(
+                    AppIntent.Call(
                         tel = phoneNum,
                         clid = "",
                         userField = "",
                         type = 6
-                    ))
-                }
+                    )
+                )
             }) { Text("外呼") }
             Button(modifier = Modifier.combinedClickable(onLongClick = {
                 phoneNum = ""
@@ -74,6 +73,6 @@ fun DialPage(
 @Composable
 fun PreviewDialPage(){
     App_composeTheme {
-        DialPage(viewModel())
+        DialPage(viewModel(),{})
     }
 }

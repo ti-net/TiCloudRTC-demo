@@ -7,17 +7,12 @@ import android.view.KeyEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -47,7 +42,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     val navControl = rememberNavController()
                     val mainViewModel = viewModel<AppViewModel>()
@@ -62,13 +57,15 @@ class MainActivity : ComponentActivity() {
                         composable(NavRoute.LOGIN) {
                             LoginPage(
                                 mainViewModel = mainViewModel,
-                                onLoginSuccess = { navControl.navigateUp() }
+                                onLoginSuccess = { navControl.navigateUp() },
+                                handleIntent = { mainViewModel.handleIntent(it) }
                             )
                         }
                         composable(NavRoute.CALLING) {
                             CallingPage(
                                 mainViewModel = mainViewModel,
-                                onBackToMain = { navControl.navigateUp() }
+                                onBackToMain = { navControl.navigateUp() },
+                                handleIntent = { mainViewModel.handleIntent(it) }
                             )
                         }
                     }

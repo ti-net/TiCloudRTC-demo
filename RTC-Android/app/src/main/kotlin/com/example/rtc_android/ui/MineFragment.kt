@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
+import com.example.commom.BuildConfig
 import com.example.common.AppIntent
 import com.example.common.AppViewModel
 import com.example.rtc_android.*
 import com.example.rtc_android.databinding.FragmentMineBinding
 import com.tinet.ticloudrtc.TiCloudRTC
-import kotlinx.coroutines.launch
 
 class MineFragment : Fragment() {
 
@@ -33,13 +32,11 @@ class MineFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            tvAppVersion.text = resources.getString(R.string.app_version) + BuildConfig.VERSION_NAME
+            tvAppVersion.text = resources.getString(R.string.app_version) + resources.getString(R.string.version_name)
             tvSdkVersion.text = resources.getString(R.string.sdk_version) + TiCloudRTC.getVersion()
 
             btnLogout.setOnClickListener {
-                viewModel.viewModelScope.launch {
-                    viewModel.intentChannel.send(AppIntent.Logout)
-                }
+                viewModel.handleIntent(AppIntent.Logout)
             }
         }
 
