@@ -116,34 +116,34 @@ dependencies {
     api("androidx.datastore:datastore-preferences-core:1.0.0")
 
     // kotlin 协程
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // kotlin 反射
-    api("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.9.24")
+    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.9.24")
 
     // json 转 gson 对象
-    api("com.squareup.retrofit2:converter-gson:2.9.0")
-    testImplementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    api("com.squareup.retrofit2:converter-gson:2.11.0")
+    testImplementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     // json 解析库
-    api("com.google.code.gson:gson:2.9.1")
-    testImplementation("com.google.code.gson:gson:2.9.1")
+    api("com.google.code.gson:gson:2.11.0")
+    testImplementation("com.google.code.gson:gson:2.11.0")
 
     // 网络请求库
-    api("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
-    api("com.squareup.retrofit2:retrofit:2.9.0")
-    testImplementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
-    testImplementation("com.squareup.retrofit2:retrofit:2.9.0")
+    api("com.squareup.okhttp3:okhttp:4.12.0")
+    api("com.squareup.retrofit2:retrofit:2.11.0")
+    testImplementation("com.squareup.okhttp3:okhttp:4.12.0")
+    testImplementation("com.squareup.retrofit2:retrofit:2.11.0")
 
     // tencent bugly
     api("com.tencent.bugly:crashreport:4.1.9")
 
     // TiCloudRtc SDK
-    api("com.github.ti-net:TiCloud-RTC-Android:4.3.1")
+    api("com.github.ti-net:TiCloud-RTC-Android:4.3.2")
 
     // 观测云(可选日志上传)
 //    api("com.cloudcare.ft.mobile.sdk.tracker.agent:ft-sdk:1.5.0")
