@@ -47,7 +47,7 @@ object BuildConfig {
     )
 
     val LOGIN_ENVIRONMENT_VALUE = listOf(
-        "https://rtc-api-dev.cticloud.cn",
+        "https://rtc-api-hs-dev.cticloud.cn",
         "https://rtc-api-test.cticloud.cn",
         "https://rtc-api-1.cticloud.cn",
         "https://rtc-api-2.cticloud.cn",
