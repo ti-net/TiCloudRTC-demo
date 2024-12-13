@@ -11,7 +11,7 @@
 // 参数设置
 static NSString * const kBaseUrl_Test = @"https://rtc-api-test.cticloud.cn";
 
-static NSString * const kBaseUrl_Develop = @"https://rtc-api-dev.cticloud.cn";
+static NSString * const kBaseUrl_Develop = @"https://rtc-api-hs-dev.cticloud.cn";
 
 /// 正式环境
 static NSString * const kBaseUrl_Formal = @"https://rtc-api.cticloud.cn";

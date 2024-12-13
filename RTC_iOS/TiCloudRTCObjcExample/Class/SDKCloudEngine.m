@@ -38,17 +38,6 @@
     config.accessToken = [LoginModel loginModel].accessToken;
     config.isDebug = YES;
     
-//    config.accessToken = @"0018000560IABYE+rTIY9iTYx26YWf+tR5j+scRv5ebly71/DrD3Xk+kSjI/oQAPHcm+xBgS9lAQABANE9LmU=";
-//    config.rtcEndpoint = @"https://rtc-api-test0.clink.cn";
-//    config.enterpriseId = 8000560;
-//    config.userId = @"1022";
-    
-    // 优简云
-//    config.accessToken = @"0017502229IACfiD6ngBCtNPzzXk3Bc4jcBXlesC25YRcD/LkfP6XiiLazA1QQAO9z5KMZeN1lAQABAKk03GU=";
-//    config.rtcEndpoint = @"https://rtc-api.cticloud.cn";
-//    config.enterpriseId = 7502229;
-//    config.userId = @"112412512111";
-    
     
     self.tiCloudEngine = [TiCloudRTCEngine createClient:config success:^(NSDictionary * _Nonnull data) {
         NSLog(@"createClient success..");

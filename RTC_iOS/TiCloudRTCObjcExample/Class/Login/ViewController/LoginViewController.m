@@ -309,9 +309,9 @@
     // 使用AccessToken登录
 //    self.loginBtn.userInteractionEnabled = YES;
 //    self.viewModel.baseUrl = kBaseUrl_Formal_5;
-//    self.viewModel.enterpriseId = 7501878;
-//    self.viewModel.username = @"13109100";
-//    self.viewModel.password = @"0017501878IADog02A9VfHzgl3+yrf1ud3TQgMPm+WaRXB3dZiP2rSrxhh3IoQAF9SKvsgn+1kAQABALBb7GQ=";
+//    self.viewModel.enterpriseId = ;
+//    self.viewModel.username = @"";
+//    self.viewModel.password = @"";
 //
 //    MainTabBarController *tabBarC = [[MainTabBarController alloc] init];
 //    tabBarC.selectedIndex = 0;
