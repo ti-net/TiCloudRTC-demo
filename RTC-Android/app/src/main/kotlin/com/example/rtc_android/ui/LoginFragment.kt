@@ -97,11 +97,11 @@ class LoginFragment : Fragment() {
                     AppIntent.Login(
                         context = requireContext(),
                         selectedEnvIndex = spinnerEnv.selectedItemPosition,
-                        platformUrl = edtPlatformUrl.text.toString(),
-                        enterpriseId = edtEnterpriseId.text.toString(),
-                        usernameOrUserId = edtUsernameOrUserId.text.toString(),
-                        passwordOrAccessToken = edtPasswordOrAccessToken.text.toString(),
-                        callerNumber = edtCallerNumber.text.toString()
+                        platformUrl = edtPlatformUrl.text.toString().trim(),
+                        enterpriseId = edtEnterpriseId.text.toString().trim(),
+                        usernameOrUserId = edtUsernameOrUserId.text.toString().trim(),
+                        passwordOrAccessToken = edtPasswordOrAccessToken.text.toString().trim(),
+                        callerNumber = edtCallerNumber.text.toString().trim()
                     )
                 )
             }
